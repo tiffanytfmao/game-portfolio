@@ -1,6 +1,14 @@
 @import './styles/tokens.css';
 @import './styles/textures.css';
 
+@font-face {
+  font-family: 'Genshin';
+  src: url('/genshin font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;

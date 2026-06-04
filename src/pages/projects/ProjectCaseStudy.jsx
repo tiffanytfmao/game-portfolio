@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import CatSprite from '../../components/CatSprite/CatSprite'
+import WonderWorkshop from './WonderWorkshop'
 import styles from './ProjectCaseStudy.module.css'
 
 const PROJECT_META = {
@@ -43,6 +44,7 @@ const PROJECT_META = {
 
 export default function ProjectCaseStudy() {
   const { id } = useParams()
+  if (id === 'wonder') return <WonderWorkshop />
   const meta = PROJECT_META[id] ?? {
     title: 'Project',
     subtitle: '',

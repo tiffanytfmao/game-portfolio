@@ -54,20 +54,30 @@ export default function Nav() {
     playNavClick()
     setActive(id)
     setMenuOpen(false)
-    if (id === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      return
-    }
     if (isHome) {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+      if (id === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+      }
     } else {
+      // Navigate home first, then scroll to the target section
       navigate('/')
+      if (id !== 'home') {
+        setTimeout(() => {
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+        }, 120)
+      }
     }
   }
 
   function handleLogoClick() {
     playNavClick()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      navigate('/')
+    }
   }
 
   return (

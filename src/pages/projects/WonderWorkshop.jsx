@@ -280,7 +280,7 @@ export default function WonderWorkshop() {
 
             <div className={styles.videoCard}>
               <video
-                src={`${BASE}/skrawl%20prototype.mov`}
+                src={`${BASE}/skrawl%20prototype.mp4`}
                 controls
                 muted
                 playsInline

@@ -26,7 +26,8 @@ const ITEMS = [
     label: 'Piggy the Kitty',
     sub: 'playable · drag card to move',
     link: null,
-    x: 440, y: 10, rot: -0.8, w: 400, iframeH: 360,
+    x: 440, y: 10, rot: -0.8, w: 400,
+    iframeNativeW: 1000, iframeNativeH: 600,
   },
   {
     id: 'sketch',
@@ -186,16 +187,34 @@ export default function Playground() {
             >
               <div className={styles.pin} aria-hidden="true" />
 
-              {item.iframe ? (
-                <iframe
-                  src={item.iframe}
-                  className={styles.embedFrame}
-                  style={{ height: item.iframeH }}
-                  title={item.label}
-                  allow="autoplay"
-                  sandbox="allow-scripts allow-same-origin allow-forms"
-                />
-              ) : (
+              {item.iframe ? (() => {
+                const scale = item.iframeNativeW
+                  ? item.w / item.iframeNativeW
+                  : 1
+                const displayH = item.iframeNativeH
+                  ? Math.round(item.iframeNativeH * scale)
+                  : (item.iframeH ?? 240)
+                return (
+                  <div
+                    className={styles.embedWrap}
+                    style={{ height: displayH }}
+                  >
+                    <iframe
+                      src={item.iframe}
+                      className={styles.embedFrame}
+                      style={item.iframeNativeW ? {
+                        width: item.iframeNativeW,
+                        height: item.iframeNativeH,
+                        transform: `scale(${scale})`,
+                        transformOrigin: 'top left',
+                      } : { height: item.iframeH }}
+                      title={item.label}
+                      allow="autoplay"
+                      sandbox="allow-scripts allow-same-origin allow-forms"
+                    />
+                  </div>
+                )
+              })() : (
                 <div className={styles.imgWrap}>
                   <img
                     src={item.src}

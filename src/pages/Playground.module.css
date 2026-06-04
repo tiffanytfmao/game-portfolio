@@ -177,12 +177,19 @@
   cursor: grab;
 }
 
-.embedFrame {
+.embedWrap {
   width: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 1px;
+}
+
+.embedFrame {
   border: none;
   display: block;
-  border-radius: 1px;
   pointer-events: auto;
+  /* default (no scaling) */
+  width: 100%;
 }
 
 /* ── Lightbox ── */

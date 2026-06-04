@@ -1,0 +1,83 @@
+@import './styles/tokens.css';
+@import './styles/textures.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-cream);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Custom cursor — pink diamond */
+*, *::before, *::after {
+  cursor: none !important;
+}
+
+#cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--color-pink-deep);
+  transform: rotate(45deg) translate(-50%, -50%);
+  transform-origin: 0 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 80ms var(--ease-smooth), background 200ms;
+  mix-blend-mode: multiply;
+}
+
+#cursor.hovering {
+  background: var(--color-lavender-deep);
+  transform: rotate(45deg) translate(-50%, -50%) scale(1.6);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-bg-cream); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-pink-dusty);
+  border-radius: var(--radius-full);
+}
+
+/* Focus rings */
+:focus-visible {
+  outline: 2px solid var(--color-pink-deep);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Heading defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: none;
+  border: none;
+  background: none;
+}

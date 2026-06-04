@@ -1,0 +1,148 @@
+/* ── overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loading);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  transition: opacity 0.8s var(--ease-smooth);
+}
+.overlay.fadeOut {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── cat walk track ── */
+.catTrack {
+  position: absolute;
+  top: 28%;
+  left: 0;
+  width: 100%;
+  height: 120px;
+}
+.walker {
+  position: absolute;
+  top: 0;
+  animation: walkAcross 3.2s linear infinite;
+}
+@keyframes walkAcross {
+  from { left: -120px; }
+  to   { left: calc(100% + 120px); }
+}
+
+/* ── center content ── */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── diamonds ── */
+.diamondRow {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.diamond {
+  font-size: 12px;
+  color: var(--color-gold);
+  animation: diamondPulse 1.4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.18s);
+}
+@keyframes diamondPulse {
+  0%,100% { opacity: 0.35; transform: scale(0.9); }
+  50%     { opacity: 1;    transform: scale(1.2); }
+}
+
+/* ── "Loading..." text ── */
+.loadingText {
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+/* Each letter bounces in with a stagger */
+.loadingChar {
+  display: inline-block;
+  animation: charBounce 1.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.08s);
+}
+@keyframes charBounce {
+  0%,60%,100% { transform: translateY(0); }
+  30%         { transform: translateY(-4px); }
+}
+
+/* Dot ellipsis pulses */
+.ellipsis {
+  display: inline-flex;
+  gap: 1px;
+  margin-left: 2px;
+}
+.ellipsis span {
+  display: inline-block;
+  animation: dotFade 1.2s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+@keyframes dotFade {
+  0%,80%,100% { opacity: 0.2; }
+  40%         { opacity: 1; }
+}
+
+/* ── progress bar ── */
+.barWrap {
+  width: min(320px, 70vw);
+  height: 10px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(45, 32, 22, 0.1);
+}
+.bar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-pink-dusty) 0%,
+    var(--color-pink-deep)  50%,
+    var(--color-lavender)   100%
+  );
+  border-radius: var(--radius-full);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: loadProgress 2.4s var(--ease-smooth) 0.2s forwards;
+  position: relative;
+  overflow: hidden;
+}
+@keyframes loadProgress {
+  0%   { transform: scaleX(0); }
+  60%  { transform: scaleX(0.72); }
+  85%  { transform: scaleX(0.90); }
+  100% { transform: scaleX(1); }
+}
+.bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.45) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(200%); }
+}

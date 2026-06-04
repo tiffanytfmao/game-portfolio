@@ -1,0 +1,43 @@
+.cat {
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: scale 0.15s ease-out;
+}
+.cat:hover {
+  scale: 1.18;
+}
+
+/* ── Sizes ── */
+.size_sm      { width:  60px; height:  60px; }
+.size_md      { width:  90px; height:  90px; }
+.size_lg      { width: 120px; height: 120px; }
+.size_xl      { width: 160px; height: 160px; }
+.size_loading { width: 100px; height: 100px; }
+
+/* ── Animations ── */
+.floating {
+  animation: floatBob 3s ease-in-out infinite;
+}
+.walking {
+  animation: walkBob 0.32s ease-in-out infinite alternate;
+}
+
+@keyframes floatBob {
+  0%, 100% {
+    transform: scaleX(-1) translateY(0);
+  }
+  50% {
+    transform: scaleX(-1) translateY(-6px);
+  }
+}
+
+@keyframes walkBob {
+  from {
+    transform: scaleX(-1) translateY(0);
+  }
+  to {
+    transform: scaleX(-1) translateY(-3px);
+  }
+}

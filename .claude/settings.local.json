@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Read(//usr/local/**)",
+      "Read(//Users/tiffanytfmao/.nvm/versions/**)",
+      "Bash(command -v npm)",
+      "Read(//Users/tiffanytfmao/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/c7fc1a7a-1da3-47d9-bbc0-93f4869e503e/8f366638-db80-449d-9b9e-c8003f3e8dba/**)",
+      "Bash(export PATH=\"/opt/homebrew/bin:/opt/pmk/env/global/bin:$PATH\")",
+      "Bash(npm --version)",
+      "Bash(/opt/pmk/env/global/bin/node --version)",
+      "Bash(ls /opt/pmk/env/global/bin/ 2>/dev/null || echo \"no pmk\"; find /opt -name \"node\" -type f 2>/dev/null | head -5; find /usr -name \"node\" -type f 2>/dev/null | head -5)",
+      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
+      "Bash(npx --yes create-vite@latest \"/Users/tiffanytfmao/game portfolio\" --template react)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(mkdir -p \"/Users/tiffanytfmao/game portfolio/.claude\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(chmod +x \"/Users/tiffanytfmao/game portfolio/start-dev.sh\")",
+      "Bash(pkill -f \"vite --port 5173\")",
+      "Bash(/opt/homebrew/Cellar/node/26.0.0/bin/node /opt/homebrew/Cellar/node/26.0.0/lib/node_modules/npm/bin/npm-cli.js run build)",
+      "Bash(PATH=/opt/homebrew/Cellar/node/26.0.0/bin:/opt/homebrew/bin:__TRACKED_VAR__ npm run build)"
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+.section {
+  padding: var(--space-20) var(--space-8);
+}
+
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Filter tabs ── */
+.filters {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: var(--space-8) 0 var(--space-10);
+}
+
+.filterTab {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border);
+  background: var(--color-bg-offwhite);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast),
+    border-color var(--duration-fast),
+    color var(--duration-fast),
+    transform var(--duration-fast) var(--ease-bounce);
+}
+
+.filterTab:hover {
+  border-color: var(--color-pink-dusty);
+  color: var(--color-pink-deep);
+  transform: translateY(-2px);
+}
+
+.filterActive {
+  background: var(--color-pink-blush);
+  border-color: var(--color-pink-dusty);
+  color: var(--color-pink-deep);
+}
+
+/* ── Card grid ── */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+}
+
+.grid.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--space-12) var(--space-4);
+  }
+  .grid {
+    gap: var(--space-6);
+  }
+}

@@ -1,0 +1,68 @@
+/* ============================================================
+   TEXTURES — CSS-only backgrounds, no image files
+   ============================================================ */
+
+/* Dot grid — subtle paper-like texture */
+.texture-dots {
+  background-color: var(--color-bg-cream);
+  background-image: radial-gradient(
+    circle,
+    rgba(180, 155, 120, 0.25) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+/* Fine crosshatch */
+.texture-crosshatch {
+  background-color: var(--color-bg-offwhite);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 22px,
+      rgba(180, 155, 120, 0.1) 22px,
+      rgba(180, 155, 120, 0.1) 23px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 22px,
+      rgba(180, 155, 120, 0.1) 22px,
+      rgba(180, 155, 120, 0.1) 23px
+    );
+}
+
+/* Parchment with dots — hero / loading */
+.texture-parchment {
+  background-color: var(--color-bg-cream);
+  background-image:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(196, 168, 130, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(232, 180, 192, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle,
+      rgba(180, 155, 120, 0.2) 1px,
+      transparent 1px
+    );
+  background-size: 100% 100%, 100% 100%, 20px 20px;
+}
+
+/* Dark parchment for overlays */
+.texture-dark {
+  background-color: var(--color-bg-dark);
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(196, 168, 130, 0.08) 1px,
+      transparent 1px
+    );
+  background-size: 20px 20px;
+}

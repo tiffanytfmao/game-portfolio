@@ -99,7 +99,7 @@
 
 .dropdown {
   position: absolute;
-  top: calc(100% + 2px);
+  top: calc(100% - 4px);
   left: 50%;
   transform: translateX(-50%);
   min-width: 180px;
@@ -109,6 +109,7 @@
               transform var(--duration-fast) var(--ease-smooth);
   transform: translateX(-50%) translateY(-4px);
   z-index: 200;
+  padding-top: 8px; /* invisible bridge so hover doesn't break */
 }
 
 .dropdownWrap:hover .dropdown,

@@ -36,13 +36,9 @@ export default function Hero() {
         {/* ── Center: bio ── */}
         <div className={styles.bio}>
           <p className={styles.bioText}>
-            Tiffany is an engineer-brained <b>UX Designer</b> crafting playful, 
-            people-centered products that balance technical rigor with memorable and 
-            delightful user experiences. 
-          </p>
-          <p className={styles.bioText}>
-            She makes things that are fun to use —
-            and occasionally makes her cats watch her do it.
+            An engineer-brained <b>UX designer</b> crafting playful, people-centered
+            products. She believes the best interactions feel like play — even when
+            they're solving real problems.
           </p>
           <div className={styles.bioActions}>
             <a href="#contact" className={styles.primaryBtn} onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}>

@@ -8,7 +8,7 @@ const PROJECTS = [
     {
     id: 'wonder',
     title: 'Wonder Workshop',
-    description: 'Designing a cozy game for encouraging the value of craft in young kids.',
+    description: 'Designing a cozy game for children about the slow joy of crafting things by hand.',
     tags: ['Game Design', 'UX/UI', 'Research', 'Children'],
     emoji: '🌱',
     rotate: -1.5,
@@ -18,7 +18,7 @@ const PROJECTS = [
     
     id: 'cocoon',
     title: 'Cocoon — Series A Startup',
-    description: 'Leading the design of an in-product compliant Pregnancy Leave Tracker as lead designer and engineer.',
+    description: 'Helping startup HR teams stop drowning in spreadsheets when someone goes on leave.',
     tags: ['UX/UI', 'B2B', 'Startup'],
     emoji: '🌱',
     rotate: -1.5,
@@ -27,7 +27,7 @@ const PROJECTS = [
   {
     id: 'berky',
     title: 'Berky the Worm',
-    description: 'How we turned Berkeley\'s composting crisis into a community playground.',
+    description: "Turning Berkeley's composting problem into a community playground.",
     tags: ['UX/UI', 'Physical-Digital', 'Sustainability'],
     emoji: '🐛',
     rotate: 1.2,
@@ -36,7 +36,7 @@ const PROJECTS = [
   {
     id: 'palbits',
     title: 'Palbits',
-    description: 'Transforming game controllers into evolving physical companions.',
+    description: 'What if your game controller evolved alongside you?',
     tags: ['Game Design', 'Physical-Digital', 'Research'],
     emoji: '🎮',
     rotate: -0.8,

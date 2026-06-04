@@ -1,12 +1,90 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
 .cat {
   display: block;
   object-fit: contain;
   flex-shrink: 0;
   cursor: pointer;
-  transition: scale 0.15s ease-out;
+  transform-origin: bottom center;
+  transition: transform 0.15s ease-out;
 }
 .cat:hover {
-  scale: 1.18;
+  transform: scaleX(-1) scale(1.18);
+}
+.cat.petted {
+  animation: petBounce 0.35s var(--ease-bounce) forwards;
+}
+.cat.burst {
+  animation: burstBounce 0.6s var(--ease-bounce) forwards;
+}
+@keyframes petBounce {
+  0%   { transform: scaleX(-1) translateY(0) scale(1); }
+  50%  { transform: scaleX(-1) translateY(-5px) scale(1.08); }
+  100% { transform: scaleX(-1) translateY(0) scale(1); }
+}
+@keyframes burstBounce {
+  0%   { transform: scaleX(-1) translateY(0) scale(1); }
+  40%  { transform: scaleX(-1) translateY(-10px) scale(1.18); }
+  70%  { transform: scaleX(-1) translateY(-2px) scale(1.05); }
+  100% { transform: scaleX(-1) translateY(0) scale(1); }
+}
+
+/* affection gauge */
+.gauge {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.gaugeVisible { opacity: 1; }
+
+.pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border);
+  border: 1.5px solid var(--color-pink-dusty);
+  transition: background 0.15s ease, transform 0.15s var(--ease-bounce);
+}
+.pipFilled {
+  background: var(--color-pink-deep);
+  transform: scale(1.2);
+}
+
+/* +1 / burst pop */
+.pop {
+  position: absolute;
+  bottom: calc(100% + 28px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-family: var(--font-label);
+  font-weight: 700;
+  color: var(--color-pink-deep);
+  pointer-events: none;
+  animation: popFloat 0.9s ease-out forwards;
+  white-space: nowrap;
+}
+.popBurst {
+  font-size: 16px;
+  color: var(--color-pink-dusty);
+  animation: popFloat 1.1s ease-out forwards;
+}
+@keyframes popFloat {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(4px) scale(0.8); }
+  20%  { opacity: 1; transform: translateX(-50%) translateY(0)   scale(1.1); }
+  80%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-14px) scale(0.9); }
 }
 
 /* ── Sizes ── */

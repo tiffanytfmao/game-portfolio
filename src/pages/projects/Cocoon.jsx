@@ -174,15 +174,31 @@ export default function Cocoon() {
 
       {/* Hero */}
       <div className={styles.hero}>
-        <img
-          src={`${BASE}/cocoon.gif`}
-          alt="Cocoon — Pregnancy Disability Leave Tracker"
-          className={styles.heroImg}
-        />
-        <div className={styles.heroFooter}>
-          <div className={styles.tags}>
-            {TAGS.map(t => <span key={t} className={styles.tag}>{t}</span>)}
+        <div className={styles.heroArc} />
+        <div className={styles.heroArc2} />
+        <div className={styles.heroBlob} />
+
+        <div className={styles.heroTextCol}>
+          <div className={styles.heroEyebrow}>Product design</div>
+          <h1 className={styles.heroHeading}>Leave,<br /><em>designed</em><br />with care.</h1>
+          <p className={styles.heroDesc}>A parental leave planning tool that turns a confusing, stressful process into something clear and humane — from first due date to first day back.</p>
+          <div className={styles.heroTags}>
+            {TAGS.map(t => <span key={t} className={styles.heroTag}>{t}</span>)}
           </div>
+        </div>
+
+        <div className={styles.heroScreens}>
+          <div className={`${styles.screen} ${styles.screenBack}`}>
+            <img src={`${BASE}/EE%20Home%20-_%20Leave%20Approved%201.png`} alt="Cocoon dashboard – leave approved" />
+          </div>
+          <div className={`${styles.screen} ${styles.screenFront}`}>
+            <img src={`${BASE}/Leave%20timeline%20-_%20Time%20(2).png`} alt="Cocoon – design your leave modal" />
+          </div>
+        </div>
+
+        <div className={styles.heroBottomLabel}>Cocoon · 2024</div>
+
+        <div className={styles.heroFooter}>
           <button className={styles.skipBtn} onClick={() => scrollToSection('decisions')}>
             Skip to solution ◆
           </button>
@@ -273,6 +289,11 @@ export default function Cocoon() {
                 PDL is legally sensitive and personally charged. Getting it wrong meant compliance risk for clients and real harm to employees at a vulnerable life moment.
               </div>
             </div>
+            <img
+              src={`${BASE}/cocoon.gif`}
+              alt="Cocoon product walkthrough"
+              className={styles.overviewGif}
+            />
           </section>
 
           {/* Problem */}

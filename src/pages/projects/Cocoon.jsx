@@ -175,7 +175,7 @@ export default function Cocoon() {
       {/* Hero */}
       <div className={styles.hero}>
         <img
-          src={`${BASE}/cocoon%20hero.png`}
+          src={`${BASE}/cocoon.gif`}
           alt="Cocoon — Pregnancy Disability Leave Tracker"
           className={styles.heroImg}
         />
@@ -233,6 +233,14 @@ export default function Cocoon() {
             <p className={styles.prose}>
               Cocoon automates federal and state leave compliance and payroll for People teams at over 50 companies. This was Cocoon's first end-to-end PDL (Pregnancy Disability Leave) product — built greenfield in 6 weeks with no prior internal reference. I was the first dedicated designer on the feature and simultaneously a front-end engineer shipping its components.
             </p>
+            <a
+              href="https://www.linkedin.com/posts/at-cocoon-were-all-about-pushing-the-boundaries-share-7232836636621815810-ImsP/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.linkedinLink}
+            >
+              Read more about it on Cocoon's official LinkedIn post <span className={styles.linkArrow}>→</span>
+            </a>
 
             <div className={styles.roleBlock}>
               <span className={styles.sectionLabel}>My Role</span>
@@ -450,11 +458,6 @@ export default function Cocoon() {
                 </ul>
               </div>
             </div>
-
-            <blockquote className={styles.closingQuote}>
-              Good compliance UX isn't about hiding the rules. It's about holding the user's hand through them.
-              <span className={styles.closingSub}>The hardest design problems aren't visual — they're structural. The gaps were in the system, not the UI.</span>
-            </blockquote>
           </section>
 
         </main>

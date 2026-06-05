@@ -45,13 +45,17 @@
 .hero {
   width: 100%;
   background: var(--cocoon-green);
+  padding: 20px 28px 0;
 }
 .heroImg {
   width: 100%;
-  height: clamp(280px, 38vw, 480px);
-  object-fit: cover;
-  object-position: center top;
+  max-width: 576px;
+  height: auto;
   display: block;
+  margin: 0 auto;
+  border: 3px solid var(--cocoon-green);
+  border-radius: 8px;
+  box-shadow: 0 0 0 10px var(--cocoon-green);
 }
 .heroFooter {
   display: flex;
@@ -221,6 +225,29 @@
   color: var(--color-text-muted);
   max-width: 640px;
   margin-bottom: var(--space-5);
+}
+.linkedinLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--cocoon-green);
+  text-decoration: none;
+  margin-bottom: var(--space-6);
+  border-bottom: 1.5px solid var(--cocoon-green-light);
+  transition: border-color 0.2s, color 0.2s;
+}
+.linkedinLink:hover {
+  color: var(--cocoon-green-muted);
+  border-bottom-color: var(--cocoon-green-muted);
+}
+.linkArrow {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+.linkedinLink:hover .linkArrow {
+  transform: translateX(4px);
 }
 
 /* Role block */

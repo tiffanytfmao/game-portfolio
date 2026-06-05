@@ -594,7 +594,6 @@
 .finalImg {
   width: 100%;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
   display: block;
 }
 .finalScreenList { display: flex; flex-direction: column; gap: var(--space-5); }
@@ -611,7 +610,6 @@
 .fullFinal {
   width: 100%;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
   display: block;
   margin-bottom: var(--space-6);
   object-fit: contain;

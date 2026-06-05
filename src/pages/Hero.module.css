@@ -199,11 +199,14 @@
 
 .bioHeadline {
   font-family: var(--font-heading);
-  font-size: 2.75rem;
+  font-size: 2.25rem;
   line-height: 1.15;
   color: var(--color-text-dark);
   font-weight: normal;
-  min-height: 3.45rem; /* reserve space so layout doesn't jump as text types in */
+  min-height: 5.4rem;
+}
+.headlineLine {
+  display: block;
 }
 
 /* Blinking cursor injected via JS */

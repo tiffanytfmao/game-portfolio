@@ -4,7 +4,8 @@ import CatSprite from '../components/CatSprite/CatSprite'
 import { asset } from '../utils/asset'
 import styles from './Hero.module.css'
 
-const HEADLINE = 'I prototype feelings before I design products.'
+const HEADLINE_1 = 'I prototype feelings'
+const HEADLINE_2 = 'before I design products.'
 const CHAR_DELAY = 50
 
 const STAGE_MESSAGES = [
@@ -52,8 +53,10 @@ function useTypewriter(text, triggerKey, delayMs = 500, onComplete) {
 export default function Hero() {
   const [ref, inView] = useInView()
 
-  // ── Headline typewriter ──
-  const [headlineTyped, showHeadlineCursor] = useTypewriter(HEADLINE, inView ? 1 : 0, 500)
+  // ── Headline typewriter (two lines, sequential) ──
+  const [line2Trigger, setLine2Trigger] = useState(0)
+  const [line1Typed, showLine1Cursor] = useTypewriter(HEADLINE_1, inView ? 1 : 0, 500, () => setLine2Trigger(t => t + 1))
+  const [line2Typed, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0)
 
   // ── Pet mini-game ──
   const [hasPetted, setHasPetted]   = useState(false)
@@ -131,9 +134,9 @@ export default function Hero() {
 
         {/* ── Center: bio ── */}
         <div className={styles.bio}>
-          <h2 className={styles.bioHeadline} aria-label={HEADLINE}>
-            {headlineTyped}
-            {showHeadlineCursor && <span className={styles.cursor} aria-hidden="true" />}
+          <h2 className={styles.bioHeadline} aria-label={`${HEADLINE_1} ${HEADLINE_2}`}>
+            <span className={styles.headlineLine}>{line1Typed}{showLine1Cursor && <span className={styles.cursor} aria-hidden="true" />}</span>
+            <span className={styles.headlineLine}>{line2Typed}{showLine2Cursor && <span className={styles.cursor} aria-hidden="true" />}</span>
           </h2>
           <p className={styles.bioText}>
             Engineer-brained UX designer who designs and ships while exploring how play, motion, and interaction shape the way products feel.

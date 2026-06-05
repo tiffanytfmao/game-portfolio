@@ -79,12 +79,24 @@
 .heroBlob {
   position: absolute;
   bottom: -120px;
-  left: 60px;
+  left: max(60px, calc(50% - 580px));
   width: 380px;
   height: 380px;
   border-radius: 50%;
   background: radial-gradient(circle at 40% 40%, rgba(138,155,98,0.22), transparent 70%);
   pointer-events: none;
+}
+
+/* inner centering wrapper */
+.heroInner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  height: 100%;
+  position: relative;
+  z-index: 5;
 }
 
 /* text column */
@@ -250,7 +262,6 @@
   text-transform: uppercase;
   color: #9E9B94;
   font-weight: 400;
-  z-index: 8;
 }
 
 .heroFooter {

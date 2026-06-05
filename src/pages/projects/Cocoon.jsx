@@ -178,6 +178,7 @@ export default function Cocoon() {
         <div className={styles.heroArc2} />
         <div className={styles.heroBlob} />
 
+        <div className={styles.heroInner}>
         <div className={styles.heroTextCol}>
           <div className={styles.heroEyebrow}>Product design</div>
           <h1 className={styles.heroHeading}>Leave,<br /><em>designed</em><br />with care.</h1>
@@ -195,8 +196,8 @@ export default function Cocoon() {
             <img src={`${BASE}/Leave%20timeline%20-_%20Time%20(2).png`} alt="Cocoon – design your leave modal" />
           </div>
         </div>
-
-        <div className={styles.heroBottomLabel}>Cocoon · 2024</div>
+          <div className={styles.heroBottomLabel}>Cocoon · 2024</div>
+        </div>{/* end heroInner */}
 
         <div className={styles.heroFooter}>
           <button className={styles.skipBtn} onClick={() => scrollToSection('decisions')}>

@@ -418,7 +418,6 @@
   aspect-ratio: 4/3;
   border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1.5px solid var(--color-border);
 }
 .inspoImg {
   width: 100%;
@@ -596,7 +595,6 @@
   aspect-ratio: 4/3;
   object-fit: cover;
   border-radius: var(--radius-md);
-  border: 1.5px solid var(--color-border);
 }
 .quotesGrid {
   display: flex;

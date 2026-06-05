@@ -62,9 +62,7 @@ const DECISIONS = [
     options: 'Option A: Predetermined visual upgrades  ·  Option B: Player-shaped identity',
     body: 'Every Palbit can be personalized. The design intent was to give children ownership over what their progression looked like — not the game\'s version of their progress, but their version. Research into child development showed autonomy and self-expression at this age group aren\'t nice-to-haves; they\'re how kids form identity and confidence.',
     insight: 'When kids own what their controller looks like, they own what they\'ve achieved.',
-    img: null,
-    placeholder: true,
-    placeholderPrompt: 'Clean product diagram on a dark background. Two-panel layout: left panel shows a small colorful physical controller insert "bit" being slotted into a game controller; right panel shows the matching in-game visual upgrade (a glowing character ability or cosmetic unlock). Panels connected by a dotted arrow labeled "Physical progress → Digital unlock." Style: minimal, flat, product design documentation aesthetic. Accent colors: soft purple and teal. No photorealism — graphic design documentation style.',
+    img: `${BASE}/kids%20using%20controller%20v2.png`,
   },
   {
     num: 'D4',
@@ -409,16 +407,10 @@ export default function Palbits() {
               className={styles.finalHero}
             />
 
-            <div className={styles.finalGrid}>
-              <figure className={styles.finalFig}>
-                <img src={`${BASE}/kids%20using%20controller.png`} alt="Kids using the Palbits controller" className={styles.finalImg} />
-                <figcaption className={styles.finalCaption}>User testing with children 8–12</figcaption>
-              </figure>
-              <figure className={styles.finalFig}>
-                <img src={`${BASE}/group%20demo.png`} alt="Group demo of Palbits" className={styles.finalImg} />
-                <figcaption className={styles.finalCaption}>Group demo and final presentation</figcaption>
-              </figure>
-            </div>
+            <figure className={styles.finalFig}>
+              <img src={`${BASE}/group%20demo.png`} alt="Group demo of Palbits" className={styles.finalImgFull} />
+              <figcaption className={styles.finalCaption}>Group demo and final presentation</figcaption>
+            </figure>
 
             <div className={styles.principlesGrid}>
               {[

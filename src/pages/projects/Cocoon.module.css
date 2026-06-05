@@ -631,7 +631,6 @@
   aspect-ratio: 16/10;
   object-fit: contain;
   border-radius: var(--radius-md);
-  border: 1.5px solid var(--color-border);
   background: var(--color-bg-parchment);
 }
 .artifactCaption {

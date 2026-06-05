@@ -31,12 +31,10 @@
   flex-shrink: 0;
 }
 
-.logoText {
-  font-family: var(--font-heading);
-  font-size: var(--text-md);
-  color: var(--color-text-dark);
-  letter-spacing: 0.02em;
-  white-space: nowrap;
+.logoImg {
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 /* ── Tabs ── */

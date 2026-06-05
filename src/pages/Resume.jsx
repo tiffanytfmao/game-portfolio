@@ -35,7 +35,7 @@ export default function Resume() {
             aria-label="View resume"
           >
             <iframe
-              src={asset('resume.pdf') + '#toolbar=0&navpanes=0&scrollbar=0'}
+              src={asset('docs/resume.pdf') + '#toolbar=0&navpanes=0&scrollbar=0'}
               className={styles.previewFrame}
               title="Resume preview"
               tabIndex={-1}
@@ -84,7 +84,7 @@ export default function Resume() {
               ✕
             </button>
             <iframe
-              src={asset('resume.pdf') + '#toolbar=0'}
+              src={asset('docs/resume.pdf') + '#toolbar=0'}
               className={styles.lightboxFrame}
               title="Resume"
             />

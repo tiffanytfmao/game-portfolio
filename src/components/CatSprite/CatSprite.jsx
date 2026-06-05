@@ -4,10 +4,10 @@ import { asset } from '../../utils/asset'
 import styles from './CatSprite.module.css'
 
 const WALK_FRAMES = [
-  asset('cat_walk1.png'), // 0
-  asset('cat_walk2.png'), // 1
-  asset('cat_walk3.png'), // 2
-  asset('cat_walk2.png'), // 3 (not used in sequence directly)
+  asset('cat/cat_walk1.png'),
+  asset('cat/cat_walk2.png'),
+  asset('cat/cat_walk3.png'),
+  asset('cat/cat_walk2.png'),
 ]
 
 const WALK_SEQUENCE = [0, 2, 1, 0]
@@ -19,7 +19,7 @@ const FRAME_DURATIONS = [
   110,
 ]
 
-const IDLE_SRC = asset('idle cat.png')
+const IDLE_SRC = asset('cat/idle cat.png')
 
 const MAX_AFFECTION = 5
 const GAUGE_FADE_MS = 2500

@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'Genshin';
-  src: url('/genshin font.ttf') format('truetype');
+  src: url('/fonts/genshin font.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

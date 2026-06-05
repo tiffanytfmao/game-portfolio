@@ -85,7 +85,7 @@ export default function Nav() {
       <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
         {/* Logo */}
         <button className={styles.logo} onClick={handleLogoClick}>
-          <span className={styles.logoText}>Tiffany Mao</span>
+          <img src={`${import.meta.env.BASE_URL}cat/logo_pink.png`} alt="Tiffany Mao" className={styles.logoImg} />
         </button>
 
         {/* Tabs (desktop) */}

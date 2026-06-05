@@ -21,7 +21,20 @@
       "Bash(chmod +x \"/Users/tiffanytfmao/game portfolio/start-dev.sh\")",
       "Bash(pkill -f \"vite --port 5173\")",
       "Bash(/opt/homebrew/Cellar/node/26.0.0/bin/node /opt/homebrew/Cellar/node/26.0.0/lib/node_modules/npm/bin/npm-cli.js run build)",
-      "Bash(PATH=/opt/homebrew/Cellar/node/26.0.0/bin:/opt/homebrew/bin:__TRACKED_VAR__ npm run build)"
+      "Bash(PATH=/opt/homebrew/Cellar/node/26.0.0/bin:/opt/homebrew/bin:__TRACKED_VAR__ npm run build)",
+      "WebFetch(domain:fluffy-berry-d5b.notion.site)",
+      "WebFetch(domain:www.bevyip.com)",
+      "WebFetch(domain:liv-iz.github.io)",
+      "mcp__fa197b88-261b-494e-b9ad-ca1a074bfb0c__get_metadata",
+      "WebFetch(domain:docs.google.com)",
+      "mcp__fa197b88-261b-494e-b9ad-ca1a074bfb0c__get_screenshot",
+      "Bash(git add *)",
+      "Bash(git push *)",
+      "Bash(git config *)",
+      "Bash(git commit -m ' *)",
+      "mcp__fa197b88-261b-494e-b9ad-ca1a074bfb0c__use_figma",
+      "WebFetch(domain:tiffanymao.com)",
+      "WebFetch(domain:doc-0s-0o-slides.googleusercontent.com)"
     ]
   }
 }

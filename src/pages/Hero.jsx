@@ -16,12 +16,12 @@ export default function Hero() {
             <div className={styles.flipCard}>
               <div className={styles.flipFront}>
                 <div className={styles.portraitFrame}>
-                  <img src={asset('portrait.png')} alt="Tiffany Mao" className={styles.portraitImg} />
+                  <img src={asset('portraits/portrait.png')} alt="Tiffany Mao" className={styles.portraitImg} />
                 </div>
               </div>
               <div className={styles.flipBack}>
                 <div className={styles.portraitFrame}>
-                  <img src={asset('tiff.jpg')} alt="Tiffany Mao" className={styles.portraitImg} />
+                  <img src={asset('portraits/tiff.jpg')} alt="Tiffany Mao" className={styles.portraitImg} />
                 </div>
               </div>
             </div>

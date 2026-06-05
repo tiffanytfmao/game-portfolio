@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import SectionBanner from '../components/SectionBanner/SectionBanner'
 import { playButtonPress } from '../sounds/AudioManager'
+import { asset } from '../utils/asset'
 import styles from './Resume.module.css'
 
 // ← Replace with your actual Google Drive shareable link
@@ -34,7 +35,7 @@ export default function Resume() {
             aria-label="View resume"
           >
             <iframe
-              src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0"
+              src={asset('resume.pdf') + '#toolbar=0&navpanes=0&scrollbar=0'}
               className={styles.previewFrame}
               title="Resume preview"
               tabIndex={-1}
@@ -83,7 +84,7 @@ export default function Resume() {
               ✕
             </button>
             <iframe
-              src="/resume.pdf#toolbar=0"
+              src={asset('resume.pdf') + '#toolbar=0'}
               className={styles.lightboxFrame}
               title="Resume"
             />

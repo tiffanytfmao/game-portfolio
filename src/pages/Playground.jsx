@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from 'react'
 import { useInView } from '../hooks/useInView'
 import SectionBanner from '../components/SectionBanner/SectionBanner'
+import { asset } from '../utils/asset'
 import styles from './Playground.module.css'
 
 const ITEMS = [
   {
     id: 'cat-tv',
-    src: '/playground assets/cat tv.png',
+    src: asset('playground assets/cat tv.png'),
     label: 'Cat Bed TV',
     sub: 'p5.js sketch',
     link: 'https://editor.p5js.org/tiffanytfmao/sketches/ADqW7Fvj4',
@@ -14,7 +15,7 @@ const ITEMS = [
   },
   {
     id: 'yoons-game',
-    src: '/playground assets/yoons game.png',
+    src: asset('playground assets/yoons game.png'),
     label: 'Help Me Yoon!',
     sub: 'web game',
     link: 'https://tiffanytfmao.github.io/help-me-yoon/',
@@ -31,7 +32,7 @@ const ITEMS = [
   },
   {
     id: 'sketch',
-    src: '/playground assets/sketch.png',
+    src: asset('playground assets/sketch.png'),
     label: 'Sketches',
     sub: null,
     link: null,
@@ -39,7 +40,7 @@ const ITEMS = [
   },
   {
     id: 'spiderverse',
-    src: '/playground assets/spiderverse.png',
+    src: asset('playground assets/spiderverse.png'),
     label: 'Spiderverse Fan Art',
     sub: null,
     link: null,
@@ -47,7 +48,7 @@ const ITEMS = [
   },
   {
     id: 'keycap',
-    src: '/playground assets/keycap design.png',
+    src: asset('playground assets/keycap design.png'),
     label: 'Keycap Design',
     sub: null,
     link: null,
@@ -55,7 +56,7 @@ const ITEMS = [
   },
   {
     id: 'a4',
-    src: '/playground assets/A4 - 4.png',
+    src: asset('playground assets/A4 - 4.png'),
     label: 'Print Design',
     sub: null,
     link: null,

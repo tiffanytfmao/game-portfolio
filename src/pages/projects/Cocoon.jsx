@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import CatSprite from '../../components/CatSprite/CatSprite'
+import { asset } from '../../utils/asset'
 import styles from './Cocoon.module.css'
 
-const BASE = '/cocoon%20assets'
+const BASE = asset('cocoon assets')
 
 const SECTIONS = [
   { id: 'overview',    label: 'Overview' },

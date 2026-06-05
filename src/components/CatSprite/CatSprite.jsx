@@ -1,25 +1,25 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { playMew } from '../../sounds/AudioManager'
+import { asset } from '../../utils/asset'
 import styles from './CatSprite.module.css'
 
 const WALK_FRAMES = [
-  '/cat_walk1.png', // 0
-  '/cat_walk2.png', // 1
-  '/cat_walk3.png', // 2
-  '/cat_walk2.png', // 3 (not used in sequence directly)
+  asset('cat_walk1.png'), // 0
+  asset('cat_walk2.png'), // 1
+  asset('cat_walk3.png'), // 2
+  asset('cat_walk2.png'), // 3 (not used in sequence directly)
 ]
 
 const WALK_SEQUENCE = [0, 2, 1, 0]
 
-
 const FRAME_DURATIONS = [
-  90, 
-  120, 
-  80,  
-  110, 
+  90,
+  120,
+  80,
+  110,
 ]
 
-const IDLE_SRC = '/idle cat.png'
+const IDLE_SRC = asset('idle cat.png')
 
 const MAX_AFFECTION = 5
 const GAUGE_FADE_MS = 2500

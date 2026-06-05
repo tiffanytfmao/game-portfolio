@@ -1,5 +1,6 @@
 import { useInView } from '../hooks/useInView'
 import CatSprite from '../components/CatSprite/CatSprite'
+import { asset } from '../utils/asset'
 import styles from './Hero.module.css'
 
 export default function Hero() {
@@ -15,12 +16,12 @@ export default function Hero() {
             <div className={styles.flipCard}>
               <div className={styles.flipFront}>
                 <div className={styles.portraitFrame}>
-                  <img src="/portrait.png" alt="Tiffany Mao" className={styles.portraitImg} />
+                  <img src={asset('portrait.png')} alt="Tiffany Mao" className={styles.portraitImg} />
                 </div>
               </div>
               <div className={styles.flipBack}>
                 <div className={styles.portraitFrame}>
-                  <img src="/tiff.jpg" alt="Tiffany Mao" className={styles.portraitImg} />
+                  <img src={asset('tiff.jpg')} alt="Tiffany Mao" className={styles.portraitImg} />
                 </div>
               </div>
             </div>

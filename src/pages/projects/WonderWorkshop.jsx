@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import CatSprite from '../../components/CatSprite/CatSprite'
+import { asset } from '../../utils/asset'
 import styles from './WonderWorkshop.module.css'
 
-const BASE = '/wonder%20workshop%20assets'
+const BASE = asset('wonder workshop assets')
 
 const SECTIONS = [
   { id: 'overview',    label: 'Overview' },

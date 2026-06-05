@@ -28,6 +28,8 @@ export default function CatSprite({
   variant = 'idle',
   size = 'md',
   className = '',
+  onFirstPet,
+  onBurst,
 }) {
   const [step, setStep]           = useState(0)
   const [petted, setPetted]       = useState(false)
@@ -35,8 +37,9 @@ export default function CatSprite({
   const [showGauge, setShowGauge] = useState(false)
   const [burst, setBurst]         = useState(false)
   const [popId, setPopId]         = useState(null)
-  const fadeTimer  = useRef(null)
-  const burstTimer = useRef(null)
+  const fadeTimer    = useRef(null)
+  const burstTimer   = useRef(null)
+  const petCountRef  = useRef(0)
 
   const isWalking = variant === 'walking'
 
@@ -56,21 +59,22 @@ export default function CatSprite({
     playMew()
     if (isWalking) return
 
+    petCountRef.current += 1
+    if (petCountRef.current === 1) onFirstPet?.()
+
     setPetted(true)
     setTimeout(() => setPetted(false), 400)
 
-    // show +1 pop
     setPopId(Date.now())
-
     setShowGauge(true)
     clearTimeout(fadeTimer.current)
 
     setAffection(prev => {
       const next = prev + 1
       if (next >= MAX_AFFECTION) {
-        // max affection burst
         clearTimeout(burstTimer.current)
         setBurst(true)
+        onBurst?.()
         burstTimer.current = setTimeout(() => setBurst(false), 900)
         fadeTimer.current = setTimeout(() => {
           setShowGauge(false)
@@ -81,7 +85,7 @@ export default function CatSprite({
       fadeTimer.current = setTimeout(() => setShowGauge(false), GAUGE_FADE_MS)
       return next
     })
-  }, [isWalking])
+  }, [isWalking, onFirstPet, onBurst])
 
   const src = isWalking ? WALK_FRAMES[WALK_SEQUENCE[step]] : IDLE_SRC
 

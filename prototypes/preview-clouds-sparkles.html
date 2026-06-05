@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Preview: Clouds + Twinkling ◆s</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', system-ui, sans-serif;
+    background: #F5F0E8;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* ══════════════════════════════
+     EFFECT #2 — Floating clouds
+     Use left: 0 as start anchor,
+     animate from left edge to right.
+     Tint slightly so they read on cream.
+  ══════════════════════════════ */
+  .cloud {
+    position: absolute;
+    border-radius: 50%;
+    /* soft warm white — visible against cream without being harsh */
+    background: radial-gradient(ellipse, rgba(255,255,255,0.95) 30%, rgba(240,235,220,0.0) 80%);
+    pointer-events: none;
+  }
+
+  .cloud-1 {
+    width: 380px; height: 90px;
+    top: 10%;
+    left: -400px;
+    animation: drift1 50s linear infinite;
+  }
+  .cloud-2 {
+    width: 240px; height: 60px;
+    top: 30%;
+    left: -260px;
+    animation: drift2 72s linear infinite;
+    animation-delay: -18s;
+  }
+  .cloud-3 {
+    width: 500px; height: 110px;
+    top: 55%;
+    left: -520px;
+    animation: drift3 42s linear infinite;
+    animation-delay: -14s;
+  }
+  .cloud-4 {
+    width: 180px; height: 48px;
+    top: 75%;
+    left: -200px;
+    animation: drift4 62s linear infinite;
+    animation-delay: -30s;
+  }
+
+  /* Each cloud travels from its left:-Npx start to past the right edge */
+  @keyframes drift1 { to { transform: translateX(calc(100vw + 440px)); } }
+  @keyframes drift2 { to { transform: translateX(calc(100vw + 300px)); } }
+  @keyframes drift3 { to { transform: translateX(calc(100vw + 560px)); } }
+  @keyframes drift4 { to { transform: translateX(calc(100vw + 240px)); } }
+
+  /* ══════════════════════════════
+     EFFECT #4 — Twinkling ◆s
+     Larger, higher max-opacity so
+     they're actually visible
+  ══════════════════════════════ */
+  .sparkle {
+    position: absolute;
+    color: #C9A96E;
+    opacity: 0;
+    animation: twinkle ease-in-out infinite;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .sp1  { top:  7%; left:  4%; font-size: 14px; animation-duration: 3.2s; animation-delay: 0.0s; }
+  .sp2  { top: 14%; left: 20%; font-size: 10px; animation-duration: 4.1s; animation-delay: 0.7s; }
+  .sp3  { top: 20%; left: 87%; font-size: 18px; animation-duration: 2.8s; animation-delay: 1.2s; }
+  .sp4  { top: 38%; left:  2%; font-size: 12px; animation-duration: 5.0s; animation-delay: 2.0s; }
+  .sp5  { top: 52%; left: 93%; font-size: 15px; animation-duration: 3.6s; animation-delay: 0.3s; }
+  .sp6  { top: 68%; left: 11%; font-size: 11px; animation-duration: 4.4s; animation-delay: 1.8s; }
+  .sp7  { top: 80%; left: 78%; font-size: 17px; animation-duration: 3.0s; animation-delay: 0.9s; }
+  .sp8  { top: 91%; left: 48%; font-size: 12px; animation-duration: 4.7s; animation-delay: 2.5s; }
+  .sp9  { top: 44%; left: 50%; font-size:  9px; animation-duration: 3.8s; animation-delay: 1.4s; }
+  .sp10 { top: 62%; left: 62%; font-size: 13px; animation-duration: 4.2s; animation-delay: 0.5s; }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0;    transform: scale(0.6) rotate(0deg);  }
+    45%       { opacity: 0.9; transform: scale(1.3) rotate(22deg); }
+    65%       { opacity: 0.6; transform: scale(1.0) rotate(-8deg); }
+  }
+
+  /* ── Mock hero content ── */
+  .content {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 220px 1fr 220px;
+    gap: 48px;
+    max-width: 1000px;
+    width: 90%;
+    align-items: start;
+  }
+
+  .panel { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+  .portrait-ring {
+    width: 140px; height: 140px; border-radius: 50%;
+    background: #C4DFE3; border: 4px solid #7AAFC2;
+    box-shadow: 0 0 0 2px #F5F0E8, 0 0 0 6px #5E94AB;
+  }
+
+  .name { font-family: 'Cinzel Decorative', serif; font-size: 16px; color: #2D2016; letter-spacing: 0.03em; }
+  .role { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #9C8272; }
+  .cat-placeholder { width: 64px; height: 64px; background: #E8C56D; border-radius: 50%; opacity: 0.5; margin-top: 8px; }
+
+  .bio { padding-top: 24px; display: flex; flex-direction: column; gap: 20px; }
+  .headline { font-family: 'Cinzel Decorative', serif; font-size: 28px; line-height: 1.2; color: #2D2016; font-weight: normal; }
+  .subtext { font-size: 15px; line-height: 1.65; color: #6B5744; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 24px; background: #C06080; color: white;
+    border-radius: 999px; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; width: fit-content;
+  }
+
+  .card {
+    background: #FDFAF5; border: 1.5px solid #DDD5C4;
+    border-radius: 16px; padding: 24px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  .label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #B8942E; }
+  .badge {
+    display: inline-block; background: #EDE6D6; border: 1px solid #C9A96E;
+    border-radius: 999px; padding: 2px 10px;
+    font-size: 10px; font-weight: 700; color: #6B5744; margin-right: 4px;
+  }
+  .divider { height: 1px; background: #DDD5C4; }
+  .note { font-size: 12px; color: #2D2016; font-weight: 600; }
+  .meta { font-size: 11px; color: #9C8272; }
+  .status-row { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #6B5744; }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #6BBF72;
+    box-shadow: 0 0 6px rgba(107,191,114,0.6); animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .label-strip {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #2D2016; color: #F5F0E8;
+    padding: 8px 20px; border-radius: 999px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+    z-index: 100; opacity: 0.85; white-space: nowrap;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="hero">
+
+  <!-- Clouds -->
+  <div class="cloud cloud-1"></div>
+  <div class="cloud cloud-2"></div>
+  <div class="cloud cloud-3"></div>
+  <div class="cloud cloud-4"></div>
+
+  <!-- Twinkling ◆s -->
+  <span class="sparkle sp1">◆</span>
+  <span class="sparkle sp2">◆</span>
+  <span class="sparkle sp3">◆</span>
+  <span class="sparkle sp4">◆</span>
+  <span class="sparkle sp5">◆</span>
+  <span class="sparkle sp6">◆</span>
+  <span class="sparkle sp7">◆</span>
+  <span class="sparkle sp8">◆</span>
+  <span class="sparkle sp9">◆</span>
+  <span class="sparkle sp10">◆</span>
+
+  <!-- Mock hero layout -->
+  <div class="content">
+    <div class="panel">
+      <div class="portrait-ring"></div>
+      <div class="name">Tiffany Mao</div>
+      <div class="role">UX Designer</div>
+      <div class="cat-placeholder"></div>
+    </div>
+
+    <div class="bio">
+      <div class="headline">I prototype feelings before I design products.</div>
+      <div class="subtext">Engineer-brained UX designer who designs and ships while exploring how play, motion, and interaction shape the way products feel.</div>
+      <div class="btn">◆ Let's chat ◆</div>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="label">Previously at</div>
+        <div style="margin-top:8px"><span class="badge">Meta</span><span class="badge">Cocoon</span><span class="badge">SUSE</span></div>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <div class="label">Currently at</div>
+        <div class="note" style="margin-top:6px">Masters of Design</div>
+        <div class="meta">UC Berkeley · Expected Winter 2026</div>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <div class="label">Status</div>
+        <div class="status-row" style="margin-top:6px"><span class="dot"></span>Seeking Summer 2026 Internships</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="label-strip">Preview: ☁️ Clouds + ◆ Twinkling sparkles</div>
+</body>
+</html>

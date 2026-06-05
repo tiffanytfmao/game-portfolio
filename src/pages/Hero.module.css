@@ -22,6 +22,16 @@
   transform: none;
 }
 
+/* ── Staggered bob — each column floats independently ── */
+@keyframes gentleBob {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes gentleBobCard {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-16px); }
+}
+
 /* ── Portrait panel ── */
 .portraitPanel {
   display: flex;
@@ -31,6 +41,10 @@
   transition: transform 0.7s var(--ease-smooth) 0.1s;
 }
 .inner:not(.visible) .portraitPanel { transform: translateX(-32px); }
+.inner.visible .portraitPanel {
+  animation: gentleBob 4.2s ease-in-out infinite;
+  animation-delay: 0s;
+}
 
 /* ── Portrait coin-flip ── */
 .flipWrapper {
@@ -105,6 +119,64 @@
 
 .catWrap {
   margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Cat prompt area ── */
+.catPromptArea {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+/* Arrow + "Pet me?" label — positioned bottom-right of the cat */
+.petPrompt {
+  position: absolute;
+  bottom: -4px;
+  right: -52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+.petPromptHidden {
+  opacity: 0;
+}
+
+.petArrow {
+  width: 28px;
+  height: 37px;
+  /* SVG tip naturally faces left — rotate to aim upward-left toward cat */
+  transform: rotate(-20deg);
+}
+
+.petLabel {
+  font-family: 'PressStart', monospace;
+  font-size: 7px;
+  color: var(--color-pink-deep);
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* ── Stage message (mini-game) ── */
+.stageMsg {
+  font-family: 'PressStart', monospace;
+  font-size: 7px;
+  color: var(--color-pink-deep);
+  text-align: center;
+  line-height: 1.8;
+  max-width: 160px;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+.stageMsgFading {
+  opacity: 0;
 }
 
 /* ── Bio ── */
@@ -115,18 +187,51 @@
   padding-top: var(--space-8);
 }
 
+/* ── Shared animation keyframes ── */
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
 .bioHeadline {
   font-family: var(--font-heading);
   font-size: 2.75rem;
   line-height: 1.15;
   color: var(--color-text-dark);
   font-weight: normal;
+  min-height: 3.45rem; /* reserve space so layout doesn't jump as text types in */
+}
+
+/* Blinking cursor injected via JS */
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: var(--color-text-dark);
+  margin-left: 3px;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: blinkCursor 0.7s step-end infinite;
+}
+
+/* bio bob — slightly longer period than portrait/card */
+.inner.visible .bio {
+  animation: gentleBob 5.5s ease-in-out infinite;
+  animation-delay: 0.4s;
 }
 
 .bioText {
   font-size: var(--text-md);
   line-height: 1.65;
   color: var(--color-text-muted);
+  opacity: 0;
+}
+.inner.visible .bioText {
+  animation: fadeUpIn 0.7s ease-out 3.3s forwards;
 }
 
 .bioActions {
@@ -134,6 +239,10 @@
   gap: var(--space-4);
   flex-wrap: wrap;
   align-items: center;
+  opacity: 0;
+}
+.inner.visible .bioActions {
+  animation: fadeUpIn 0.7s ease-out 3.7s forwards;
 }
 
 .primaryBtn {
@@ -195,6 +304,10 @@
   transition: transform 0.7s var(--ease-smooth) 0.2s;
 }
 .inner:not(.visible) .statCard { transform: translateX(32px); }
+.inner.visible .statCard {
+  animation: gentleBobCard 3.8s ease-in-out infinite;
+  animation-delay: 0.9s;
+}
 
 .statSection { display: flex; flex-direction: column; gap: var(--space-2); }
 

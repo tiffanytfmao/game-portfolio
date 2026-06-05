@@ -115,9 +115,17 @@
   padding-top: var(--space-8);
 }
 
+.bioHeadline {
+  font-family: var(--font-heading);
+  font-size: 2.75rem;
+  line-height: 1.15;
+  color: var(--color-text-dark);
+  font-weight: normal;
+}
+
 .bioText {
   font-size: var(--text-md);
-  line-height: 1.8;
+  line-height: 1.65;
   color: var(--color-text-muted);
 }
 

@@ -36,7 +36,7 @@ const GradCapIcon = () => (
 
 // Paw print SVG — 1 large pad + 3 toe circles in triangle above
 const PawPrint = () => (
-  <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor" aria-hidden="true">
+  <svg width="11" height="13" viewBox="0 0 16 18" fill="currentColor" aria-hidden="true">
     <ellipse cx="8" cy="14" rx="4.5" ry="3.5" />
     <circle cx="3"  cy="8"  r="2" />
     <circle cx="8"  cy="6"  r="2.2" />
@@ -45,14 +45,14 @@ const PawPrint = () => (
 )
 
 const PAW_TRAIL = [
-  { x: 9,  y: 83, r: 88 },
-  { x: 12, y: 87, r: 92 },
-  { x: 15, y: 83, r: 88 },
-  { x: 18, y: 87, r: 92 },
-  { x: 21, y: 83, r: 88 },
-  { x: 24, y: 87, r: 92 },
-  { x: 27, y: 83, r: 88 },
-  { x: 30, y: 87, r: 92 },
+  { x: 9,  y: 75, r: 88 },
+  { x: 12, y: 79, r: 92 },
+  { x: 15, y: 75, r: 88 },
+  { x: 18, y: 79, r: 92 },
+  { x: 21, y: 75, r: 88 },
+  { x: 24, y: 79, r: 92 },
+  { x: 27, y: 75, r: 88 },
+  { x: 30, y: 79, r: 92 },
 ]
 
 function useTypewriter(text, triggerKey, delayMs = 500, onComplete) {
@@ -198,9 +198,11 @@ export default function Hero() {
               <BriefcaseIcon />
               <span className={styles.credLabel}>Previously at</span>
               <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="Meta" className={styles.credLogo} />
+              <span className={styles.credLabel}>Meta</span>
               <span className={styles.credCocoon} />
               <span className={styles.credCocoonLabel}>Cocoon</span>
               <img src={asset('other assets/SUSELogo.png')} alt="SUSE" className={styles.credLogo} />
+              <span className={styles.credLabel}>SUSE</span>
             </span>
             <span className={styles.credDivider}>|</span>
             <span className={styles.credGroup}>
@@ -238,8 +240,15 @@ export default function Hero() {
 
       {/* ── Separator: full-width line + upward chevron ── */}
       <div className={styles.separatorWrap} aria-hidden="true">
-        <div className={styles.separatorLine} />
-        <div className={styles.separatorChevron} />
+        <svg className={styles.separatorSvg} viewBox="0 0 1000 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline
+            points={`0,14 487,14 500,3 513,14 1000,14`}
+            fill="none"
+            stroke="var(--color-border)"
+            strokeWidth="1"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
       </div>
     </section>
   )

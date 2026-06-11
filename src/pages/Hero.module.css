@@ -1,9 +1,9 @@
 .hero {
-  min-height: 80vh;
+  min-height: 72vh;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: var(--space-20) var(--space-8) 0;
+  padding: var(--space-3) var(--space-8) 0;
   position: relative;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .catWrap {
-  margin-top: var(--space-4);
+  margin-top: var(--space-2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -393,26 +393,12 @@
   margin-top: var(--space-2);
 }
 
-.separatorLine {
+.separatorSvg {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--color-border);
-}
-
-/* Upward-pointing chevron: border-top + border-right rotated -45deg */
-.separatorChevron {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -70%) rotate(-45deg);
-  width: 13px;
-  height: 13px;
-  border-top: 1.5px solid var(--color-border);
-  border-right: 1.5px solid var(--color-border);
-  background: var(--color-bg-cream);
+  width: 100%;
+  height: 100%;
 }
 
 /* ── Responsive ── */

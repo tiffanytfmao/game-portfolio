@@ -1,18 +1,21 @@
 .hero {
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
-  align-items: center;
-  padding: var(--space-16) var(--space-8);
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--space-20) var(--space-8) 0;
+  position: relative;
 }
 
 .inner {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  flex: 1;
   display: grid;
-  grid-template-columns: 260px 1fr 260px;
-  gap: var(--space-12);
-  align-items: start;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-16);
+  align-items: center;
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
@@ -20,16 +23,6 @@
 .inner.visible {
   opacity: 1;
   transform: none;
-}
-
-/* ── Staggered bob — each column floats independently ── */
-@keyframes gentleBob {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-12px); }
-}
-@keyframes gentleBobCard {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-16px); }
 }
 
 /* ── Portrait panel ── */
@@ -41,24 +34,20 @@
   transition: transform 0.7s var(--ease-smooth) 0.1s;
 }
 .inner:not(.visible) .portraitPanel { transform: translateX(-32px); }
-.inner.visible .portraitPanel {
-  animation: gentleBob 4.2s ease-in-out infinite;
-  animation-delay: 0s;
-}
 
 /* ── Portrait coin-flip ── */
 .flipWrapper {
   perspective: 800px;
-  width: 196px;
-  height: 196px;
+  width: 220px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .flipCard {
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
@@ -80,8 +69,8 @@
 }
 
 .portraitFrame {
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   border-radius: var(--radius-full);
   border: 4px solid #7AAFC2;
   padding: 4px;
@@ -99,24 +88,6 @@
   display: block;
 }
 
-.name {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  color: var(--color-text-dark);
-  text-align: center;
-  letter-spacing: 0.03em;
-}
-
-.nameRole {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-text-light);
-  text-align: center;
-}
-
 .catWrap {
   margin-top: var(--space-4);
   display: flex;
@@ -132,11 +103,10 @@
   align-items: flex-end;
 }
 
-/* Arrow + "Pet me?" label — positioned bottom-right of the cat */
 .petPrompt {
   position: absolute;
   bottom: -4px;
-  right: -52px;
+  right: -56px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,7 +122,6 @@
 .petArrow {
   width: 28px;
   height: 37px;
-  /* SVG tip naturally faces left — rotate to aim upward-left toward cat */
   transform: rotate(-20deg);
 }
 
@@ -179,15 +148,33 @@
   opacity: 0;
 }
 
-/* ── Bio ── */
+/* ── Bio (right column) ── */
 .bio {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  padding-top: var(--space-8);
+  transition: transform 0.7s var(--ease-smooth) 0.1s;
+}
+.inner:not(.visible) .bio { transform: translateX(32px); }
+
+/* ── Greeting label ── */
+.greeting {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.greetingDiamond {
+  color: var(--color-pink-deep);
+  font-size: 10px;
 }
 
-/* ── Shared animation keyframes ── */
+/* ── Animation keyframes ── */
 @keyframes fadeUpIn {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -197,19 +184,43 @@
   50%       { opacity: 0; }
 }
 
+/* ── Headline ── */
 .bioHeadline {
   font-family: var(--font-heading);
-  font-size: 2.25rem;
-  line-height: 1.15;
+  font-size: clamp(1.8rem, 3.4vw, 2.85rem);
+  line-height: 1.12;
   color: var(--color-text-dark);
   font-weight: normal;
-  min-height: 5.4rem;
+  /* reserve 2-line height to prevent layout shift */
+  min-height: calc(2 * 1.12 * 2.85rem);
 }
 .headlineLine {
   display: block;
 }
 
-/* Blinking cursor injected via JS */
+/* ── "play." squiggle underline ── */
+.squiggleWord {
+  position: relative;
+  display: inline;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.squiggleVisible {
+  opacity: 1;
+}
+.squiggleWord::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='6'%3E%3Cpath d='M0 4 Q5 0 10 4 Q15 8 20 4 Q25 0 30 4 Q35 8 40 4' fill='none' stroke='%23C4607A' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: auto 6px;
+  pointer-events: none;
+}
+
 .cursor {
   display: inline-block;
   width: 3px;
@@ -221,12 +232,7 @@
   animation: blinkCursor 0.7s step-end infinite;
 }
 
-/* bio bob — slightly longer period than portrait/card */
-.inner.visible .bio {
-  animation: gentleBob 5.5s ease-in-out infinite;
-  animation-delay: 0.4s;
-}
-
+/* ── Body text — delayed until after headline typewriter ── */
 .bioText {
   font-size: var(--text-md);
   line-height: 1.65;
@@ -234,9 +240,77 @@
   opacity: 0;
 }
 .inner.visible .bioText {
-  animation: fadeUpIn 0.7s ease-out 3.3s forwards;
+  animation: fadeUpIn 0.7s ease-out 5.5s forwards;
 }
 
+.accent {
+  color: var(--color-pink-deep);
+}
+
+/* ── Credential row ── */
+.credRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  opacity: 0;
+}
+.inner.visible .credRow {
+  animation: fadeUpIn 0.7s ease-out 5.9s forwards;
+}
+
+.credGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.credIconSvg {
+  color: var(--color-text-light);
+  flex-shrink: 0;
+}
+
+.credLabel {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-light);
+  letter-spacing: 0.04em;
+}
+
+.credLogo {
+  height: 16px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+/* Cocoon — hollow green ring */
+.credCocoon {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #3DAA5C;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.credCocoonLabel {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-light);
+}
+
+.credDivider {
+  color: var(--color-border);
+  font-size: var(--text-md);
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── CTAs ── */
 .bioActions {
   display: flex;
   gap: var(--space-4);
@@ -245,7 +319,7 @@
   opacity: 0;
 }
 .inner.visible .bioActions {
-  animation: fadeUpIn 0.7s ease-out 3.7s forwards;
+  animation: fadeUpIn 0.7s ease-out 6.2s forwards;
 }
 
 .primaryBtn {
@@ -269,14 +343,13 @@
   box-shadow: var(--shadow-card);
 }
 
-.btnDiamond {
-  font-size: 10px;
-  opacity: 0.8;
-}
+.btnArrow { font-size: 1em; }
+.btnSpark { font-size: 0.75em; opacity: 0.85; }
 
 .ghostBtn {
   display: inline-flex;
   align-items: center;
+  gap: var(--space-2);
   padding: var(--space-3) var(--space-6);
   border: 2px solid var(--color-border-gold);
   border-radius: var(--radius-full);
@@ -294,90 +367,52 @@
   transform: translateY(-2px);
 }
 
-/* ── Stat card ── */
-.statCard {
-  background: var(--color-bg-offwhite);
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  box-shadow: var(--shadow-soft);
-  transition: transform 0.7s var(--ease-smooth) 0.2s;
-}
-.inner:not(.visible) .statCard { transform: translateX(32px); }
-.inner.visible .statCard {
-  animation: gentleBobCard 3.8s ease-in-out infinite;
-  animation-delay: 0.9s;
+/* ── Paw print trail ── */
+.pawTrail {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.statSection { display: flex; flex-direction: column; gap: var(--space-2); }
-
-.statLabel {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-gold-deep);
+.paw {
+  position: absolute;
+  display: block;
+  color: var(--color-pink-dusty);
+  opacity: 0.5;
+  line-height: 0;
 }
 
-.statList {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.statBadge {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  background: var(--color-bg-parchment);
-  border: 1px solid var(--color-border-gold);
-  border-radius: var(--radius-full);
-  padding: 2px 10px;
-  color: var(--color-text-muted);
-}
-
-.statValue {
-  font-family: var(--font-heading);
-  font-size: var(--text-md);
-  color: var(--color-text-dark);
-}
-
-.statMeta {
-  font-size: var(--text-sm);
-  color: var(--color-text-light);
-}
-
-.statusRow {
+/* ── Separator: full-width line + upward chevron ── */
+.separatorWrap {
+  position: relative;
+  width: 100%;
+  height: 28px;
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text-muted);
+  flex-shrink: 0;
+  margin-top: var(--space-2);
 }
 
-.statusDot {
-  width: 8px;
-  height: 8px;
-  border-radius: var(--radius-full);
-  background: #6BBF72;
-  box-shadow: 0 0 6px rgba(107, 191, 114, 0.6);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity: 1; }
-  50%      { opacity: 0.4; }
-}
-
-.divider {
+.separatorLine {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
   height: 1px;
   background: var(--color-border);
+}
+
+/* Upward-pointing chevron: border-top + border-right rotated -45deg */
+.separatorChevron {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -70%) rotate(-45deg);
+  width: 13px;
+  height: 13px;
+  border-top: 1.5px solid var(--color-border);
+  border-right: 1.5px solid var(--color-border);
+  background: var(--color-bg-cream);
 }
 
 /* ── Responsive ── */
@@ -386,6 +421,10 @@
     grid-template-columns: 1fr;
     gap: var(--space-8);
   }
-  .portraitPanel { flex-direction: row; flex-wrap: wrap; gap: var(--space-4); }
-  .statCard { order: -1; }
+  .portraitPanel {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: center;
+  }
 }

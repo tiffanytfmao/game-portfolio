@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useInView } from '../hooks/useInView'
+
 import CatSprite from '../components/CatSprite/CatSprite'
 import { asset } from '../utils/asset'
 import styles from './Hero.module.css'
 
 const HEADLINE_1 = 'I prototype feelings'
-const HEADLINE_2 = 'before I design products.'
+const HEADLINE_2 = 'through interaction, motion, and '
 const CHAR_DELAY = 50
 
 const STAGE_MESSAGES = [
@@ -13,6 +14,45 @@ const STAGE_MESSAGES = [
   "Piggy seems to want you to pet her more.",
   "Piggy is very happy!",
   "Piggy loves you.",
+]
+
+// Outline briefcase icon
+const iconStyle = { color: 'var(--color-text-light)', flexShrink: 0, display: 'block' }
+
+const BriefcaseIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={iconStyle}>
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+    <line x1="8" y1="12" x2="16" y2="12"/>
+  </svg>
+)
+
+const GradCapIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={iconStyle}>
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+  </svg>
+)
+
+// Paw print SVG — 1 large pad + 3 toe circles in triangle above
+const PawPrint = () => (
+  <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor" aria-hidden="true">
+    <ellipse cx="8" cy="14" rx="4.5" ry="3.5" />
+    <circle cx="3"  cy="8"  r="2" />
+    <circle cx="8"  cy="6"  r="2.2" />
+    <circle cx="13" cy="8"  r="2" />
+  </svg>
+)
+
+const PAW_TRAIL = [
+  { x: 9,  y: 83, r: 88 },
+  { x: 12, y: 87, r: 92 },
+  { x: 15, y: 83, r: 88 },
+  { x: 18, y: 87, r: 92 },
+  { x: 21, y: 83, r: 88 },
+  { x: 24, y: 87, r: 92 },
+  { x: 27, y: 83, r: 88 },
+  { x: 30, y: 87, r: 92 },
 ]
 
 function useTypewriter(text, triggerKey, delayMs = 500, onComplete) {
@@ -58,6 +98,8 @@ export default function Hero() {
   const [line1Typed, showLine1Cursor] = useTypewriter(HEADLINE_1, inView ? 1 : 0, 500, () => setLine2Trigger(t => t + 1))
   const [line2Typed, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0)
 
+  const line2Done = line2Typed.length === HEADLINE_2.length
+
   // ── Pet mini-game ──
   const [hasPetted, setHasPetted]   = useState(false)
   const [burstCount, setBurstCount] = useState(0)
@@ -100,8 +142,6 @@ export default function Hero() {
               </div>
             </div>
           </div>
-          <h1 className={styles.name}>Tiffany Mao</h1>
-          <p className={styles.nameRole}>UX Designer</p>
 
           {/* Cat area */}
           <div className={styles.catWrap}>
@@ -112,14 +152,12 @@ export default function Hero() {
                 onFirstPet={handleFirstPet}
                 onBurst={handleBurst}
               />
-              {/* "Pet me?" prompt — fades after first pet */}
               <div className={`${styles.petPrompt} ${hasPetted ? styles.petPromptHidden : ''}`}>
                 <img src={asset('other assets/arrow.svg')} alt="" className={styles.petArrow} />
                 <span className={styles.petLabel}>Pet me?</span>
               </div>
             </div>
 
-            {/* Stage message — typewritten, then fades out */}
             {burstCount > 0 && (
               <p
                 className={`${styles.stageMsg} ${msgFading ? styles.stageMsgFading : ''}`}
@@ -132,53 +170,76 @@ export default function Hero() {
           </div>
         </aside>
 
-        {/* ── Center: bio ── */}
+        {/* ── Right: bio ── */}
         <div className={styles.bio}>
-          <h2 className={styles.bioHeadline} aria-label={`${HEADLINE_1} ${HEADLINE_2}`}>
-            <span className={styles.headlineLine}>{line1Typed}{showLine1Cursor && <span className={styles.cursor} aria-hidden="true" />}</span>
-            <span className={styles.headlineLine}>{line2Typed}{showLine2Cursor && <span className={styles.cursor} aria-hidden="true" />}</span>
+          <p className={styles.greeting}>HI, I'M TIFFANY MAO <span className={styles.greetingDiamond}>◆</span></p>
+
+          <h2 className={styles.bioHeadline} aria-label={`${HEADLINE_1} ${HEADLINE_2}play.`}>
+            <span className={styles.headlineLine}>
+              {line1Typed}{showLine1Cursor && <span className={styles.cursor} aria-hidden="true" />}
+            </span>
+            <span className={styles.headlineLine}>
+              {line2Typed}
+              {/* "play." is always in DOM to avoid layout shift; fades in when typing finishes */}
+              <span className={`${styles.squiggleWord} ${line2Done ? styles.squiggleVisible : ''}`}>play.</span>
+              {showLine2Cursor && <span className={styles.cursor} aria-hidden="true" />}
+            </span>
           </h2>
+
           <p className={styles.bioText}>
-            Engineer-brained UX designer who designs and ships while exploring how play, motion, and interaction shape the way products feel.
+            Product designer and builder who <span className={styles.accent}>researches</span>, <span className={styles.accent}>prototypes</span>,{' '}
+            and <span className={styles.accent}>ships</span> interactive experiences from concept to code.
+            Exploring how small interactions shape what people remember.
           </p>
+
+          {/* Credential row */}
+          <div className={styles.credRow}>
+            <span className={styles.credGroup}>
+              <BriefcaseIcon />
+              <span className={styles.credLabel}>Previously at</span>
+              <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="Meta" className={styles.credLogo} />
+              <span className={styles.credCocoon} />
+              <span className={styles.credCocoonLabel}>Cocoon</span>
+              <img src={asset('other assets/SUSELogo.png')} alt="SUSE" className={styles.credLogo} />
+            </span>
+            <span className={styles.credDivider}>|</span>
+            <span className={styles.credGroup}>
+              <GradCapIcon />
+              <span className={styles.credLabel}>MDes @ UC Berkeley</span>
+            </span>
+          </div>
+
           <div className={styles.bioActions}>
-            <a href="#contact" className={styles.primaryBtn} onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}>
-              <span className={styles.btnDiamond}>◆</span>
-              Let's chat
-              <span className={styles.btnDiamond}>◆</span>
-            </a>
-            <a href="#work" className={styles.ghostBtn} onClick={e => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) }}>
+            <a href="#work" className={styles.primaryBtn} onClick={e => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) }}>
               See my work
+              <span className={styles.btnArrow}>→</span>
+            </a>
+            <a href="#contact" className={styles.ghostBtn} onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}>
+              Let's chat
+              <span className={styles.btnSpark}>✦</span>
             </a>
           </div>
         </div>
 
-        {/* ── Right: stat card ── */}
-        <aside className={styles.statCard}>
-          <div className={styles.statSection}>
-            <span className={styles.statLabel}>Previously at</span>
-            <ul className={styles.statList}>
-              <li><span className={styles.statBadge}>Meta</span></li>
-              <li><span className={styles.statBadge}>Cocoon</span></li>
-              <li><span className={styles.statBadge}>SUSE</span></li>
-            </ul>
-          </div>
-          <div className={styles.divider} />
-          <div className={styles.statSection}>
-            <span className={styles.statLabel}>Currently at</span>
-            <p className={styles.statValue}>Masters of Design</p>
-            <p className={styles.statMeta}>UC Berkeley · Expected Winter 2026</p>
-          </div>
-          <div className={styles.divider} />
-          <div className={styles.statSection}>
-            <span className={styles.statLabel}>Status</span>
-            <p className={styles.statusRow}>
-              <span className={styles.statusDot} />
-              Seeking Summer 2026 Internships
-            </p>
-          </div>
-        </aside>
+      </div>
 
+      {/* ── Paw print trail ── */}
+      <div className={styles.pawTrail} aria-hidden="true">
+        {PAW_TRAIL.map((p, i) => (
+          <span
+            key={i}
+            className={styles.paw}
+            style={{ left: `${p.x}%`, top: `${p.y}%`, transform: `rotate(${p.r}deg)` }}
+          >
+            <PawPrint />
+          </span>
+        ))}
+      </div>
+
+      {/* ── Separator: full-width line + upward chevron ── */}
+      <div className={styles.separatorWrap} aria-hidden="true">
+        <div className={styles.separatorLine} />
+        <div className={styles.separatorChevron} />
       </div>
     </section>
   )

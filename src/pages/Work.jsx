@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
-import SectionBanner from '../components/SectionBanner/SectionBanner'
 import ProjectCard from '../components/ProjectCard/ProjectCard'
 import styles from './Work.module.css'
 
@@ -61,9 +60,14 @@ export default function Work() {
   return (
     <section id="work" className={`${styles.section} texture-parchment`} ref={ref}>
       <div className={styles.inner}>
-        <SectionBanner sub="A selection of things I've built, shipped, and learned from">
-          Selected Work
-        </SectionBanner>
+        <div className={styles.featuredHeader}>
+          <p className={styles.featuredLabel}>
+            <span aria-hidden="true">✦</span>
+            FEATURED WORK
+            <span aria-hidden="true">✦</span>
+          </p>
+          <h2 className={styles.featuredTitle}>A few things I've designed and shipped</h2>
+        </div>
 
         {/* Filter tabs */}
         <div className={styles.filters} role="tablist" aria-label="Filter projects">

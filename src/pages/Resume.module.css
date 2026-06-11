@@ -53,12 +53,16 @@
 }
 
 .previewFrame {
-  width: 100%;
-  height: 100%;
+  /* slightly oversized so the PDF viewer's dark margin bleeds outside
+     the overflow:hidden parent and is clipped away */
+  width: 102%;
+  height: 102%;
+  margin: -1%;
   border: none;
   pointer-events: none;
   display: block;
   transform-origin: top left;
+  background: white;
 }
 
 .previewOverlay {
@@ -198,10 +202,12 @@
 }
 
 .lightboxFrame {
-  width: 100%;
-  height: 100%;
+  width: 102%;
+  height: 102%;
+  margin: -1%;
   border: none;
   display: block;
+  background: white;
 }
 
 /* ── Responsive ── */

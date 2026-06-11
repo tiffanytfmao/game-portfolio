@@ -143,6 +143,8 @@ export default function Hero() {
             </div>
           </div>
 
+          <p className={styles.coinLabel}>Product Designer</p>
+
           {/* Cat area */}
           <div className={styles.catWrap}>
             <div className={styles.catPromptArea}>
@@ -172,7 +174,7 @@ export default function Hero() {
 
         {/* ── Right: bio ── */}
         <div className={styles.bio}>
-          <p className={styles.greeting}>HI, I'M TIFFANY MAO <span className={styles.greetingDiamond}>◆</span></p>
+          <p className={styles.greeting}><span className={styles.greetingDiamond}>◆</span>HEY THERE, I'M TIFFANY <span className={styles.greetingDiamond}>◆</span></p>
 
           <h2 className={styles.bioHeadline} aria-label={`${HEADLINE_1} ${HEADLINE_2}play.`}>
             <span className={styles.headlineLine}>

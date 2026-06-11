@@ -125,12 +125,11 @@ export default function CatSketchpad({ onSpriteCreated }) {
       x: rect.left + rect.width / 2,
       y: rect.top + rect.height * 0.55,
     }
+    // Clear immediately so the board feels responsive
+    clearCanvas()
     setIsShaking(true)
     setTimeout(() => {
       setIsShaking(false)
-      setIsFading(true)
-      // clear canvas after the fade completes (matches FOLLOW_MS in FollowSketch)
-      fadeTimerRef.current = setTimeout(clearCanvas, 12000)
       onSpriteCreated(dataUrl, origin)
     }, 580)
   }
@@ -142,6 +141,15 @@ export default function CatSketchpad({ onSpriteCreated }) {
     >
       {/* Washi tape */}
       <div className={styles.washi} aria-hidden="true" />
+
+      {/* Sparkles during bring-to-life */}
+      {isShaking && (
+        <div className={styles.sparkles} aria-hidden="true">
+          {['✦','✧','✦','✧','✦','✧'].map((s, i) => (
+            <span key={i} className={styles.sparkle} style={{ '--i': i }}>{s}</span>
+          ))}
+        </div>
+      )}
 
       {/* Header */}
       <div className={styles.header}>

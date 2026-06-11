@@ -208,35 +208,51 @@
   100% { transform: scale(1); }
 }
 
-/* ── Shake animation (bring to life trigger) ── */
+/* ── Bring-to-life bounce animation ── */
 .shaking {
-  animation: shake 0.55s ease-in-out;
+  animation: bounceUp 0.58s cubic-bezier(0.36, 0.07, 0.19, 0.97);
 }
 
-.shaking .canvas {
-  animation: canvasFlicker 0.55s ease-in-out;
+@keyframes bounceUp {
+  0%   { transform: translateY(0) scale(1); }
+  15%  { transform: translateY(-10px) scale(1.02); }
+  30%  { transform: translateY(-18px) scale(1.03) rotate(0.8deg); }
+  45%  { transform: translateY(-10px) scale(1.02) rotate(-0.5deg); }
+  60%  { transform: translateY(-20px) scale(1.03) rotate(1deg); }
+  75%  { transform: translateY(-8px) scale(1.01); }
+  88%  { transform: translateY(-12px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
 }
 
-@keyframes shake {
-  0%   { transform: translateX(0) rotate(0deg); }
-  10%  { transform: translateX(-4px) rotate(-0.5deg); }
-  20%  { transform: translateX(4px) rotate(0.5deg); }
-  30%  { transform: translateX(-5px) rotate(-1deg); }
-  40%  { transform: translateX(5px) rotate(1deg); }
-  50%  { transform: translateX(-4px) rotate(-0.5deg); }
-  60%  { transform: translateX(4px) rotate(0.5deg); }
-  70%  { transform: translateX(-3px) rotate(0deg); }
-  80%  { transform: translateX(3px) rotate(0.5deg); }
-  90%  { transform: translateX(-2px) rotate(0deg); }
-  100% { transform: translateX(0) rotate(0deg); }
+/* ── Sparkles ── */
+.sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
 }
 
-@keyframes canvasFlicker {
-  0%   { filter: none; }
-  20%  { filter: brightness(1.2) contrast(1.1); }
-  40%  { filter: none; }
-  55%  { filter: brightness(1.3) contrast(1.15) saturate(0.8); }
-  70%  { filter: none; }
-  85%  { filter: brightness(1.15); }
-  100% { filter: none; }
+.sparkle {
+  position: absolute;
+  font-size: 14px;
+  color: var(--color-pink-deep);
+  animation: sparkleFly 0.58s ease-out both;
+  /* distribute around the card edges */
+  --angle: calc(var(--i) * 60deg);
+  top: 50%;
+  left: 50%;
+}
+
+.sparkle:nth-child(1) { color: var(--color-pink-deep);   --tx: -80px; --ty: -70px; }
+.sparkle:nth-child(2) { color: var(--color-gold);         --tx:  20px; --ty: -90px; font-size: 10px; }
+.sparkle:nth-child(3) { color: var(--color-pink-dusty);   --tx:  90px; --ty: -60px; }
+.sparkle:nth-child(4) { color: var(--color-gold);         --tx: -90px; --ty:  10px; font-size: 10px; }
+.sparkle:nth-child(5) { color: var(--color-pink-deep);    --tx:  70px; --ty:  30px; font-size: 11px; }
+.sparkle:nth-child(6) { color: var(--color-lavender-deep);--tx: -20px; --ty: -100px; }
+
+@keyframes sparkleFly {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  25%  { opacity: 1; }
+  60%  { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.2); opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--tx) * 1.4), calc(-50% + var(--ty) * 1.4)) scale(0.6); opacity: 0; }
 }

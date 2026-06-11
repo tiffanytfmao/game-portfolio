@@ -1,9 +1,12 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 import { useInView } from '../hooks/useInView'
 import SectionBanner from '../components/SectionBanner/SectionBanner'
+import CatSketchpad from '../components/CatSketchpad/CatSketchpad'
+import FollowSketch from '../components/FollowSketch/FollowSketch'
 import { asset } from '../utils/asset'
 import styles from './Playground.module.css'
 
+// Items shifted left to make room for the fixed sketchpad on the right (~x:670+)
 const ITEMS = [
   {
     id: 'cat-tv',
@@ -11,7 +14,7 @@ const ITEMS = [
     label: 'Cat Bed TV',
     sub: 'p5.js sketch',
     link: 'https://editor.p5js.org/tiffanytfmao/sketches/ADqW7Fvj4',
-    x: 20, y: 28, rot: -1.5, w: 195,
+    x: 18, y: 28, rot: -1.5, w: 185,
   },
   {
     id: 'yoons-game',
@@ -19,7 +22,7 @@ const ITEMS = [
     label: 'Help Me Yoon!',
     sub: 'web game',
     link: 'https://tiffanytfmao.github.io/help-me-yoon/',
-    x: 255, y: 14, rot: 1.3, w: 205,
+    x: 222, y: 14, rot: 1.3, w: 195,
   },
   {
     id: 'p5-game',
@@ -27,7 +30,7 @@ const ITEMS = [
     label: 'Piggy the Kitty',
     sub: 'playable · drag card to move',
     link: null,
-    x: 440, y: 10, rot: -0.8, w: 400,
+    x: 18, y: 210, rot: -0.8, w: 340,
     iframeNativeW: 1000, iframeNativeH: 600,
   },
   {
@@ -36,7 +39,7 @@ const ITEMS = [
     label: 'Sketches',
     sub: null,
     link: null,
-    x: 870, y: 30, rot: -2, w: 142,
+    x: 380, y: 160, rot: -2, w: 142,
   },
   {
     id: 'spiderverse',
@@ -44,7 +47,7 @@ const ITEMS = [
     label: 'Spiderverse Fan Art',
     sub: null,
     link: null,
-    x: 15, y: 470, rot: 1.8, w: 238,
+    x: 14, y: 470, rot: 1.8, w: 220,
   },
   {
     id: 'keycap',
@@ -52,7 +55,7 @@ const ITEMS = [
     label: 'Keycap Design',
     sub: null,
     link: null,
-    x: 290, y: 455, rot: -1.2, w: 185,
+    x: 250, y: 450, rot: -1.2, w: 175,
   },
   {
     id: 'a4',
@@ -60,7 +63,7 @@ const ITEMS = [
     label: 'Print Design',
     sub: null,
     link: null,
-    x: 510, y: 462, rot: 2.3, w: 132,
+    x: 448, y: 458, rot: 2.3, w: 130,
   },
 ]
 
@@ -75,7 +78,16 @@ export default function Playground() {
   const [topZ, setTopZ] = useState(ITEMS.length + 1)
   const [draggingId, setDraggingId] = useState(null)
   const [lightboxSrc, setLightboxSrc] = useState(null)
+  const [followSketch, setFollowSketch] = useState(null) // { imageUrl, origin }
   const drag = useRef(null)
+
+  const handleSpriteCreated = useCallback((imageUrl, origin) => {
+    setFollowSketch({ imageUrl, origin })
+  }, [])
+
+  const handleFollowDone = useCallback(() => {
+    setFollowSketch(null)
+  }, [])
 
   useEffect(() => {
     function onMove(e) {
@@ -166,6 +178,8 @@ export default function Playground() {
         {draggingId && <div className={styles.dragGuard} />}
 
         <div className={styles.corkboard}>
+          <CatSketchpad onSpriteCreated={handleSpriteCreated} />
+
           {ITEMS.map(item => (
             <div
               key={item.id}
@@ -238,6 +252,14 @@ export default function Playground() {
           ))}
         </div>
       </div>
+
+      {followSketch && (
+        <FollowSketch
+          imageUrl={followSketch.imageUrl}
+          origin={followSketch.origin}
+          onDone={handleFollowDone}
+        />
+      )}
 
       {/* Lightbox */}
       {lightboxSrc && (

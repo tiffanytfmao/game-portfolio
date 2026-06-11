@@ -39,9 +39,15 @@ export default function CatSketchpad({ onSpriteCreated }) {
   const containerRef = useRef(null)
   const isDrawingRef = useRef(false)
   const lastPosRef = useRef(null)
+  const fadeTimerRef = useRef(null)
   const [hasStrokes, setHasStrokes] = useState(false)
   const [isShaking, setIsShaking] = useState(false)
   const [btnBounce, setBtnBounce] = useState(false)
+  const [isFading, setIsFading] = useState(false)
+
+  useEffect(() => {
+    return () => clearTimeout(fadeTimerRef.current)
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -100,11 +106,13 @@ export default function CatSketchpad({ onSpriteCreated }) {
     lastPosRef.current = null
   }
 
-  function handleClear() {
+  function clearCanvas() {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     setHasStrokes(false)
+    setIsFading(false)
+    clearTimeout(fadeTimerRef.current)
   }
 
   function handleBringToLife() {
@@ -120,6 +128,9 @@ export default function CatSketchpad({ onSpriteCreated }) {
     setIsShaking(true)
     setTimeout(() => {
       setIsShaking(false)
+      setIsFading(true)
+      // clear canvas after the fade completes (matches FOLLOW_MS in FollowSketch)
+      fadeTimerRef.current = setTimeout(clearCanvas, 12000)
       onSpriteCreated(dataUrl, origin)
     }, 580)
   }
@@ -129,13 +140,6 @@ export default function CatSketchpad({ onSpriteCreated }) {
       ref={containerRef}
       className={`${styles.pad} ${isShaking ? styles.shaking : ''}`}
     >
-      {/* Spiral binding */}
-      <div className={styles.spiralRow} aria-hidden="true">
-        {Array.from({ length: 11 }).map((_, i) => (
-          <span key={i} className={styles.spiral} />
-        ))}
-      </div>
-
       {/* Washi tape */}
       <div className={styles.washi} aria-hidden="true" />
 
@@ -153,7 +157,7 @@ export default function CatSketchpad({ onSpriteCreated }) {
         <span className={styles.paw} aria-hidden="true" />
         <canvas
           ref={canvasRef}
-          className={styles.canvas}
+          className={`${styles.canvas} ${isFading ? styles.canvasFading : ''}`}
           style={{ width: CANVAS_W, height: CANVAS_H }}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
@@ -164,7 +168,7 @@ export default function CatSketchpad({ onSpriteCreated }) {
 
       {/* Controls */}
       <div className={styles.controls}>
-        <button className={styles.clearBtn} onClick={handleClear}>
+        <button className={styles.clearBtn} onClick={clearCanvas}>
           Clear <span className={styles.clearIcon}>↺</span>
         </button>
         <button
@@ -172,7 +176,9 @@ export default function CatSketchpad({ onSpriteCreated }) {
           onClick={handleBringToLife}
           disabled={!hasStrokes}
         >
-          Bring it to life ✦
+          <span className={styles.diamond}>◆</span>
+          Bring it to life
+          <span className={styles.diamond}>◆</span>
         </button>
       </div>
     </div>

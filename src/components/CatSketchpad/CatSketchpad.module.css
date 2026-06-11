@@ -14,35 +14,10 @@
   user-select: none;
 }
 
-/* ── Spiral binding ── */
-.spiralRow {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  position: absolute;
-  top: -10px;
-  left: 16px;
-  right: 16px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.spiral {
-  display: block;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2.5px solid #c8b89a;
-  background: radial-gradient(circle at 38% 38%, #e8dcc8 0%, #b4a08a 100%);
-  box-shadow:
-    inset 0 1px 2px rgba(255,255,255,0.5),
-    0 1px 3px rgba(45,32,22,0.25);
-}
-
 /* ── Washi tape ── */
 .washi {
   position: absolute;
-  top: -8px;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   width: 72px;
@@ -140,6 +115,17 @@
   background: transparent;
 }
 
+.canvasFading {
+  animation: canvasFade 12s linear forwards;
+}
+
+@keyframes canvasFade {
+  0%   { opacity: 1; }
+  60%  { opacity: 0.7; }
+  85%  { opacity: 0.3; }
+  100% { opacity: 0; }
+}
+
 /* ── Buttons ── */
 .controls {
   display: flex;
@@ -177,6 +163,10 @@
 
 .lifeBtn {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   font-family: 'Nunito', sans-serif;
   font-size: 13px;
   font-weight: 700;
@@ -198,6 +188,12 @@
   opacity: 0.42;
   cursor: not-allowed;
   box-shadow: none;
+}
+
+.diamond {
+  font-size: 7px;
+  opacity: 0.85;
+  flex-shrink: 0;
 }
 
 .lifeBtnBounce {

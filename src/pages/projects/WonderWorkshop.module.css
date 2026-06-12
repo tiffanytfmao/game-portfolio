@@ -377,6 +377,14 @@
   color: var(--color-text-light);
   text-align: center;
 }
+.pivotSubhead {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: var(--space-6) 0 var(--space-2);
+}
 .pivotArrow {
   font-size: 24px;
   color: var(--color-gold);

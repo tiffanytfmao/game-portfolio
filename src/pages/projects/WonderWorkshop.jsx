@@ -9,8 +9,8 @@ const BASE = asset('wonder workshop assets')
 const SECTIONS = [
   { id: 'overview',    label: 'Overview' },
   { id: 'problem',     label: 'The Problem' },
-  { id: 'pivot',       label: 'The Pivot' },
   { id: 'inspiration', label: 'Inspiration' },
+  { id: 'pivot',       label: 'The Pivot' },
   { id: 'decisions',   label: 'Design Decisions' },
   { id: 'try-it',      label: 'Try It' },
   { id: 'research',    label: 'User Testing' },
@@ -254,45 +254,6 @@ export default function WonderWorkshop() {
             </div>
           </section>
 
-          {/* The Pivot */}
-          <section id="pivot" ref={el => { sectionRefs.current['pivot'] = el }} className={`${styles.section} ${styles.sectionRelative}`}>
-            <img src={`${BASE}/Mentordog.gif`} alt="Mentor Dog character" className={`${styles.charFloatRight} ${styles.charFloatRightLow}`} />
-            <span className={styles.sectionLabel}>The Pivot</span>
-
-            <div className={styles.pivotVisual}>
-              <figure className={styles.pivotFig}>
-                <img src={`${BASE}/skrawl%20screns.png`} alt="Skrawl midterm prototype screens" className={styles.pivotImg} />
-                <figcaption className={styles.pivotCaption}>Midterm: critter battle system</figcaption>
-              </figure>
-              <span className={styles.pivotArrow} aria-hidden="true">→</span>
-              <figure className={styles.pivotFig}>
-                <img src={`${BASE}/gameplay%201.jpeg`} alt="Wonder Workshop final game" className={styles.pivotImg} />
-                <figcaption className={styles.pivotCaption}>Final: Wonder Workshop</figcaption>
-              </figure>
-            </div>
-
-            <p className={styles.prose}>
-              For the midterm, we had a battle card game. The original pitch, which I brought to the team, was a Pokédex-style system where kids craft physical creatures and an app scans them, assigning stats based on how they were made: how many colors used, whether there are 3D elements, unusual materials, natural objects. The creatures battle a grey algorithmic antagonist representing soulless digital emptiness. Five stats, turn structures, threat cards. The mechanic was coherent and the concept worked.
-            </p>
-            <p className={styles.prose}>
-              After midterm feedback, we started asking whether the battle mechanics were serving our goals or just being the most compelling part of the system. Reward loops built around collecting and leveling stats made the stats the point, not the making. We had designed a game where you craft to win. That is a different thing from a game where crafting is worth doing on its own terms.
-            </p>
-            <p className={styles.prose}>
-              We removed the competitive systems and rebuilt around a simpler question: what does an experience look like when making is genuinely the center? The result was Wonder Workshop. Slower, narrative-driven, structured around characters and story rather than scores.
-            </p>
-
-            <div className={styles.videoCard}>
-              <video
-                src={`${BASE}/skrawl%20prototype.mp4`}
-                controls
-                muted
-                playsInline
-                className={styles.prototypeVideo}
-              />
-              <p className={styles.videoCaption}>Early prototype — the midterm direction</p>
-            </div>
-          </section>
-
           {/* Inspiration */}
           <section id="inspiration" ref={el => { sectionRefs.current['inspiration'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Inspiration</span>
@@ -314,6 +275,49 @@ export default function WonderWorkshop() {
                   <p className={styles.inspoName}>{item.name}</p>
                 </div>
               ))}
+            </div>
+          </section>
+
+          {/* The Pivot */}
+          <section id="pivot" ref={el => { sectionRefs.current['pivot'] = el }} className={`${styles.section} ${styles.sectionRelative}`}>
+            <img src={`${BASE}/Mentordog.gif`} alt="Mentor Dog character" className={`${styles.charFloatRight} ${styles.charFloatRightLow}`} />
+            <span className={styles.sectionLabel}>The Pivot</span>
+
+            <div className={styles.pivotVisual}>
+              <figure className={styles.pivotFig}>
+                <img src={`${BASE}/skrawl%20screns.png`} alt="Skrawl midterm prototype screens" className={styles.pivotImg} />
+                <figcaption className={styles.pivotCaption}>Midterm: critter battle system</figcaption>
+              </figure>
+              <span className={styles.pivotArrow} aria-hidden="true">→</span>
+              <figure className={styles.pivotFig}>
+                <img src={`${BASE}/gameplay%201.jpeg`} alt="Wonder Workshop final game" className={styles.pivotImg} />
+                <figcaption className={styles.pivotCaption}>Final: Wonder Workshop</figcaption>
+              </figure>
+            </div>
+
+            <h3 className={styles.pivotSubhead}>The initial concept</h3>
+            <p className={styles.prose}>
+              Our original pitch was a Pokédex-style battle card game. Kids craft physical creatures, an app scans them, and stats are assigned based on how they were made — how many colors used, whether there are 3D elements, unusual materials, natural objects. The creatures battle a grey algorithmic antagonist representing soulless digital emptiness. Five stats, turn structures, threat cards. The mechanic was coherent and the concept worked.
+            </p>
+
+            <h3 className={styles.pivotSubhead}>The question that changed everything</h3>
+            <p className={styles.prose}>
+              After sharing our concept with experts at Common Sense Media, we started asking whether the battle mechanics were serving our goals or just being the most compelling part of the system. Their challenge was direct: reward loops built around collecting and leveling stats make the stats the point, not the making. <strong>We had designed a game where you craft to win.</strong> That is a different thing from a game where crafting is worth doing on its own terms.
+            </p>
+
+            <p className={styles.prose}>
+              We removed the competitive systems and rebuilt around a simpler question: <strong>what does an experience look like when making is genuinely the center?</strong> The result was Wonder Workshop. Slower, narrative-driven, structured around characters and story rather than scores.
+            </p>
+
+            <div className={styles.videoCard}>
+              <video
+                src={`${BASE}/skrawl%20prototype.mp4`}
+                controls
+                muted
+                playsInline
+                className={styles.prototypeVideo}
+              />
+              <p className={styles.videoCaption}>Early prototype — the midterm direction</p>
             </div>
           </section>
 
@@ -377,7 +381,7 @@ export default function WonderWorkshop() {
           <section id="try-it" ref={el => { sectionRefs.current['try-it'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Try It</span>
             <p className={styles.prose}>
-              Wonder Workshop is live and playable now. Skip the onboarding for the demo. Left, right, forward, and back navigation. When a task says "done," the full version would repopulate with a more complex task in the same category.
+              Wonder Workshop is live and playable now! Try it yourself. When a task says "done," the full version would repopulate with a more complex task in the same category.
             </p>
 
             <div className={styles.gameCard}>

@@ -241,11 +241,27 @@ export default function Berky() {
               </div>
             </div>
 
-            <img
-              src={`${BASE}/Group%204704.png`}
-              alt="Berky the Worm physical installation model"
-              className={styles.overviewImg}
-            />
+            <div className={styles.videoCard}>
+              <span className={styles.videoCardLabel}>▶ App Walkthrough</span>
+              <div className={styles.videoCardBody}>
+                <video
+                  src={`${BASE}/berky%20mockup%20demo.mp4`}
+                  controls
+                  playsInline
+                  className={styles.sectionVideo}
+                />
+                <div className={styles.videoCardSide}>
+                  <p className={styles.videoCardDesc}>See the full Berky experience — from feeding the worm to earning rewards.</p>
+                  <ul className={styles.designDecisions}>
+                    <li><strong>Worm as mascot</strong>Cute illustrated character builds emotional connection so residents feel like caretakers, not just users</li>
+                    <li><strong>Feeding suggestions</strong>Berky tells you exactly what she needs, lowering the barrier for users who don't know what to compost</li>
+                    <li><strong>Live composting status</strong>Capacity, C:N Ratio, Moisture, and pH visible in-app, turning an invisible process into something you can follow</li>
+                    <li><strong>Rewards redeemable locally</strong>Progress toward perks at stores like Berkeley Bowl, grounding the loop in the real Berkeley community</li>
+                    <li><strong>Push notifications as habit cues</strong>Berky pings you when she's hungry, a care-based nudge rather than an arbitrary reminder</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </section>
 
           {/* The Problem */}
@@ -319,9 +335,15 @@ export default function Berky() {
               If composting systems are redesigned to be more intuitive, accessible, and personally rewarding, users will be more likely to adopt and sustain composting behaviors — reducing organic waste sent to landfills.
             </blockquote>
 
-            <div className={styles.storyboard}>
-              <img src={`${BASE}/image%2014.png`} alt="Berky scenario storyboard" className={styles.storyboardImg} />
-              <p className={styles.storyboardCaption}>Early scenario storyboard — mapping the before/after of a Berkeley resident's composting journey</p>
+            <div className={styles.hypothesisImgs}>
+              <div className={styles.storyboard}>
+                <img src={`${BASE}/image%2014.png`} alt="Berky scenario storyboard" className={styles.storyboardImg} />
+                <p className={styles.storyboardCaption}>Early scenario storyboard — mapping the before/after of a Berkeley resident's composting journey</p>
+              </div>
+              <div className={styles.storyboard}>
+                <img src={`${BASE}/image%203.png`} alt="Early app wireframe sketches" className={styles.storyboardImg} />
+                <p className={styles.storyboardCaption}>Initial wireframe sketches exploring the app's core interactions</p>
+              </div>
             </div>
           </section>
 
@@ -396,24 +418,26 @@ export default function Berky() {
               ))}
             </div>
 
-            <div className={styles.protoRow}>
-              <img src={`${BASE}/image%205.png`} alt="Berky paper prototype" className={styles.protoImg} />
-              <img src={`${BASE}/Group%204704.png`} alt="Berky refined physical model" className={styles.protoImg} />
-            </div>
           </section>
 
           {/* The App */}
           <section id="app" ref={el => { sectionRefs.current['app'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>The App</span>
             <h2 className={styles.sectionHeading}>Gamify: A Digital Care Companion.</h2>
-            <p className={styles.prose}>
-              Berky is paired with a companion app that extends engagement beyond the physical site. Users can track Berky's health status, see what organic material is needed, monitor composting progress, and earn rewards redeemable at local grocery stores. Push notifications prompt users when Berky is hungry.
-            </p>
-            <p className={styles.prose}>
-              We chose a playful, modern aesthetic — designing Berky's digital counterpart as a cute illustrated worm to inspire personal attachment and connection even beyond the playground.
-            </p>
+            <div className={styles.appGrid}>
+              {/* Row 1: prose | reward image */}
+              <div className={styles.appGridText}>
+                <p className={styles.prose}>
+                  Berky is paired with a companion app that extends engagement beyond the physical site. Users can track Berky's health status, see what organic material is needed, monitor composting progress, and earn rewards redeemable at local grocery stores. Push notifications prompt users when Berky is hungry.
+                </p>
+                <p className={styles.prose}>
+                  We chose a playful, modern aesthetic — designing Berky's digital counterpart as a cute illustrated worm to inspire personal attachment and connection even beyond the playground.
+                </p>
+              </div>
+              <img src={`${BASE}/reward%20details.png`} alt="Reward earned screen" className={styles.appGridImg} />
 
-            <div className={styles.appSplit}>
+              {/* Row 2: annotated screen | features */}
+              <img src={`${BASE}/Group%204711.png`} alt="Berky app home screen annotated" className={styles.appGridImgLarge} />
               <div className={styles.appFeatures}>
                 <div className={styles.appFeature}>
                   <span className={styles.appFeatureLabel}>Feeding suggestions</span>
@@ -432,16 +456,8 @@ export default function Berky() {
                   <p className={styles.appFeatureDesc}>The cute illustrated worm character builds emotional connection — so residents feel like caretakers, not just users.</p>
                 </div>
               </div>
-              <div className={styles.appScreens}>
-                <img src={`${BASE}/Group%204711.png`} alt="Berky app home screen annotated" className={styles.appScreenMain} />
-              </div>
             </div>
 
-            <div className={styles.appSecondary}>
-              <img src={`${BASE}/image%203.png`} alt="Early app wireframes" className={styles.wireframeImg} />
-              <img src={`${BASE}/reward%20details.png`} alt="Reward earned screen" className={styles.rewardImg} />
-              <img src={`${BASE}/mockup%20berky.png`} alt="Berky app mockup" className={styles.mockupImg} />
-            </div>
           </section>
 
           {/* Reflection */}
@@ -455,18 +471,6 @@ export default function Berky() {
               The whole premise of Berky was to make it feel fun and social — but there's a version of that thinking that becomes superficial fast. As a team, we had to really ask ourselves whether the playfulness was actually doing something: changing behavior, lowering friction, creating a reason to come back. Or was it just aesthetic justification for a concept we already liked? With studio critique and user research, we were confident in our final product being both delightful and purposeful.
             </p>
 
-            <div className={styles.questBoard} aria-label="Reflection board">
-              <div className={styles.questBoardNailTL} />
-              <div className={styles.questBoardNailTR} />
-              <div className={styles.questBoardNailBL} />
-              <div className={styles.questBoardNailBR} />
-              <div className={styles.questPaper}>
-                <div className={styles.questTapeTop} />
-                <p className={styles.questText}>
-                  Learning to hold the tension between delight and utility is probably the most useful thing I took out of this project as a designer.
-                </p>
-              </div>
-            </div>
           </section>
 
         </main>

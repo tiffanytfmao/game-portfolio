@@ -428,9 +428,91 @@
   line-height: 1.7;
 }
 
+/* ── Video card ── */
+.videoCard {
+  margin-top: var(--space-6);
+  background: var(--color-bg-offwhite);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  box-shadow: var(--shadow-soft);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.videoCardBody {
+  display: flex;
+  gap: var(--space-6);
+  align-items: flex-start;
+}
+
+.videoCardSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+}
+
+.designDecisions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.designDecisions li {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  padding-left: var(--space-4);
+  border-left: 2px solid #4A7C59;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.designDecisions li strong {
+  display: block;
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: var(--text-base);
+  letter-spacing: -0.01em;
+}
+.videoCardLabel {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4A7C59;
+}
+.videoCardDesc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: 300px;
+}
+
+/* ── Section video ── */
+.sectionVideo {
+  width: 340px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
 /* ── Overview image ── */
 .overviewImg {
   width: 100%;
+  max-width: 640px;
   border-radius: var(--radius-lg);
   margin-top: var(--space-6);
   display: block;
@@ -614,12 +696,23 @@
   max-width: 640px;
 }
 
+/* ── Hypothesis image pair ── */
+.hypothesisImgs {
+  display: flex;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+  align-items: flex-start;
+}
+
 /* ── Storyboard ── */
 .storyboard {
-  margin-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .storyboardImg {
   width: 100%;
+  max-width: 360px;
   border-radius: var(--radius-lg);
   display: block;
 }
@@ -628,6 +721,7 @@
   font-size: var(--text-xs);
   color: var(--color-text-light);
   margin-top: var(--space-2);
+  max-width: 360px;
   text-align: center;
 }
 
@@ -752,6 +846,7 @@
 /* ── Annotated image ── */
 .annotatedImg {
   width: 100%;
+  max-width: 580px;
   border-radius: var(--radius-lg);
   display: block;
   margin-bottom: var(--space-6);
@@ -806,6 +901,29 @@
 }
 
 /* ── App section ── */
+.appGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+.appGridText {
+  display: flex;
+  flex-direction: column;
+}
+.appGridImg {
+  width: 50%;
+  border-radius: var(--radius-lg);
+  display: block;
+  overflow: hidden;
+}
+.appGridImgLarge {
+  width: 70%;
+  border-radius: var(--radius-lg);
+  display: block;
+  overflow: hidden;
+}
+
 .appSplit {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -849,25 +967,32 @@
   display: block;
 }
 .appSecondary {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr;
+  display: flex;
   gap: var(--space-4);
-  align-items: end;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: var(--space-4);
 }
 .wireframeImg {
-  width: 100%;
+  width: 160px;
   border-radius: var(--radius-md);
   display: block;
 }
 .rewardImg {
-  width: 100%;
+  width: 200px;
   border-radius: var(--radius-md);
   display: block;
 }
 .mockupImg {
-  width: 100%;
+  width: 340px;
   border-radius: var(--radius-md);
   display: block;
+}
+.rewardStandalone {
+  width: calc(50% - var(--space-4));
+  border-radius: var(--radius-lg);
+  display: block;
+  margin-bottom: var(--space-6);
 }
 
 /* ── Reflection quest board ── */

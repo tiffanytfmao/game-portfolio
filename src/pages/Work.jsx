@@ -32,6 +32,8 @@ const PROJECTS = [
     description: "Turning Berkeley's composting problem into a community playground.",
     tags: ['UX/UI', 'Physical-Digital', 'Sustainability'],
     emoji: '🐛',
+    image: asset('berky assets/mockup berky.png'),
+    video: asset('berky assets/berky thumbnail.mov'),
     rotate: 1.2,
     category: 'uxui',
   },

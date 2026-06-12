@@ -420,9 +420,9 @@ export default function Cocoon() {
           {/* Design + Engineering */}
           <section id="engineering" ref={el => { sectionRefs.current['engineering'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Design + Engineering</span>
-            <h2 className={styles.sectionHeading}>I didn't just hand off. I shipped.</h2>
+            <h2 className={styles.sectionHeading}>I designed it. Then I built it.</h2>
             <p className={styles.prose}>
-              As a front-end engineer, I built 6 production React components for the PDL flow. This changed how I designed — not just how I handed off.
+              Shipping the components myself closed the gap between design intent and implementation reality. What I learned building fed back into how I designed.
             </p>
 
             <div className={styles.engGrid}>

@@ -28,7 +28,7 @@ const ITEMS = [
     id: 'p5-game',
     iframe: 'https://editor.p5js.org/tiffanytfmao/full/rFSOyoZZ6',
     label: 'Piggy the Kitty',
-    sub: 'playable · drag card to move',
+    sub: 'playable · Click card and use arrow keys to play!',
     link: null,
     x: 18, y: 210, rot: -0.8, w: 340,
     iframeNativeW: 1000, iframeNativeH: 600,
@@ -55,7 +55,7 @@ const ITEMS = [
     label: 'Keycap Design',
     sub: null,
     link: null,
-    x: 250, y: 450, rot: -1.2, w: 175,
+    x: 250, y: 490, rot: -1.2, w: 175,
   },
   {
     id: 'a4',
@@ -170,7 +170,7 @@ export default function Playground() {
 
         <p className={styles.hint}>
           <span className={styles.hintDiamond}>◆</span>
-          Drag things around · click images to expand · glowing items open externally
+          drag things around · click images to expand · play some games and have fun!
           <span className={styles.hintDiamond}>◆</span>
         </p>
 

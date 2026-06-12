@@ -3,6 +3,7 @@ import CatSprite from '../../components/CatSprite/CatSprite'
 import WonderWorkshop from './WonderWorkshop'
 import Cocoon from './Cocoon'
 import Palbits from './Palbits'
+import Berky from './Berky'
 import styles from './ProjectCaseStudy.module.css'
 
 const PROJECT_META = {
@@ -49,6 +50,7 @@ export default function ProjectCaseStudy() {
   if (id === 'wonder') return <WonderWorkshop />
   if (id === 'cocoon') return <Cocoon />
   if (id === 'palbits') return <Palbits />
+  if (id === 'berky') return <Berky />
   const meta = PROJECT_META[id] ?? {
     title: 'Project',
     subtitle: '',

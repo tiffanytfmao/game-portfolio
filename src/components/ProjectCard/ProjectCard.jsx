@@ -5,6 +5,15 @@ import styles from './ProjectCard.module.css'
 
 export default function ProjectCard({ project, index = 0, style = {} }) {
   const cardRef = useRef(null)
+  const videoRef = useRef(null)
+
+  function setVideoRef(el) {
+    if (el) {
+      el.muted = true
+      el.play().catch(() => {})
+    }
+    videoRef.current = el
+  }
 
   function handleMouseEnter() {
     playCardHover()
@@ -32,10 +41,26 @@ export default function ProjectCard({ project, index = 0, style = {} }) {
     >
       {/* Thumbnail */}
       <div className={styles.thumb}>
-        {/* TODO: replace with project screenshot */}
-        <div className={styles.thumbPlaceholder}>
-          <span className={styles.thumbIcon}>{project.emoji ?? '✦'}</span>
-        </div>
+        {project.video ? (
+          <video
+            ref={setVideoRef}
+            className={styles.thumbVideo}
+            src={project.video}
+            autoPlay
+            loop
+            playsInline
+          />
+        ) : project.image && project.imageBounce ? (
+          <div className={styles.thumbBounce}>
+            <img src={project.image} alt="" />
+          </div>
+        ) : project.image ? (
+          <img className={styles.thumbVideo} src={project.image} alt="" />
+        ) : (
+          <div className={styles.thumbPlaceholder}>
+            <span className={styles.thumbIcon}>{project.emoji ?? '✦'}</span>
+          </div>
+        )}
         <div className={styles.thumbOverlay}>
           <span className={styles.viewLabel}>View project ◆</span>
         </div>

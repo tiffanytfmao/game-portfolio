@@ -154,8 +154,7 @@ export default function CatSketchpad({ onSpriteCreated }) {
       {/* Header */}
       <div className={styles.header}>
         <p className={styles.title}>
-          Draw a cat.{' '}
-          <span className={styles.titleAccent}>Any cat!</span>
+          Draw something!{' '}
         </p>
         <p className={styles.subtitle}>Then bring it to life. ✦</p>
       </div>

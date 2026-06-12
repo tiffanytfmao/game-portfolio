@@ -53,7 +53,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: var(--space-3);
-  padding: var(--space-4) var(--space-8);
+  padding: var(--space-4) clamp(24px, 4vw, 56px);
   background: var(--color-bg-dark);
 }
 .tags {
@@ -669,18 +669,138 @@
 }
 .nextDesc { font-size: var(--text-sm); line-height: 1.55; color: var(--color-text-muted); }
 
-/* ── Reflection ── */
-.closingQuote {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  color: var(--color-bg-cream);
-  line-height: 1.4;
+/* ── Character GIF decorations ── */
+.sectionRelative {
+  overflow: visible;
+}
+.charFloatRight {
+  float: right;
+  width: clamp(120px, 16vw, 200px);
+  height: auto;
+  margin: 0 0 var(--space-4) var(--space-8);
+  image-rendering: auto;
+  pointer-events: none;
+  user-select: none;
+}
+.charFloatRightLow {
+  margin-top: var(--space-16);
+}
+.charFloatRightTop {
+  margin-top: calc(-1 * var(--space-6));
+}
+
+/* ── Quest Board ── */
+.questBoard {
+  position: relative;
   margin: var(--space-10) 0 0;
-  padding: var(--space-10) var(--space-10);
-  background: var(--color-bg-dark);
-  border-radius: var(--radius-lg);
+  padding: clamp(24px, 4vw, 48px) clamp(24px, 5vw, 56px);
+  background:
+    repeating-linear-gradient(
+      92deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.03) 2px,
+      rgba(255,255,255,0.03) 4px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(0,0,0,0.05) 0px,
+      rgba(0,0,0,0.05) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    linear-gradient(
+      175deg,
+      #6b3f1c 0%,
+      #7d4a22 12%,
+      #5c3318 25%,
+      #8a5530 38%,
+      #6b3f1c 50%,
+      #7d4a22 62%,
+      #5c3318 75%,
+      #7d4a22 88%,
+      #6b3f1c 100%
+    );
+  border-radius: 6px;
+  border-top: 6px solid #4a2910;
+  border-bottom: 8px solid #3a2008;
+  border-left: 5px solid #4a2910;
+  border-right: 5px solid #3a2008;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.4),
+    inset 0 -2px 4px rgba(255,255,255,0.05),
+    0 8px 24px rgba(0,0,0,0.35),
+    0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Nails in corners */
+.questBoardNailTL,
+.questBoardNailTR,
+.questBoardNailBL,
+.questBoardNailBR {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #d4a84b, #8b6914 60%, #5a4008);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.2);
+  z-index: 2;
+}
+.questBoardNailTL { top: 10px; left: 12px; }
+.questBoardNailTR { top: 10px; right: 12px; }
+.questBoardNailBL { bottom: 10px; left: 12px; }
+.questBoardNailBR { bottom: 10px; right: 12px; }
+
+/* Paper pinned to board */
+.questPaper {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 27px,
+      rgba(180,160,120,0.18) 27px,
+      rgba(180,160,120,0.18) 28px
+    ),
+    linear-gradient(
+      170deg,
+      #fdf6e3 0%,
+      #f9f0d8 40%,
+      #f5ead0 70%,
+      #f9f0d8 100%
+    );
+  border-radius: 3px;
+  padding: clamp(20px, 3vw, 36px) clamp(20px, 3vw, 36px) clamp(24px, 3.5vw, 40px);
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.3),
+    0 1px 3px rgba(0,0,0,0.2),
+    inset 0 0 0 1px rgba(180,150,90,0.15);
+  transform: rotate(-0.6deg);
+}
+
+/* Tape strip across top of paper */
+.questTapeTop {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(1deg);
+  width: 80px;
+  height: 28px;
+  background: rgba(255, 240, 180, 0.65);
+  border: 1px solid rgba(200, 180, 100, 0.4);
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  backdrop-filter: blur(1px);
+}
+
+.questText {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  color: #3a2a10;
+  line-height: 1.55;
   text-align: center;
   letter-spacing: 0.01em;
+  margin: 0;
 }
 
 /* ── Responsive ── */

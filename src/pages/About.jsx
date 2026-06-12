@@ -50,18 +50,18 @@ const SKILLS = [
 const TESTIMONIALS = [
   {
     quote: "One thing I've always appreciated about her is her ability to consistently advocate for the user experience of the product. The way she approached asking her questions invited better discussions that always improved the product — a skill that will benefit her greatly in graduate school.",
-    author: 'Product Lead',
-    role: 'Meta',
+    author: 'Product Designer',
+    role: 'Cocoon',
   },
   {
     quote: "Tiffany was able to translate her knack for design into the technical domain, contributing to high-visibility and high-impact projects. She excelled at expressing complicated ideas through technical documents she presented to the engineering team during all-hands meetings.",
     author: 'Engineering Manager',
-    role: 'Meta',
+    role: 'Cocoon',
   },
   {
     quote: "Her willingness to dive into the technical details by leveraging her natural interest in design is a fantastic quality to have. Overall, Tiffany is a great design-focused engineer, and will do great in any design roles she decides to take on in the future!",
-    author: 'Engineering Manager',
-    role: 'Meta',
+    author: 'Lead Engineer',
+    role: 'Cocoon',
   },
 ]
 

@@ -34,7 +34,8 @@
       "Bash(git commit -m ' *)",
       "mcp__fa197b88-261b-494e-b9ad-ca1a074bfb0c__use_figma",
       "WebFetch(domain:tiffanymao.com)",
-      "WebFetch(domain:doc-0s-0o-slides.googleusercontent.com)"
+      "WebFetch(domain:doc-0s-0o-slides.googleusercontent.com)",
+      "WebFetch(domain:chatgpt.com)"
     ]
   }
 }

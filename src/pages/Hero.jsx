@@ -189,7 +189,7 @@ export default function Hero() {
           </h2>
 
           <p className={styles.bioText}>
-            Product designer and builder who <span className={styles.accent}>researches</span>, <span className={styles.accent}>prototypes</span>,{' '}
+            Designer and builder who <span className={styles.accent}>researches</span>, <span className={styles.accent}>prototypes</span>,{' '}
             and <span className={styles.accent}>ships</span> interactive experiences from concept to code.
             Exploring how small interactions shape what people remember.
           </p>
@@ -198,7 +198,7 @@ export default function Hero() {
           <div className={styles.credRow}>
             <span className={styles.credGroup}>
               <BriefcaseIcon />
-              <span className={styles.credLabel}>Previously at</span>
+              <span className={styles.credLabel}>Previously engineering at</span>
               <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="Meta" className={styles.credLogo} />
               <span className={styles.credLabel}>Meta</span>
               <span className={styles.credCocoon} />

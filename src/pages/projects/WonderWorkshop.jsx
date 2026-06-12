@@ -226,7 +226,8 @@ export default function WonderWorkshop() {
           </section>
 
           {/* The Problem */}
-          <section id="problem" ref={el => { sectionRefs.current['problem'] = el }} className={styles.section}>
+          <section id="problem" ref={el => { sectionRefs.current['problem'] = el }} className={`${styles.section} ${styles.sectionRelative}`}>
+            <img src={`${BASE}/happyhugh.gif`} alt="Hugh character" className={styles.charFloatRight} />
             <span className={styles.sectionLabel}>The Problem</span>
 
             <p className={styles.prose}>
@@ -254,7 +255,8 @@ export default function WonderWorkshop() {
           </section>
 
           {/* The Pivot */}
-          <section id="pivot" ref={el => { sectionRefs.current['pivot'] = el }} className={styles.section}>
+          <section id="pivot" ref={el => { sectionRefs.current['pivot'] = el }} className={`${styles.section} ${styles.sectionRelative}`}>
+            <img src={`${BASE}/Mentordog.gif`} alt="Mentor Dog character" className={`${styles.charFloatRight} ${styles.charFloatRightLow}`} />
             <span className={styles.sectionLabel}>The Pivot</span>
 
             <div className={styles.pivotVisual}>
@@ -451,7 +453,8 @@ export default function WonderWorkshop() {
           </section>
 
           {/* Reflection */}
-          <section id="reflection" ref={el => { sectionRefs.current['reflection'] = el }} className={`${styles.section} ${styles.sectionLast}`}>
+          <section id="reflection" ref={el => { sectionRefs.current['reflection'] = el }} className={`${styles.section} ${styles.sectionLast} ${styles.sectionRelative}`}>
+            <img src={`${BASE}/Puff.gif`} alt="Puff character" className={`${styles.charFloatRight} ${styles.charFloatRightTop}`} />
             <span className={styles.sectionLabel}>Reflection</span>
             <p className={styles.prose}>
               This project required building the wrong version first. The critter battle system was coherent and technically interesting, and we needed to build it before we could see what it was doing to our goals. The clearer lesson: the research case for craft-as-intervention existed before the midterm. The signal was in the literature before we found it in the feedback.
@@ -459,9 +462,18 @@ export default function WonderWorkshop() {
             <p className={styles.prose}>
               What carried through from the original concept was the belief that a digital space can be designed to produce things rather than just consume them. Wonder Workshop is one version of that. The mechanics changed significantly, but the question stayed the same.
             </p>
-            <blockquote className={styles.closingQuote}>
-              What if digital spaces for children were designed not around endless attention capture, but around creativity, confidence, and care?
-            </blockquote>
+            <div className={styles.questBoard} aria-label="Quest board">
+              <div className={styles.questBoardNailTL} />
+              <div className={styles.questBoardNailTR} />
+              <div className={styles.questBoardNailBL} />
+              <div className={styles.questBoardNailBR} />
+              <div className={styles.questPaper}>
+                <div className={styles.questTapeTop} />
+                <p className={styles.questText}>
+                  What if digital spaces for children were designed not around endless attention capture, but around creativity, confidence, and care?
+                </p>
+              </div>
+            </div>
           </section>
 
         </main>

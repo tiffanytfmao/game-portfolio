@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
 import LoadingScreen from './components/LoadingScreen/LoadingScreen'
 import Nav from './components/Nav/Nav'
 import Hero from './pages/Hero'
@@ -91,6 +97,7 @@ export default function App() {
           {muted ? '🔇' : '🔊'}
         </button>
 
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={
             <main>

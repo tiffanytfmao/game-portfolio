@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
 import ProjectCard from '../components/ProjectCard/ProjectCard'
 import styles from './Work.module.css'
+import { asset } from '../utils/asset'
 
 const PROJECTS = [
     {
@@ -10,16 +11,18 @@ const PROJECTS = [
     description: 'Designing a cozy game for children about the slow joy of crafting things by hand.',
     tags: ['Game Design', 'UX/UI', 'Research', 'Children'],
     emoji: '🌱',
+    video: asset('wonder workshop assets/gameplay video 2.mp4'),
     rotate: -1.5,
     category: 'uxui',
   },
   {
-    
+
     id: 'cocoon',
     title: 'Cocoon — Series A Startup',
     description: 'Helping startup HR teams stop drowning in spreadsheets when someone goes on leave.',
     tags: ['UX/UI', 'B2B', 'Startup'],
     emoji: '🌱',
+    image: asset('cocoon assets/cocoon.gif'),
     rotate: -1.5,
     category: 'uxui',
   },
@@ -38,6 +41,7 @@ const PROJECTS = [
     description: 'What if your game controller evolved alongside you?',
     tags: ['Game Design', 'Physical-Digital', 'Research'],
     emoji: '🎮',
+    image: asset('palbit assets/kids using controller v2.png'),
     rotate: -0.8,
     category: 'gamedesign',
   },
@@ -66,7 +70,7 @@ export default function Work() {
             FEATURED WORK
             <span aria-hidden="true">✦</span>
           </p>
-          <h2 className={styles.featuredTitle}>A few things I've designed and shipped</h2>
+          {/*<h2 className={styles.featuredTitle}>A few things I've designed and shipped</h2>*/}
         </div>
 
         {/* Filter tabs */}

@@ -251,7 +251,7 @@
   opacity: 0;
 }
 .inner.visible .bioText {
-  animation: fadeUpIn 0.7s ease-out 5.5s forwards;
+  animation: fadeUpIn 0.7s ease-out 4s forwards;
 }
 
 .accent {
@@ -267,7 +267,7 @@
   opacity: 0;
 }
 .inner.visible .credRow {
-  animation: fadeUpIn 0.7s ease-out 5.9s forwards;
+  animation: fadeUpIn 0.7s ease-out 4.4s forwards;
 }
 
 .credGroup {
@@ -330,7 +330,7 @@
   opacity: 0;
 }
 .inner.visible .bioActions {
-  animation: fadeUpIn 0.7s ease-out 6.2s forwards;
+  animation: fadeUpIn 0.7s ease-out 4.7s forwards;
 }
 
 .primaryBtn {

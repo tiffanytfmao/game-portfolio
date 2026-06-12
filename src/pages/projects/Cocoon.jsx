@@ -248,7 +248,7 @@ export default function Cocoon() {
             </div>
 
             <p className={styles.prose}>
-              Cocoon automates federal and state leave compliance and payroll for People teams at over 50 companies. This was Cocoon's first end-to-end PDL (Pregnancy Disability Leave) product — built greenfield in 6 weeks with no prior internal reference. I was the first dedicated designer on the feature and simultaneously a front-end engineer shipping its components.
+              Cocoon automates federal and state leave compliance and payroll for People teams at over 50 companies. This was Cocoon's first end-to-end PDL (Pregnancy Disability Leave) product. I was the first dedicated designer on the feature and simultaneously a front-end engineer shipping its components.
             </p>
             <a
               href="https://www.linkedin.com/posts/at-cocoon-were-all-about-pushing-the-boundaries-share-7232836636621815810-ImsP/"
@@ -476,7 +476,7 @@ export default function Cocoon() {
                 <ul className={styles.reflectionList}>
                   <li>Principles as decision filters. Every tradeoff went back to the 4 principles — kept debates short without escalation.</li>
                   <li>The dual design-engineer role was worth the complexity. Building what I designed surfaced edge cases no Figma prototype could have caught.</li>
-                  <li>Design for the emotion, not just the task. PDL isn't a workflow — it's a life event. The best decisions came from that framing.</li>
+                  <li>Design for the emotion, not just the task. The best decisions came from that framing.</li>
                 </ul>
               </div>
             </div>

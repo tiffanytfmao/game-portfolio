@@ -1,9 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
+import ReactGA from 'react-ga4'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    ReactGA.send({ hitType: 'pageview', page: pathname })
+  }, [pathname])
   return null
 }
 import LoadingScreen from './components/LoadingScreen/LoadingScreen'

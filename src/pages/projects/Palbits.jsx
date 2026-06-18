@@ -231,7 +231,6 @@ export default function Palbits() {
                     <li>Concept ideation &amp; interaction design direction</li>
                     <li>Led all user research sessions</li>
                     <li>Synthesized findings into design pivots</li>
-                    <li>AI-assisted visual mockups</li>
                   </ul>
                 </div>
                 <div>

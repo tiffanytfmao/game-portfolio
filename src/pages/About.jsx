@@ -30,7 +30,7 @@ const TIMELINE = [
     year: '2021',
     title: 'iOS Software Engineering Intern',
     org: 'Meta',
-    desc: "Front End Engineering for Facebook's Meta <-> Facebook content creation team.",
+    desc: "Front End Engineering for Facebook's Facebook ↔ Instagram content creation team.",
     tags: ['Frontm End', 'Accessibility', 'Mobile'],
   },
   {

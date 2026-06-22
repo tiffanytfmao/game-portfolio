@@ -243,15 +243,17 @@
   animation: blinkCursor 0.7s step-end infinite;
 }
 
-/* ── Body text — delayed until after headline typewriter ── */
+/* ── Body text — revealed once the headline typewriter finishes
+   (line2Done in Hero.jsx), not on a fixed clock, so it can't fire before
+   or long after the typing actually completes. ── */
 .bioText {
   font-size: var(--text-md);
   line-height: 1.65;
   color: var(--color-text-muted);
   opacity: 0;
 }
-.inner.visible .bioText {
-  animation: fadeUpIn 0.7s ease-out 5.1s forwards;
+.bioTextVisible {
+  animation: fadeUpIn 0.5s ease-out forwards;
 }
 
 .accent {
@@ -266,8 +268,8 @@
   flex-wrap: wrap;
   opacity: 0;
 }
-.inner.visible .credRow {
-  animation: fadeUpIn 0.7s ease-out 5.5s forwards;
+.credRowVisible {
+  animation: fadeUpIn 0.5s ease-out 0.15s forwards;
 }
 
 .credGroup {
@@ -329,8 +331,8 @@
   align-items: center;
   opacity: 0;
 }
-.inner.visible .bioActions {
-  animation: fadeUpIn 0.7s ease-out 5.8s forwards;
+.bioActionsVisible {
+  animation: fadeUpIn 0.5s ease-out 0.3s forwards;
 }
 
 .primaryBtn {

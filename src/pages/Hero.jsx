@@ -7,7 +7,7 @@ import styles from './Hero.module.css'
 
 const HEADLINE_1 = 'I prototype feelings'
 const HEADLINE_2 = 'through interaction, motion, and '
-const CHAR_DELAY = 50
+const CHAR_DELAY = 38
 
 const STAGE_MESSAGES = [
   "Piggy seems interested in you.",
@@ -55,50 +55,93 @@ const PAW_TRAIL = [
   { x: 30, y: 79, r: 92 },
 ]
 
-function useTypewriter(text, triggerKey, delayMs = 500, onComplete) {
-  const [typed, setTyped]           = useState('')
+function useTypewriter(text, triggerKey, delayMs = 500, onComplete, holdMs = 900) {
+  const [count, setCount]           = useState(0)
   const [showCursor, setShowCursor] = useState(false)
   const timerRef = useRef(null)
+  const rafRef = useRef(null)
 
   useEffect(() => {
     if (!triggerKey) return
     clearTimeout(timerRef.current)
-    setTyped('')
+    cancelAnimationFrame(rafRef.current)
+    setCount(0)
     setShowCursor(false)
 
     timerRef.current = setTimeout(() => {
       setShowCursor(true)
-      let i = 0
-      const tick = () => {
-        i++
-        setTyped(text.slice(0, i))
+      let elapsed = 0
+      let last = null
+
+      const frame = (now) => {
+        // Only accumulate time while the tab is actually visible, so
+        // returning to a backgrounded tab resumes smoothly instead of
+        // jumping straight to the end. Skip accumulation on the very first
+        // frame — `last` would otherwise be the time the timer fired, not
+        // the time the browser actually got around to painting, and any
+        // gap between those two (scheduling delay, main-thread work) would
+        // get counted as already-elapsed typing time.
+        if (last !== null && !document.hidden) elapsed += now - last
+        last = now
+
+        const i = Math.min(text.length, Math.floor(elapsed / CHAR_DELAY) + 1)
+        setCount(i)
+
         if (i < text.length) {
-          timerRef.current = setTimeout(tick, CHAR_DELAY)
+          rafRef.current = requestAnimationFrame(frame)
         } else {
           timerRef.current = setTimeout(() => {
             setShowCursor(false)
             onComplete?.()
-          }, 900)
+          }, holdMs)
         }
       }
-      tick()
+      rafRef.current = requestAnimationFrame(frame)
     }, delayMs)
 
-    return () => clearTimeout(timerRef.current)
+    return () => {
+      clearTimeout(timerRef.current)
+      cancelAnimationFrame(rafRef.current)
+    }
   }, [triggerKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  return [typed, showCursor]
+  return [count, showCursor]
 }
 
-export default function Hero() {
+// Renders the full text up front (so line-wrapping is computed once and
+// never reflows mid-animation) and reveals characters via opacity instead
+// of growing the string, which avoids the layout jitter that comes from
+// the browser re-wrapping lines as partial words change width.
+function TypedText({ text, count, showCursor }) {
+  const nodes = []
+  for (let idx = 0; idx <= text.length; idx++) {
+    if (showCursor && idx === count) {
+      nodes.push(<span key={`cursor-${idx}`} className={styles.cursor} aria-hidden="true" />)
+    }
+    if (idx < text.length) {
+      nodes.push(
+        <span key={idx} style={{ opacity: idx < count ? 1 : 0 }} aria-hidden="true">
+          {text[idx]}
+        </span>
+      )
+    }
+  }
+  return nodes
+}
+
+export default function Hero({ active = true }) {
   const [ref, inView] = useInView()
 
   // ── Headline typewriter (two lines, sequential) ──
+  // Gated on `active` (not just `inView`) because Hero is mounted and
+  // already in the viewport while the LoadingScreen overlay is up — it's
+  // only hidden via opacity, so the typewriter would otherwise run its
+  // whole course underneath the overlay and finish before it's visible.
   const [line2Trigger, setLine2Trigger] = useState(0)
-  const [line1Typed, showLine1Cursor] = useTypewriter(HEADLINE_1, inView ? 1 : 0, 500, () => setLine2Trigger(t => t + 1))
-  const [line2Typed, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0)
+  const [line1Count, showLine1Cursor] = useTypewriter(HEADLINE_1, (inView && active) ? 1 : 0, 650, () => setLine2Trigger(t => t + 1), 300)
+  const [line2Count, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0, undefined, 400)
 
-  const line2Done = line2Typed.length === HEADLINE_2.length
+  const line2Done = line2Count === HEADLINE_2.length
 
   // ── Pet mini-game ──
   const [hasPetted, setHasPetted]   = useState(false)
@@ -120,11 +163,11 @@ export default function Hero() {
     fadeTimerRef.current = setTimeout(() => setMsgFading(true), 2000)
   }, [])
 
-  const [stageTyped, showStageCursor] = useTypewriter(stageMsg, burstCount, 200, handleMsgComplete)
+  const [stageCount, showStageCursor] = useTypewriter(stageMsg, burstCount, 200, handleMsgComplete)
 
   return (
     <section id="hero" className={`${styles.hero} texture-dots`} ref={ref}>
-      <div className={`${styles.inner} ${inView ? styles.visible : ''}`}>
+      <div className={`${styles.inner} ${(inView && active) ? styles.visible : ''}`}>
 
         {/* ── Left: portrait panel ── */}
         <aside className={styles.portraitPanel}>
@@ -164,9 +207,9 @@ export default function Hero() {
               <p
                 className={`${styles.stageMsg} ${msgFading ? styles.stageMsgFading : ''}`}
                 aria-live="polite"
+                aria-label={stageMsg}
               >
-                {stageTyped}
-                {showStageCursor && <span className={styles.cursor} aria-hidden="true" />}
+                <TypedText text={stageMsg} count={stageCount} showCursor={showStageCursor} />
               </p>
             )}
           </div>
@@ -178,24 +221,25 @@ export default function Hero() {
 
           <h2 className={styles.bioHeadline} aria-label={`${HEADLINE_1} ${HEADLINE_2}play.`}>
             <span className={styles.headlineLine}>
-              {line1Typed}{showLine1Cursor && <span className={styles.cursor} aria-hidden="true" />}
+              <TypedText text={HEADLINE_1} count={line1Count} showCursor={showLine1Cursor} />
             </span>
             <span className={styles.headlineLine}>
-              {line2Typed}
-              {/* "play." is always in DOM to avoid layout shift; fades in when typing finishes */}
+              {/* HEADLINE_2 + "play." are both always rendered in full (revealed via
+                  per-character opacity) so the browser computes line-wrapping once
+                  up front instead of re-wrapping as the typed string grows. */}
+              <TypedText text={HEADLINE_2} count={line2Count} showCursor={showLine2Cursor} />
               <span className={`${styles.squiggleWord} ${line2Done ? styles.squiggleVisible : ''}`}>play.</span>
-              {showLine2Cursor && <span className={styles.cursor} aria-hidden="true" />}
             </span>
           </h2>
 
-          <p className={styles.bioText}>
+          <p className={`${styles.bioText} ${line2Done ? styles.bioTextVisible : ''}`}>
             Designer and builder who <span className={styles.accent}>researches</span>, <span className={styles.accent}>prototypes</span>,{' '}
             and <span className={styles.accent}>ships</span> interactive experiences from concept to code.
             Exploring how small interactions shape what people remember.
           </p>
 
           {/* Credential row */}
-          <div className={styles.credRow}>
+          <div className={`${styles.credRow} ${line2Done ? styles.credRowVisible : ''}`}>
             <span className={styles.credGroup}>
               <BriefcaseIcon />
               <span className={styles.credLabel}>Previously engineering at</span>
@@ -213,7 +257,7 @@ export default function Hero() {
             </span>
           </div>
 
-          <div className={styles.bioActions}>
+          <div className={`${styles.bioActions} ${line2Done ? styles.bioActionsVisible : ''}`}>
             <a href="#work" className={styles.primaryBtn} onClick={e => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) }}>
               See my work
               <span className={styles.btnArrow}>→</span>

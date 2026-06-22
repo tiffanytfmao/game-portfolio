@@ -105,7 +105,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={
             <main>
-              <Hero />
+              <Hero active={!loading} />
               <Work />
               <About />
               <Playground />

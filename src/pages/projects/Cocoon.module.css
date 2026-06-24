@@ -427,8 +427,8 @@
   margin-bottom: var(--space-5);
 }
 .overviewGif {
-  width: 100%;
-  max-width: 720px;
+  width: 90%;
+  max-width: 648px;
   height: auto;
   display: block;
   border-radius: var(--radius-md);
@@ -525,8 +525,7 @@
   padding: var(--space-5) var(--space-6);
   background: var(--color-bg-offwhite);
   border: 1px solid var(--color-border);
-  border-left: 4px solid var(--cocoon-green);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  border-radius: var(--radius-md);
 }
 .gapMain {
   display: flex;
@@ -798,7 +797,7 @@
   align-items: start;
   margin-bottom: var(--space-8);
 }
-.finalFig { margin: 0; }
+.finalFig { margin: var(--space-10) 0 0; }
 .finalImg {
   width: 100%;
   border-radius: var(--radius-md);
@@ -816,11 +815,19 @@
 .finalScreenDesc { font-size: var(--text-sm); line-height: 1.6; color: var(--color-text-muted); }
 
 .fullFinal {
-  width: 100%;
+  width: 90%;
+  margin-inline: auto;
   border-radius: var(--radius-md);
   display: block;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-3);
   object-fit: contain;
+}
+.finalCaption {
+  width: 90%;
+  margin-inline: auto;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 /* ── Reflection ── */

@@ -13,7 +13,6 @@ const SECTIONS = [
   { id: 'challenge',   label: 'Design Challenge' },
   { id: 'principles',  label: 'Principles' },
   { id: 'decisions',   label: 'Design Decisions' },
-  { id: 'engineering', label: 'Design + Eng' },
   { id: 'final',       label: 'Final Design' },
   { id: 'reflection',  label: 'Reflection' },
 ]
@@ -56,7 +55,7 @@ const PRINCIPLES = [
   },
   {
     title: 'Fit the Existing Architecture',
-    body: 'PDL must integrate, not rebuild, the existing leave engine. Design scope cannot outpace engineering capacity.',
+    body: "PDL had to work within the existing leave engine. We didn't have room for a rebuild, so design scope stayed tied to what engineering could actually ship.",
   },
 ]
 
@@ -64,55 +63,27 @@ const DECISIONS = [
   {
     num: 'D1',
     title: 'Progressive SHC Disclosure',
-    options: 'Option A: All SHC fields at intake  ·  Option B: Contextual 3-step disclosure',
-    body: 'Compliance forms are dense. Presenting all SHC fields at intake puts the heaviest cognitive load on employees at the worst possible moment. We split the form into 3 contextual steps, surfacing each field only when it was relevant to what the employee had just entered.',
-    tradeoff: 'More engineering states to manage.',
-    result: 'Zero form abandonment in design review.',
+    body: 'Compliance forms are dense, and presenting every SHC field at intake would put the heaviest cognitive load on employees at exactly the wrong moment. We split the form into three contextual steps, surfacing each field only when it was relevant to what the employee had already entered. That meant more engineering states to manage than a single flat form would have needed, but I decided to reduce the load by using a simple theme-wrapped json form that was already a dependency.',
     img: `${BASE}/flow%201.png`,
   },
   {
     num: 'D2',
-    title: 'Separate HR and Employee Views',
-    options: 'Option A: Single shared dashboard  ·  Option B: Two views, one data model',
-    body: 'HR needs edit and approve controls. Employees need status and pay estimates. The actions, permissions, and compliance stakes are completely different. Combining them into one view would require hiding critical controls from one audience while exposing them to the other — a compliance risk, not just a UX one.',
-    tradeoff: 'Double the design surface.',
-    result: 'Each audience gets exactly the context and controls they need.',
+    title: 'Keeping Approval With Employers for Scale',
+    body: "HR already had its own dedicated view, separate from the employee one. The real question was where leave approval itself should happen. We pushed that decision out to the employer's existing view instead of building approval inside our own product. That meant adding new UI elements to an interface we didn't fully own, but it kept the system scalable as we onboarded more companies, rather than routing every approval back through us.",
     img: `${BASE}/flow%202.png`,
   },
   {
     num: 'D3',
     title: 'Estimated Pay Visibility',
-    options: 'Option A: Hide estimates until approved  ·  Option B: Show range early with caveats',
-    body: 'Uncertainty about pay is the core emotional driver of leave-related anxiety. Withholding an estimate until formal approval prioritizes legal caution at the expense of the employee\'s ability to plan their life. We surfaced a pay range early, clearly labeled "Estimated — subject to approval authority," with an expandable disclaimer. Legal signed off on the framing.',
-    tradeoff: 'Required legal negotiation on labeling.',
-    result: 'Employees can plan financially from day one.',
+    body: 'Uncertainty about pay is the core emotional driver of leave-related anxiety. We surfaced a pay range early, clearly labeled "Estimated — subject to approval authority," with an expandable disclaimer.',
     img: `${BASE}/flow%203.png`,
-  },
-]
-
-const ENG_POINTS = [
-  {
-    title: 'Designed for real constraints',
-    body: 'Knowing the component architecture meant no specs requiring a full refactor. I worked within the existing leave-claim tree — design stayed buildable throughout.',
-  },
-  {
-    title: 'Caught edge cases early',
-    body: 'Building the SHC step component surfaced a name-field pre-population bug in Week 3 — before it could have caused a live SHC rejection for a real employee.',
-  },
-  {
-    title: 'Faster iteration loop',
-    body: 'I could prototype in code rather than waiting for engineering capacity. This cut the review cycle from 5 days to same-day for low-risk components.',
-  },
-  {
-    title: 'Earned engineering trust',
-    body: 'Being in the codebase gave design decisions credibility. They were discussed as shared engineering problems, not designer asks.',
   },
 ]
 
 const FINAL_SCREENS = [
   {
     label: '① Personalized landing',
-    desc: 'Plan in private — no HR notification until submitted.',
+    desc: 'Plan in private, no HR notification until submitted.',
   },
   {
     label: '② Leave timeline planner',
@@ -182,7 +153,7 @@ export default function Cocoon() {
         <div className={styles.heroTextCol}>
           <div className={styles.heroEyebrow}>Product design</div>
           <h1 className={styles.heroHeading}>Leave,<br /><em>designed</em><br />with care.</h1>
-          <p className={styles.heroDesc}>A parental leave planning tool that turns a confusing, stressful process into something clear and humane — from first due date to first day back.</p>
+          <p className={styles.heroDesc}>A series A startup building a parental leave planning tool that turns a confusing, stressful process into something clear and humane.</p>
           <div className={styles.heroTags}>
             {TAGS.map(t => <span key={t} className={styles.heroTag}>{t}</span>)}
           </div>
@@ -286,9 +257,6 @@ export default function Cocoon() {
                   </ul>
                 </div>
               </div>
-              <div className={styles.stakes}>
-                PDL is legally sensitive and personally charged. Getting it wrong meant compliance risk for clients and real harm to employees at a vulnerable life moment.
-              </div>
             </div>
             <img
               src={`${BASE}/cocoon.gif`}
@@ -300,9 +268,9 @@ export default function Cocoon() {
           {/* Problem */}
           <section id="problem" ref={el => { sectionRefs.current['problem'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>The Problem</span>
-            <h2 className={styles.sectionHeading}>Three structural gaps, not UI problems.</h2>
+            <h2 className={styles.sectionHeading}>Three structural gaps were quietly creating overhead for the company, employers, and the employees stuck in the middle.</h2>
             <p className={styles.prose}>
-              Pregnancy Disability Leave is a separate legal entitlement from parental leave, but Cocoon's system handled it ambiguously. The gaps weren't cosmetic — they were structural failures in how SHC forms, approvals, and employee visibility were handled.
+              Pregnancy Disability Leave is a separate legal entitlement from parental leave, but Cocoon's system handled it ambiguously. Rather than a simple UI fix, the real issues were structural failures in how SHC forms, approvals, and employee visibility were handled.
             </p>
 
             <div className={styles.gaps}>
@@ -324,7 +292,7 @@ export default function Cocoon() {
           {/* Discovery */}
           <section id="discovery" ref={el => { sectionRefs.current['discovery'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Discovery</span>
-            <h2 className={styles.sectionHeading}>I started with what I didn't know.</h2>
+            <h2 className={styles.sectionHeading}>Before sketching anything, I needed to understand PDL well enough to know what I was even designing for.</h2>
 
             <div className={styles.discoveryGrid}>
               <div className={styles.discoveryCard}>
@@ -339,10 +307,9 @@ export default function Cocoon() {
               </div>
             </div>
 
-            <div className={styles.insightBlock}>
-              <span className={styles.insightLabel}>Key Insight</span>
-              <p className={styles.insightText}>SHC forms, leave approval, and the employee's mental model were three completely separate systems — with no handshake between them.</p>
-            </div>
+            <p className={styles.prose}>
+              SHC forms, leave approval, and the employee's mental model were three completely separate systems, with no handshake between them.
+            </p>
 
             <div className={styles.artifactRow}>
               <figure className={styles.artifactFig}>
@@ -360,12 +327,12 @@ export default function Cocoon() {
           <section id="challenge" ref={el => { sectionRefs.current['challenge'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Design Challenge</span>
             <blockquote className={styles.hmw}>
-              How might we support pregnancy disability leave from start to end — so employees feel confident, not lost?
+              How might we support pregnancy disability leave from start to end, so employees never feel like they're navigating it alone?
             </blockquote>
             <div className={styles.hmwSubs}>
               <p className={styles.hmwSub}>HMW inform employees of what they need to submit to unlock their full leave entitlement?</p>
               <p className={styles.hmwSub}>HMW make leave approval visible and auditable for HR admins, without adding ops burden?</p>
-              <p className={styles.hmwSub}>HMW give employees a live timeline so they feel empowered, not abandoned, during their leave?</p>
+              <p className={styles.hmwSub}>HMW give employees a live timeline that keeps them in the loop the whole way through?</p>
             </div>
           </section>
 
@@ -373,7 +340,7 @@ export default function Cocoon() {
           <section id="principles" ref={el => { sectionRefs.current['principles'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Design Principles</span>
             <h2 className={styles.sectionHeading}>Before sketching, we aligned on filters.</h2>
-            <p className={styles.prose}>These were decision filters I returned to every time I hit a tradeoff. Not aspirational values — actual constraints that shaped what got built.</p>
+            <p className={styles.prose}>These were decision filters I came back to every time I hit a tradeoff.</p>
 
             <div className={styles.principlesGrid}>
               {PRINCIPLES.map(p => (
@@ -388,7 +355,7 @@ export default function Cocoon() {
           {/* Design Decisions */}
           <section id="decisions" ref={el => { sectionRefs.current['decisions'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Design Decisions</span>
-            <h2 className={styles.sectionHeading}>Three decisions that shaped the product.</h2>
+            <h2 className={styles.sectionHeading}>Key design decisions that shaped what shipped.</h2>
 
             {DECISIONS.map(d => (
               <div key={d.num} className={styles.decision}>
@@ -398,18 +365,7 @@ export default function Cocoon() {
                 </div>
                 <div className={styles.decisionSplit}>
                   <div className={styles.decisionText}>
-                    <p className={styles.decisionOptions}>{d.options}</p>
                     <p className={styles.prose}>{d.body}</p>
-                    <div className={styles.decisionOutcomes}>
-                      <div className={styles.outcomeItem}>
-                        <span className={styles.outcomeKey}>Tradeoff</span>
-                        <span className={styles.outcomeVal}>{d.tradeoff}</span>
-                      </div>
-                      <div className={styles.outcomeItem}>
-                        <span className={styles.outcomeKey}>Result</span>
-                        <span className={styles.outcomeVal}>{d.result}</span>
-                      </div>
-                    </div>
                   </div>
                   <img src={d.img} alt={d.title} className={styles.decisionImg} />
                 </div>
@@ -417,69 +373,39 @@ export default function Cocoon() {
             ))}
           </section>
 
-          {/* Design + Engineering */}
-          <section id="engineering" ref={el => { sectionRefs.current['engineering'] = el }} className={styles.section}>
-            <span className={styles.sectionLabel}>Design + Engineering</span>
-            <h2 className={styles.sectionHeading}>I designed it. Then I built it.</h2>
-            <p className={styles.prose}>
-              Shipping the components myself closed the gap between design intent and implementation reality. What I learned building fed back into how I designed.
-            </p>
-
-            <div className={styles.engGrid}>
-              {ENG_POINTS.map(e => (
-                <div key={e.title} className={styles.engCard}>
-                  <p className={styles.engTitle}>{e.title}</p>
-                  <p className={styles.engBody}>{e.body}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
           {/* Final Design */}
           <section id="final" ref={el => { sectionRefs.current['final'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Final Design</span>
             <h2 className={styles.sectionHeading}>Milestone 1: The employee leave planner.</h2>
 
-            <div className={styles.finalGrid}>
-              <figure className={styles.finalFig}>
-                <img src={`${BASE}/final%201.png`} alt="Final design screen 1" className={styles.finalImg} />
-              </figure>
-              <div className={styles.finalScreenList}>
-                {FINAL_SCREENS.map(s => (
-                  <div key={s.label} className={styles.finalScreenItem}>
-                    <p className={styles.finalScreenLabel}>{s.label}</p>
-                    <p className={styles.finalScreenDesc}>{s.desc}</p>
-                  </div>
-                ))}
-              </div>
+            <div className={styles.finalScreenList}>
+              {FINAL_SCREENS.map(s => (
+                <div key={s.label} className={styles.finalScreenItem}>
+                  <p className={styles.finalScreenLabel}>{s.label}</p>
+                  <p className={styles.finalScreenDesc}>{s.desc}</p>
+                </div>
+              ))}
             </div>
 
-            <img src={`${BASE}/full%20final%201.png`} alt="Full final design view 1" className={styles.fullFinal} />
-            <img src={`${BASE}/full%20final%202.png`} alt="Full final design view 2" className={styles.fullFinal} />
+            <figure className={styles.finalFig}>
+              <img src={`${BASE}/cocoon.gif`} alt="Cocoon product walkthrough" className={styles.fullFinal} />
+              <figcaption className={styles.finalCaption}>Walkthrough of launched PDL planner.</figcaption>
+            </figure>
           </section>
 
           {/* Reflection */}
           <section id="reflection" ref={el => { sectionRefs.current['reflection'] = el }} className={`${styles.section} ${styles.sectionLast}`}>
             <span className={styles.sectionLabel}>Reflection</span>
 
-            <div className={styles.reflectionGrid}>
-              <div className={styles.reflectionCol}>
-                <p className={styles.reflectionColHead}>What I'd do differently</p>
-                <ul className={styles.reflectionList}>
-                  <li>Test with employees who had direct lived experience earlier. Proxy users weren't emotionally authentic — the anxiety dimension needed that perspective to design for accurately.</li>
-                  <li>Push harder on metric instrumentation pre-launch. We relied on client feedback rather than behavioral data. I'd instrument before shipping.</li>
-                  <li>Scope one more week for legal review. The compliance sign-off cycle compressed the build phase in ways that were hard to recover from.</li>
-                </ul>
-              </div>
-              <div className={styles.reflectionCol}>
-                <p className={styles.reflectionColHead}>What I'd carry forward</p>
-                <ul className={styles.reflectionList}>
-                  <li>Principles as decision filters. Every tradeoff went back to the 4 principles — kept debates short without escalation.</li>
-                  <li>The dual design-engineer role was worth the complexity. Building what I designed surfaced edge cases no Figma prototype could have caught.</li>
-                  <li>Design for the emotion, not just the task. The best decisions came from that framing.</li>
-                </ul>
-              </div>
-            </div>
+            <p className={styles.prose}>
+              <strong>Deciding trade-off priorities first made the biggest difference.</strong> Every time a tradeoff came up, we went back to them, and that kept debates short instead of letting them escalate.
+            </p>
+            <p className={styles.prose}>
+              <strong>Being both the designer and the engineer added complexity, but it was worth it.</strong> Building the components I'd designed surfaced edge cases no Figma prototype would have caught, and it kept reminding me to design for the emotion underneath each task, not just the task itself.
+            </p>
+            <p className={styles.prose}>
+              <strong>The one thing I'd change is when we brought in real users.</strong> We tested with proxies early on, and looking back, the anxiety employees feel during leave isn't something proxies can fake. I'd bring in people with lived experience much sooner next time.
+            </p>
           </section>
 
         </main>

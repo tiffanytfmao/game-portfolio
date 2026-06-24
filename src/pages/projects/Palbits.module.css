@@ -742,6 +742,19 @@
   border: none;
   background: var(--color-bg-parchment);
 }
+.decisionFig {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.decisionFig .decisionImg { margin: 0; }
+.decisionCaption {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-text-light);
+  text-align: center;
+}
 
 /* ── Placeholder ── */
 .placeholder {

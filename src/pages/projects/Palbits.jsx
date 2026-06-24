@@ -23,19 +23,17 @@ const PROTOTYPES = [
     num: '01',
     title: 'Cosmetic Evolution',
     img: `${BASE}/initial%20concept%201.png`,
-    caption: 'Concept 1 — controller grows cosmetic parts as you level up',
-    what: 'The controller grew horns as players leveled up — cosmetic parts that deployed from the body.',
-    feedback: 'Kids liked how it looked, but nothing about the interaction felt earned. The parts appeared passively.',
-    revealed: 'Fun means accomplishment, not decoration. Progress has to feel like it was won.',
+    caption: 'Concept 1, controller grows cosmetic parts as you level up',
+    what: 'I designed the controller to grow horns as players leveled up, cosmetic parts that deployed automatically from the body once a threshold was hit.',
+    feedback: 'Users in testing thought it looked cool, but felt the evolving interaction too strictly limited what the game could be.',
   },
   {
     num: '02',
     title: 'Difficulty Escalation',
     img: `${BASE}/initial%20concept%202.png`,
-    caption: 'Concept 2 — parts detach as trophies as you progress',
+    caption: 'Concept 2, parts detach as trophies as you progress',
     what: 'Parts physically detached as players progressed. The removed pieces became a trophy to keep.',
-    feedback: 'The interaction read as the controller breaking, not rewarding. It created frustration.',
-    revealed: 'Progress you can hold was the right idea. The form and interaction just needed to work with the player, not against them.',
+    feedback: 'The interaction read as the controller breaking, not rewarding. It created frustration. Progress you can hold was the right idea. The form and interaction just needed to work with the player, not against them.',
   },
 ]
 
@@ -43,34 +41,28 @@ const DECISIONS = [
   {
     num: 'D1',
     title: 'Physical bits, not digital badges',
-    options: 'Option A: Digital-only progression  ·  Option B: Insertable physical bits',
-    body: 'Digital badges are invisible to everyone but the player. A physical bit that slots into the controller can be shown to a friend, compared, even traded. For children 8–12, whose play is intensely social and whose pride is externally performed, that difference in materiality changes the emotional weight of earning something.',
-    insight: 'If you can hold progress, you can share it. That shifts accomplishment from a private notification to a social moment.',
+    body: 'A digital badge only exists on a screen the player is looking at. A physical bit that slots into the controller can be shown to a friend, compared, even traded. For children 8–12, whose play is intensely social and whose pride is externally performed, that difference in materiality changes the emotional weight of earning something.',
     img: `${BASE}/prototype.png`,
   },
   {
     num: 'D2',
     title: 'Discrete milestones, not continuous progress',
-    options: 'Option A: Progress meter that fills continuously  ·  Option B: Defined snap-in evolution points',
-    body: 'A continuously filling bar teaches optimization. Defined milestones create discrete moments — a new bit snaps in and something visibly changes. The controller looks different. Testing showed kids responded to the arrival of a milestone as an event, not a metric.',
-    insight: 'Milestones feel like achievements. A filling meter feels like a job.',
+    body: 'A continuously filling bar teaches optimization. Defined milestones create discrete moments, a new bit snaps in and something visibly changes. The controller looks different. Testing showed kids responded to the arrival of a milestone as an event, not a metric. Milestones feel like achievements; a filling meter feels like a job.',
     img: `${BASE}/gemini%20mockup.png`,
   },
   {
     num: 'D3',
     title: 'Customization as autonomy, not cosmetics',
-    options: 'Option A: Predetermined visual upgrades  ·  Option B: Player-shaped identity',
-    body: 'Every Palbit can be personalized. The design intent was to give children ownership over what their progression looked like — not the game\'s version of their progress, but their version. Research into child development showed autonomy and self-expression at this age group aren\'t nice-to-haves; they\'re how kids form identity and confidence.',
-    insight: 'When kids own what their controller looks like, they own what they\'ve achieved.',
+    body: 'Every Palbit can be personalized. The design intent was to give children ownership over what their progression looked like, not the game\'s version of their progress, but their version. Research into child development showed autonomy and self-expression at this age group aren\'t nice-to-haves; they\'re how kids form identity and confidence. When kids own what their controller looks like, they own what they\'ve achieved.',
     img: `${BASE}/kids%20using%20controller%20v2.png`,
+    caption: 'Gemini generated mockups of potential controller use',
   },
   {
     num: 'D4',
     title: 'Social visibility as a core feature',
-    options: 'Option A: Private progression  ·  Option B: Visible upgrades built for peer demonstration',
-    body: 'The bits are visible on the outside of the controller. That\'s a deliberate choice. For children 8–12, gaming is fundamentally social. Showing a friend your bits, comparing configurations, demonstrating a new unlock — these are part of the reward loop. Visibility isn\'t a side effect of the physical form; it\'s why the physical form matters.',
-    insight: 'The social layer wasn\'t added later. It was load-bearing from the start.',
+    body: 'The bits are visible on the outside of the controller. That\'s a deliberate choice. For children 8–12, gaming is fundamentally social. Showing a friend your bits, comparing configurations, demonstrating a new unlock, these are part of the reward loop. The social layer wasn\'t added later. It was load-bearing from the start.',
     img: `${BASE}/kids%20using%20controller.png`,
+    caption: 'Gemini generated mockups of potential controller use',
   },
 ]
 
@@ -129,7 +121,7 @@ export default function Palbits() {
             <div className={styles.heroEyebrow}>Game Design · Physical-Digital</div>
             <h1 className={styles.heroTitle}>Pal<span className={styles.heroAccent}>bits</span></h1>
             <div className={styles.heroRule} />
-            <p className={styles.heroTagline}>What if the thing in your hands grew alongside the game?</p>
+            <p className={styles.heroTagline}>What if the controller in your hands grew alongside the game?</p>
             <div className={styles.heroMetaRow}>
               <div className={styles.heroMetaItem}>
                 <span className={styles.heroMetaLabel}>Year</span>
@@ -209,7 +201,7 @@ export default function Palbits() {
           <section id="overview" ref={el => { sectionRefs.current['overview'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Overview</span>
             <h1 className={styles.projectTitle}>Palbits</h1>
-            <p className={styles.tagline}>What if the thing in your hands grew alongside the game?</p>
+            <p className={styles.tagline}>What if the controller in your hands grew alongside the game?</p>
 
             <div className={styles.metaRow}>
               <div className={styles.metaItem}><span className={styles.metaKey}>Year</span><span className={styles.metaVal}>2025</span></div>
@@ -219,7 +211,7 @@ export default function Palbits() {
             </div>
 
             <p className={styles.prose}>
-              Palbits is a physical-digital controller system where insertable collectible "bits" evolve as players progress through games. It started with a provocation — game controllers are one of the few objects kids interact with for hundreds of hours that carry no memory of the journey — and ended somewhere unexpected: in child development psychology, 3D printing iterations, and a pivot that found the concept's true audience.
+              Palbits is a <strong>physical-digital controller system</strong> where insertable collectible "bits" evolve as players progress through games. It started from a simple brief: <strong>design a unique controller</strong>. Immediately, a concept came to me. Kids spend hundreds of hours holding a controller, and yet no controller on the market had been designed to show signs of those hours. Well, what if it did? We didn't know yet what the answer looked like. It took two failed prototypes, child development psychology, 3D printing iterations, and a pivot away from our original audience to find it.
             </p>
 
             <div className={styles.roleBlock}>
@@ -237,8 +229,6 @@ export default function Palbits() {
                   <span className={styles.sectionLabel}>Team</span>
                   <ul className={styles.roleList}>
                     <li>2 MDes collaborators</li>
-                    <li>Physical prototyping &amp; CAD (Fusion 360)</li>
-                    <li>3D printing iterations</li>
                   </ul>
                 </div>
               </div>
@@ -253,7 +243,7 @@ export default function Palbits() {
               Every part of a game grows with you. Your character levels up, your inventory fills, your world expands. The controller in your hands stays exactly as it was on day one.
             </p>
             <p className={styles.prose}>
-              We started asking: what if it didn't?
+              That asymmetry was the whole project, before we even knew what to build around it.
             </p>
 
             <blockquote className={styles.hmw}>
@@ -283,7 +273,7 @@ export default function Palbits() {
           <section id="prototypes" ref={el => { sectionRefs.current['prototypes'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Prototyping</span>
             <p className={styles.prose}>
-              We built two physical prototypes before arriving at the final system. Both were 3D printed. Both received positive reactions in testing. Both had meaningful shortcomings that only became visible once something was in kids' hands.
+              We built two physical prototypes before arriving at the final system. Both were 3D printed. Both received positive reactions in testing. Both had meaningful shortcomings that only became visible once something was in users' hands.
             </p>
 
             <div className={styles.protoGrid}>
@@ -299,29 +289,22 @@ export default function Palbits() {
                       <h3 className={styles.protoTitle}>{p.title}</h3>
                     </div>
                     <p className={styles.protoWhat}>{p.what}</p>
-                    <div className={styles.protoRow}>
-                      <div className={styles.protoBlock}>
-                        <span className={styles.protoBlockLabel}>Feedback</span>
-                        <p className={styles.protoBlockText}>{p.feedback}</p>
-                      </div>
-                      <div className={`${styles.protoBlock} ${styles.protoBlockAccent}`}>
-                        <span className={styles.protoBlockLabel}>What it revealed</span>
-                        <p className={styles.protoBlockText}>{p.revealed}</p>
-                      </div>
+                    <div className={styles.protoBlock}>
+                      <span className={styles.protoBlockLabel}>What I Learned</span>
+                      <p className={styles.protoBlockText}>{p.feedback}</p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className={styles.insightBox}>
-              <span className={styles.insightLabel}>Turning point</span>
-              <p>Both prototypes were honest failures. Together they gave us a working definition of what fun actually required for our audience — emotional connection first, visible progress second.</p>
-            </div>
+            <p className={styles.prose}>
+              Between the two of the prototypes, I started to see what we'd actually been getting wrong: we kept designing the visual payoff before we'd figured out what earning something was supposed to feel like for these particular players.
+            </p>
 
             <figure className={styles.sketchFig}>
               <img src={`${BASE}/concept%20sketch.png`} alt="Early concept sketches" className={styles.sketchImg} />
-              <figcaption className={styles.sketchCaption}>Early concept sketches — exploring the physical form language</figcaption>
+              <figcaption className={styles.sketchCaption}>Early concept sketches, exploring the physical form language</figcaption>
             </figure>
           </section>
 
@@ -330,34 +313,10 @@ export default function Palbits() {
             <span className={styles.sectionLabel}>The Pivot</span>
 
             <p className={styles.prose}>
-              We had been designing for adults 18–28. That was the comfortable choice — the demographic closest to us as student designers. The evolving controller concept kept feeling forced for that group. Adults had already made their peace with static hardware.
+              We had been designing for adults 18 to 28. That was the comfortable choice, the demographic closest to us as student designers. The evolving controller concept kept feeling forced for that group. Adults had already made their peace with static hardware.
             </p>
             <p className={styles.prose}>
-              Our professor Ahmed, drawing on his experience at Logitech, pushed us to think about a wider audience. I dug into child development research and found where the concept actually lived.
-            </p>
-
-            <div className={styles.pivotInsight}>
-              <div className={styles.pivotInsightCol}>
-                <span className={styles.pivotInsightLabel}>Adults 18–28</span>
-                <ul className={styles.pivotList}>
-                  <li>Pragmatic relationship with hardware</li>
-                  <li>Social play less tied to visible status</li>
-                  <li>Evolution felt gimmicky, not rewarding</li>
-                </ul>
-              </div>
-              <span className={styles.pivotArrow} aria-hidden="true">→</span>
-              <div className={styles.pivotInsightCol}>
-                <span className={styles.pivotInsightLabel}>Children 8–12</span>
-                <ul className={styles.pivotList}>
-                  <li>Naturally crave customization and ownership</li>
-                  <li>Pride is performed socially — showing off matters</li>
-                  <li>Tangible markers of growth feel earned and personal</li>
-                </ul>
-              </div>
-            </div>
-
-            <p className={styles.prose}>
-              The system didn't need to change. The person holding it did.
+              Our professor Ahmed, drawing on his experience at Logitech, pushed us to think about a wider audience. I went and read more child development research than I expected to for a hardware project, and the answer that kept surfacing was kids around 8 to 12: an age where wanting to show off what you've earned isn't a quirk, it's developmentally normal. <strong>Adults had mostly made peace with their hardware staying the same forever. Kids hadn't, because for them customization and visible status are still how identity gets built.</strong>
             </p>
           </section>
 
@@ -373,12 +332,7 @@ export default function Palbits() {
                 </div>
                 <div className={styles.decisionSplit}>
                   <div className={styles.decisionText}>
-                    <p className={styles.decisionOptions}>{d.options}</p>
                     <p className={styles.prose}>{d.body}</p>
-                    <div className={styles.insightBox}>
-                      <span className={styles.insightLabel}>Key insight</span>
-                      <p>{d.insight}</p>
-                    </div>
                   </div>
                   {d.placeholder ? (
                     <div className={styles.placeholder}>
@@ -386,7 +340,14 @@ export default function Palbits() {
                       <p className={styles.placeholderPrompt}>{d.placeholderPrompt}</p>
                     </div>
                   ) : d.img ? (
-                    <img src={d.img} alt={d.title} className={styles.decisionImg} />
+                    d.caption ? (
+                      <figure className={styles.decisionFig}>
+                        <img src={d.img} alt={d.title} className={styles.decisionImg} />
+                        <figcaption className={styles.decisionCaption}>{d.caption}</figcaption>
+                      </figure>
+                    ) : (
+                      <img src={d.img} alt={d.title} className={styles.decisionImg} />
+                    )
                   ) : null}
                 </div>
               </div>
@@ -397,7 +358,7 @@ export default function Palbits() {
           <section id="final" ref={el => { sectionRefs.current['final'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Final Design</span>
             <p className={styles.prose}>
-              Palbits: personalizable, insertable ability bits that power up as players progress through games. The controller becomes a display object as much as an input device — something that looks like its owner.
+              Palbits: personalizable, insertable ability bits that power up as players progress through games. The controller becomes a display object as much as an input device, something that reflects its owner.
             </p>
 
             <img
@@ -415,7 +376,7 @@ export default function Palbits() {
               {[
                 { label: 'Discrete Evolution', desc: 'Defined progression points prevent overwhelm. Achievements feel concrete, not incremental.' },
                 { label: 'Physical + Digital', desc: 'Tangible bits combined with digital progression strengthen the emotional weight of each milestone.' },
-                { label: 'Identity & Ownership', desc: 'Customization enables player autonomy — kids build a controller that looks like them.' },
+                { label: 'Identity & Ownership', desc: 'Customization enables player autonomy. Kids build a controller that looks like them.' },
                 { label: 'Social by Design', desc: 'Visible upgrades make progress something to share, not just something to track.' },
               ].map(p => (
                 <div key={p.label} className={styles.principleCard}>
@@ -434,7 +395,7 @@ export default function Palbits() {
               <div>
                 <p className={styles.reflectionHead}>What I'd carry forward</p>
                 <ul className={styles.reflectionList}>
-                  <li>Both prototypes failed productively. Physical prototyping surfaced things no sketch or digital mockup could — you have to put something in someone's hands to know if the interaction actually lands.</li>
+                  <li>Both prototypes failed productively. Physical prototyping surfaced things no sketch or digital mockup could, you have to put something in someone's hands to know if the interaction actually lands.</li>
                   <li>Research reveals the unexpected audience. The pivot to children wasn't in the brief. It came from sitting with child development psychology long enough to see where the concept had always belonged.</li>
                   <li>Translating "fun" into form is a research problem, not an aesthetic one. We needed a working definition of fun for our specific audience before any design decision could be justified.</li>
                 </ul>
@@ -444,11 +405,10 @@ export default function Palbits() {
                 <ul className={styles.reflectionList}>
                   <li>Test with the target audience earlier. The first two prototypes were evaluated with adults because that's who was available. The pivot might have come sooner if kids had been in the room from the start.</li>
                   <li>Prototype the digital integration in parallel with the physical. The physical form got most of the iteration time; the digital-physical handshake was more assumed than designed.</li>
-                  <li>Document more of the research synthesis. The insights that drove the pivot lived in my notes — I'd externalize that process earlier for a better paper trail and better team alignment.</li>
+                  <li>Document more of the research synthesis. The insights that drove the pivot lived in my notes, I'd externalize that process earlier for a better paper trail and better team alignment.</li>
                 </ul>
               </div>
             </div>
-
           </section>
 
         </main>

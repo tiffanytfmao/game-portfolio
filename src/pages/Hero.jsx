@@ -5,8 +5,9 @@ import CatSprite from '../components/CatSprite/CatSprite'
 import { asset } from '../utils/asset'
 import styles from './Hero.module.css'
 
-const HEADLINE_1 = 'I prototype feelings'
-const HEADLINE_2 = 'through interaction, motion, and '
+const HEADLINE_1 = 'I design digital products,'
+const HEADLINE_2 = 'social games, and experiences'
+const HEADLINE_3 = 'built for '
 const CHAR_DELAY = 38
 
 const STAGE_MESSAGES = [
@@ -132,16 +133,18 @@ function TypedText({ text, count, showCursor }) {
 export default function Hero({ active = true }) {
   const [ref, inView] = useInView()
 
-  // ── Headline typewriter (two lines, sequential) ──
+  // ── Headline typewriter (three lines, sequential) ──
   // Gated on `active` (not just `inView`) because Hero is mounted and
   // already in the viewport while the LoadingScreen overlay is up — it's
   // only hidden via opacity, so the typewriter would otherwise run its
   // whole course underneath the overlay and finish before it's visible.
   const [line2Trigger, setLine2Trigger] = useState(0)
+  const [line3Trigger, setLine3Trigger] = useState(0)
   const [line1Count, showLine1Cursor] = useTypewriter(HEADLINE_1, (inView && active) ? 1 : 0, 650, () => setLine2Trigger(t => t + 1), 300)
-  const [line2Count, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0, undefined, 400)
+  const [line2Count, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0, () => setLine3Trigger(t => t + 1), 300)
+  const [line3Count, showLine3Cursor] = useTypewriter(HEADLINE_3, line3Trigger, 0, undefined, 400)
 
-  const line2Done = line2Count === HEADLINE_2.length
+  const line3Done = line3Count === HEADLINE_3.length
 
   // ── Pet mini-game ──
   const [hasPetted, setHasPetted]   = useState(false)
@@ -219,27 +222,29 @@ export default function Hero({ active = true }) {
         <div className={styles.bio}>
           <p className={styles.greeting}><span className={styles.greetingDiamond}>◆</span>HEY THERE, I'M TIFFANY <span className={styles.greetingDiamond}>◆</span></p>
 
-          <h2 className={styles.bioHeadline} aria-label={`${HEADLINE_1} ${HEADLINE_2}play.`}>
+          <h2 className={styles.bioHeadline} aria-label={`${HEADLINE_1} ${HEADLINE_2} ${HEADLINE_3}play.`}>
             <span className={styles.headlineLine}>
               <TypedText text={HEADLINE_1} count={line1Count} showCursor={showLine1Cursor} />
             </span>
             <span className={styles.headlineLine}>
-              {/* HEADLINE_2 + "play." are both always rendered in full (revealed via
+              <TypedText text={HEADLINE_2} count={line2Count} showCursor={showLine2Cursor} />
+            </span>
+            <span className={styles.headlineLine}>
+              {/* HEADLINE_3 + "play." are both always rendered in full (revealed via
                   per-character opacity) so the browser computes line-wrapping once
                   up front instead of re-wrapping as the typed string grows. */}
-              <TypedText text={HEADLINE_2} count={line2Count} showCursor={showLine2Cursor} />
-              <span className={`${styles.squiggleWord} ${line2Done ? styles.squiggleVisible : ''}`}>play.</span>
+              <TypedText text={HEADLINE_3} count={line3Count} showCursor={showLine3Cursor} />
+              <span className={`${styles.squiggleWord} ${line3Done ? styles.squiggleVisible : ''}`}>play.</span>
             </span>
           </h2>
 
-          <p className={`${styles.bioText} ${line2Done ? styles.bioTextVisible : ''}`}>
-            Designer and builder who <span className={styles.accent}>researches</span>, <span className={styles.accent}>prototypes</span>,{' '}
-            and <span className={styles.accent}>ships</span> interactive experiences from concept to code.
-            Exploring how small interactions shape what people remember.
+          <p className={`${styles.bioText} ${line3Done ? styles.bioTextVisible : ''}`}>
+            Designer interested in making the world feel more human. I <span className={styles.accent}>research</span>, <span className={styles.accent}>prototype</span>,{' '}
+            and <span className={styles.accent}>ship</span> interactive experiences from concept to code.
           </p>
 
           {/* Credential row */}
-          <div className={`${styles.credRow} ${line2Done ? styles.credRowVisible : ''}`}>
+          <div className={`${styles.credRow} ${line3Done ? styles.credRowVisible : ''}`}>
             <span className={styles.credGroup}>
               <BriefcaseIcon />
               <span className={styles.credLabel}>Previously engineering at</span>
@@ -257,7 +262,7 @@ export default function Hero({ active = true }) {
             </span>
           </div>
 
-          <div className={`${styles.bioActions} ${line2Done ? styles.bioActionsVisible : ''}`}>
+          <div className={`${styles.bioActions} ${line3Done ? styles.bioActionsVisible : ''}`}>
             <a href="#work" className={styles.primaryBtn} onClick={e => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) }}>
               See my work
               <span className={styles.btnArrow}>→</span>

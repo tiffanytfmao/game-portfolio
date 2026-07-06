@@ -69,7 +69,7 @@ const DECISIONS = [
   {
     num: 'D2',
     title: 'Keeping Approval With Employers for Scale',
-    body: "HR already had its own dedicated view, separate from the employee one. The real question was where leave approval itself should happen. We pushed that decision out to the employer's existing view instead of building approval inside our own product. That meant adding new UI elements to an interface we didn't fully own, but it kept the system scalable as we onboarded more companies, rather than routing every approval back through us.",
+    body: "HR already had its own dedicated view, separate from the employee one. The real question was where leave approval itself should happen. We pushed that decision out to the employer's existing view instead of building approval inside our own product. This kept the system scalable as we onboarded more companies, rather than routing every approval back through us.",
     img: `${BASE}/flow%202.png`,
   },
   {
@@ -219,7 +219,7 @@ export default function Cocoon() {
             </div>
 
             <p className={styles.prose}>
-              Cocoon automates federal and state leave compliance and payroll for People teams at over 50 companies. This was Cocoon's first end-to-end PDL (Pregnancy Disability Leave) product. I was the first dedicated designer on the feature and simultaneously a front-end engineer shipping its components.
+              Cocoon automates federal and state leave compliance and payroll for People teams at over 50 companies. This was Cocoon's first end-to-end PDL (Pregnancy Disability Leave) product. I was the first dedicated designer on the feature and simultaneously a front-end engineer shipping its components. Some elements of this case study will be blurred for privacy reasons.
             </p>
             <a
               href="https://www.linkedin.com/posts/at-cocoon-were-all-about-pushing-the-boundaries-share-7232836636621815810-ImsP/"
@@ -402,9 +402,6 @@ export default function Cocoon() {
             </p>
             <p className={styles.prose}>
               <strong>Being both the designer and the engineer added complexity, but it was worth it.</strong> Building the components I'd designed surfaced edge cases no Figma prototype would have caught, and it kept reminding me to design for the emotion underneath each task, not just the task itself.
-            </p>
-            <p className={styles.prose}>
-              <strong>The one thing I'd change is when we brought in real users.</strong> We tested with proxies early on, and looking back, the anxiety employees feel during leave isn't something proxies can fake. I'd bring in people with lived experience much sooner next time.
             </p>
           </section>
 

@@ -1,4 +1,9 @@
 .section {
+  /* Opaque and above the pinned hero, so scrolling this section up covers
+     the hero rather than compositing with it. */
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
   padding: var(--space-20) var(--space-8) var(--space-10);
 }
 

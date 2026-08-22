@@ -17,8 +17,8 @@
 .nav.scrolled {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background: rgba(245, 240, 232, 0.88);
-  box-shadow: 0 2px 20px rgba(45, 32, 22, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: none;
 }
 
 /* ── Logo ── */

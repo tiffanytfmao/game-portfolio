@@ -4,6 +4,7 @@ import SectionBanner from '../components/SectionBanner/SectionBanner'
 import { playButtonPress } from '../sounds/AudioManager'
 import { asset } from '../utils/asset'
 import styles from './Resume.module.css'
+import { scrollToId } from '../utils/scroll'
 
 // ← Replace with your actual Google Drive shareable link
 const RESUME_URL = 'https://drive.google.com/file/d/1xqHpIMr4RwnxlN2aKlHI9-hZrY2t954A/view?usp=sharing'
@@ -66,7 +67,7 @@ export default function Resume() {
               Or{' '}
               <a href="#contact" className={styles.contactLink} onClick={e => {
                 e.preventDefault()
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                scrollToId('contact')
               }}>
                 reach out directly
               </a>

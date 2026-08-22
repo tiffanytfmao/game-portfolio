@@ -1,11 +1,15 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import ReactGA from 'react-ga4'
+import { scrollToTop } from './utils/scroll'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0)
+    // Immediate, not animated: a route change should start at the top, not
+    // scroll there. Goes through the helper so Lenis's internal position
+    // stays in sync with the document's.
+    scrollToTop({ immediate: true })
     ReactGA.send({ hitType: 'pageview', page: pathname })
   }, [pathname])
   return null
@@ -13,6 +17,7 @@ function ScrollToTop() {
 import LoadingScreen from './components/LoadingScreen/LoadingScreen'
 import Nav from './components/Nav/Nav'
 import PawTrail from './components/PawTrail/PawTrail'
+import { useSmoothScroll } from './hooks/useSmoothScroll'
 import Hero from './pages/Hero'
 import Work from './pages/Work'
 import About from './pages/About'
@@ -29,6 +34,8 @@ export default function App() {
   const [loading, setLoading] = useState(!hasLoaded)
   const [muted, setMutedState] = useState(getMuted())
   const cursorRef = useRef(null)
+
+  useSmoothScroll()
 
   useEffect(() => {
     const el = cursorRef.current

@@ -4,6 +4,7 @@ import { useInView } from '../hooks/useInView'
 import ProjectCard from '../components/ProjectCard/ProjectCard'
 import styles from './Work.module.css'
 import { asset } from '../utils/asset'
+import { scrollToId } from '../utils/scroll'
 
 // `featured` drives the default "Selected Work" tab.
 // `categories` lets a project live in more than one tab — Wonder Workshop is
@@ -151,7 +152,7 @@ export default function Work() {
     if (!el) return
     // Let the loading screen finish before jumping.
     const t = setTimeout(() => {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      scrollToId(el.id)
     }, 400)
     return () => clearTimeout(t)
   }, [paramTab])

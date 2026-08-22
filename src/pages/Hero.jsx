@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useInView } from '../hooks/useInView'
+import { useScrollProgress } from '../hooks/useScrollProgress'
 
 import CatSprite from '../components/CatSprite/CatSprite'
 import { asset } from '../utils/asset'
 import styles from './Hero.module.css'
+import { scrollToId } from '../utils/scroll'
 
 const HEADLINE_1 = 'I design digital products,'
 const HEADLINE_2 = 'games, and experiences'
@@ -110,6 +112,8 @@ function TypedText({ text, count, showCursor }) {
 
 export default function Hero({ active = true }) {
   const [ref, inView] = useInView()
+  // One viewport of scroll takes the hero from sharp to fully receded.
+  useScrollProgress(ref, typeof window !== 'undefined' ? window.innerHeight * 0.8 : 600)
 
   // ── Headline typewriter (three lines, sequential) ──
   // Gated on `active` (not just `inView`) because Hero is mounted and
@@ -152,7 +156,7 @@ export default function Hero({ active = true }) {
 
   const scrollToWork = useCallback((e) => {
     e.preventDefault()
-    document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })
+    scrollToId('work')
   }, [])
 
   return (

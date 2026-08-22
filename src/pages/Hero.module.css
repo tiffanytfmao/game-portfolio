@@ -14,7 +14,26 @@
      section plus the Work filter row has to clear the fold on a short
      laptop viewport, while still breathing on a tall one. */
   padding: clamp(1rem, 2vh, 2.5rem) var(--page-gutter-x) clamp(0.5rem, 1.5vh, 1.5rem);
-  position: relative;
+
+  /* The hero is pinned and the rest of the page scrolls over it, which is
+     what lets it blur and recede in place instead of sliding away.
+     --progress (0..1) is written by useScrollProgress in Hero.jsx. */
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  --progress: 0;
+  filter: blur(calc(var(--progress) * 7px));
+  opacity: calc(1 - var(--progress) * 0.8);
+  transform: scale(calc(1 - var(--progress) * 0.04));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    position: relative;
+    filter: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .inner {

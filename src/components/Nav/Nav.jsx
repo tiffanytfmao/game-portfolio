@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { playNavClick } from '../../sounds/AudioManager'
 import styles from './Nav.module.css'
+import { scrollToId, scrollToTop } from '../../utils/scroll'
 
 const TABS = [
   { id: 'home',       label: 'Home' },
@@ -77,16 +78,16 @@ export default function Nav() {
     setMenuOpen(false)
     if (isHome) {
       if (id === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+        scrollToTop()
       } else {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+        scrollToId(id)
       }
     } else {
       // Navigate home first, then scroll to the target section
       navigate('/')
       if (id !== 'home') {
         setTimeout(() => {
-          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+          scrollToId(id)
         }, 120)
       }
     }
@@ -95,7 +96,7 @@ export default function Nav() {
   function handleLogoClick() {
     playNavClick()
     if (isHome) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      scrollToTop()
     } else {
       navigate('/')
     }

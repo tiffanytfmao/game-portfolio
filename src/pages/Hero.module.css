@@ -37,7 +37,7 @@
 }
 
 .inner {
-  max-width: 860px;
+  max-width: 980px;
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -55,6 +55,7 @@
 
 /* Staged reveal for everything below the headline. */
 .bioText,
+.bioSub,
 .catWrap,
 .credRow {
   opacity: 0;
@@ -62,7 +63,8 @@
   transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 .bioText.revealed  { opacity: 1; transform: none; transition-delay: 0s; }
-.catWrap.revealed  { opacity: 1; transform: none; transition-delay: 0.10s; }
+.bioSub.revealed   { opacity: 1; transform: none; transition-delay: 0.07s; }
+.catWrap.revealed  { opacity: 1; transform: none; transition-delay: 0.16s; }
 .credRow.revealed  { opacity: 1; transform: none; transition-delay: 0.20s; }
 
 /* ── Greeting eyebrow ── */
@@ -85,13 +87,13 @@
 /* ── Headline ── */
 .headline {
   font-family: var(--font-heading);
-  font-size: clamp(1.9rem, 4.3vw, 3.1rem);
+  font-size: clamp(1.9rem, 4.1vw, 3.15rem);
   font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-hero);
   line-height: 1.14;
   color: var(--color-text-dark);
-  /* Reserve all three lines up front so the typewriter can't shift layout. */
-  min-height: calc(3 * 1.14em);
+  /* Reserve both lines up front so the typewriter can't shift layout. */
+  min-height: calc(2 * 1.14em);
 }
 .headlineLine {
   display: block;
@@ -134,8 +136,22 @@
   line-height: 1.55;
   letter-spacing: var(--tracking-snug);
   color: var(--color-text-muted);
-  margin-top: clamp(0.75rem, 2vh, 1.25rem);
+  margin-top: clamp(1rem, 2.6vh, 1.75rem);
   max-width: 34em;
+  /* Keeps the two lines even instead of orphaning the last word. */
+  text-wrap: balance;
+}
+
+/* Second, quieter line — sits under the lead without competing with it. */
+.bioSub {
+  font-size: var(--text-base);
+  font-weight: var(--weight-light);
+  line-height: 1.55;
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-text-light);
+  margin-top: clamp(0.4rem, 1vh, 0.6rem);
+  max-width: 34em;
+  text-wrap: balance;
 }
 
 .accent {
@@ -263,6 +279,7 @@
 @media (prefers-reduced-motion: reduce) {
   .inner,
   .bioText,
+  .bioSub,
   .catWrap,
   .credRow {
     transition-duration: 0.01ms;

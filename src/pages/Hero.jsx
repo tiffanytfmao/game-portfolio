@@ -6,9 +6,10 @@ import CatSprite from '../components/CatSprite/CatSprite'
 import { asset } from '../utils/asset'
 import styles from './Hero.module.css'
 
-const HEADLINE_1 = 'I design digital products,'
-const HEADLINE_2 = 'games, and experiences'
-const HEADLINE_3 = 'built for '
+// Two lines, split near the middle so they set to similar widths. Line 2
+// ends just before "play." so the accent word can be revealed separately.
+const HEADLINE_1 = 'I design digital products, games,'
+const HEADLINE_2 = 'and experiences built for '
 const CHAR_DELAY = 32
 
 const STAGE_MESSAGES = [
@@ -103,16 +104,14 @@ export default function Hero({ active = true }) {
   // only hidden via opacity, so the typewriter would otherwise run its
   // whole course underneath the overlay and finish before it's visible.
   const [line2Trigger, setLine2Trigger] = useState(0)
-  const [line3Trigger, setLine3Trigger] = useState(0)
   const [line1Count, showLine1Cursor] = useTypewriter(HEADLINE_1, (inView && active) ? 1 : 0, 450, () => setLine2Trigger(t => t + 1), 220)
-  const [line2Count, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0, () => setLine3Trigger(t => t + 1), 220)
-  const [line3Count, showLine3Cursor] = useTypewriter(HEADLINE_3, line3Trigger, 0, undefined, 300)
+  const [line2Count, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0, undefined, 300)
 
-  const line3Done = line3Count === HEADLINE_3.length
+  const headlineDone = line2Count === HEADLINE_2.length
   // Supporting copy rides in with the last line rather than waiting for it to
   // finish, so the page settles about a second sooner without losing the
   // sense that the headline leads.
-  const tailStarted = line3Trigger > 0
+  const tailStarted = line2Trigger > 0
 
   // ── Pet mini-game ──
   const [hasPetted, setHasPetted]   = useState(false)
@@ -144,24 +143,26 @@ export default function Hero({ active = true }) {
           HI, I'M TIFFANY <span className={styles.greetingMark}>✳</span>
         </p>
 
-        <h1 className={styles.headline} aria-label={`${HEADLINE_1} ${HEADLINE_2} ${HEADLINE_3}play.`}>
+        <h1 className={styles.headline} aria-label={`${HEADLINE_1} ${HEADLINE_2}play.`}>
           <span className={styles.headlineLine}>
             <TypedText text={HEADLINE_1} count={line1Count} showCursor={showLine1Cursor} />
           </span>
           <span className={styles.headlineLine}>
-            <TypedText text={HEADLINE_2} count={line2Count} showCursor={showLine2Cursor} />
-          </span>
-          <span className={styles.headlineLine}>
-            {/* HEADLINE_3 + "play." are both always rendered in full (revealed via
+            {/* HEADLINE_2 + "play." are both always rendered in full (revealed via
                 per-character opacity) so the browser computes line-wrapping once
                 up front instead of re-wrapping as the typed string grows. */}
-            <TypedText text={HEADLINE_3} count={line3Count} showCursor={showLine3Cursor} />
-            <span className={`${styles.playWord} ${line3Done ? styles.playVisible : ''}`}>play</span>
-            <span className={`${styles.playStop} ${line3Done ? styles.playVisible : ''}`}>.</span>
+            <TypedText text={HEADLINE_2} count={line2Count} showCursor={showLine2Cursor} />
+            <span className={`${styles.playWord} ${headlineDone ? styles.playVisible : ''}`}>play</span>
+            <span className={`${styles.playStop} ${headlineDone ? styles.playVisible : ''}`}>.</span>
           </span>
         </h1>
 
         <p className={`${styles.bioText} ${tailStarted ? styles.revealed : ''}`}>
+          Designer interested in making the world feel more human,
+          and a devoted <span className={styles.accent}>light mode</span> enjoyer.
+        </p>
+
+        <p className={`${styles.bioSub} ${tailStarted ? styles.revealed : ''}`}>
           I <span className={styles.accent}>research</span>, <span className={styles.accent}>prototype</span>,{' '}
           and <span className={styles.accent}>ship</span> interactive experiences
           <br className={styles.bioBreak} /> from concept to code.

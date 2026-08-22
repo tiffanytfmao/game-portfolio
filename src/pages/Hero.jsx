@@ -159,11 +159,32 @@ export default function Hero({ active = true }) {
         </h1>
 
         <p className={`${styles.bioText} ${tailStarted ? styles.revealed : ''}`}>
-          I research, prototype, and ship interactive experiences
-          <br className={styles.bioBreak} /> from concept to code.
+          I research, prototype, and ship interactive experiences from concept to code.
         </p>
 
-        {/* ── Cat mini-game ── */}
+        {/* ── Credential row ── */}
+        <div className={`${styles.credRow} ${tailStarted ? styles.revealed : ''}`}>
+          <span className={styles.credGroup}>
+            <span className={styles.credLabel}>Prev. Engineer @</span>
+            <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="Meta" className={styles.credLogo} />
+            <span className={styles.credLabel}>Meta</span>
+            <span className={styles.credCocoon} />
+            <span className={styles.credLabel}>Cocoon</span>
+            <img src={asset('other assets/SUSELogo.png')} alt="SUSE" className={styles.credLogo} />
+            <span className={styles.credLabel}>SUSE</span>
+          </span>
+          <span className={styles.credDivider} aria-hidden="true" />
+          <span className={styles.credGroup}>
+            <span className={styles.credLabel}>MDes @ UC Berkeley</span>
+          </span>
+        </div>
+
+
+      </div>
+
+      {/* ── Cat mini-game — parked in the hero's bottom-right corner, which
+           puts it in otherwise dead horizontal space and returns the
+           vertical room it used to take out of the centre column. ── */}
         <div className={`${styles.catWrap} ${tailStarted ? styles.revealed : ''}`}>
           <div className={styles.catPromptArea}>
             <CatSprite
@@ -188,26 +209,6 @@ export default function Hero({ active = true }) {
             </p>
           )}
         </div>
-
-        {/* ── Credential row ── */}
-        <div className={`${styles.credRow} ${tailStarted ? styles.revealed : ''}`}>
-          <span className={styles.credGroup}>
-            <span className={styles.credLabel}>Prev. Engineer @</span>
-            <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="Meta" className={styles.credLogo} />
-            <span className={styles.credLabel}>Meta</span>
-            <span className={styles.credCocoon} />
-            <span className={styles.credLabel}>Cocoon</span>
-            <img src={asset('other assets/SUSELogo.png')} alt="SUSE" className={styles.credLogo} />
-            <span className={styles.credLabel}>SUSE</span>
-          </span>
-          <span className={styles.credDivider} aria-hidden="true" />
-          <span className={styles.credGroup}>
-            <span className={styles.credLabel}>MDes @ UC Berkeley</span>
-          </span>
-        </div>
-
-
-      </div>
     </section>
   )
 }

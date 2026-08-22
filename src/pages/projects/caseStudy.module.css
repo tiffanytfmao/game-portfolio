@@ -1,0 +1,466 @@
+/* ============================================================
+   CASE STUDY SYSTEM — editorial layout
+   Shared by every case study page. Grayscale only, zero
+   decoration: no accent color, no boxes, no outlines, no
+   dividers, no numbers, no border-radius on media.
+   ============================================================ */
+
+.page {
+  --cs-ink:     #101010;
+  --cs-body:    #3d3d3d;
+  --cs-muted:   #606060;
+  /* Warm greys — tuned for contrast against the cream background */
+  --cs-label:   #756c5d;
+  --cs-hairline:#ded5c5;
+
+  --cs-serif: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+  --cs-sans:  'Inter', system-ui, sans-serif;
+  --cs-mono:  'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Type scale — close to Isabel's actual sizes (22/16/12), nudged up
+     just enough to stay comfortable at 1x. Keeps text visually
+     subordinate to the media. */
+  --cs-h1:    25px;
+  --cs-h2:    17px;
+  --cs-h3:    13.5px;
+  --cs-text:  13.5px;
+  --cs-small: 12px;
+  --cs-label-size: 10.5px;
+
+  background: var(--color-bg-cream);
+  color: var(--cs-ink);
+  font-family: var(--cs-sans);
+  min-height: 100vh;
+  padding-bottom: 120px;
+}
+
+/* ── Back link ── */
+.backBtn {
+  position: fixed;
+  top: 22px;
+  left: 26px;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--cs-mono);
+  font-size: var(--cs-label-size);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cs-muted);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.backBtn:hover { color: var(--cs-ink); }
+.backArrow { display: inline-block; transition: transform 0.18s ease; }
+.backBtn:hover .backArrow { transform: translateX(-3px); }
+
+/* ── Shell: sticky cat nav + content ── */
+.body {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1000px);
+  justify-content: center;
+  gap: 56px;
+  padding: 0 32px;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 88px;
+  padding-top: 96px;
+}
+.sideNav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 68px; /* clears the cat sprite sitting at left: 0 */
+}
+/* Cat sprite indicator — behavior unchanged, follows active section */
+.catIndicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+/* Side nav keeps the original portfolio typography, not the editorial mono */
+.navItem {
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-light);
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--duration-fast), background var(--duration-fast);
+  white-space: nowrap;
+}
+.navItem:hover { color: var(--color-text-dark); background: var(--color-bg-parchment); }
+.navActive { color: var(--color-text-dark); font-weight: 700; }
+
+.content { padding-top: 96px; min-width: 0; }
+
+/* ── Hero: breadcrumb → title → meta row → full-width media ── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--cs-small);
+  color: var(--cs-muted);
+  margin-bottom: 24px;
+}
+.breadcrumbHome {
+  color: var(--cs-muted);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.breadcrumbHome:hover { color: var(--cs-ink); }
+.breadcrumbSep { color: var(--cs-label); }
+.breadcrumbCurrent { color: var(--cs-ink); }
+
+.title {
+  font-family: var(--cs-serif);
+  font-size: var(--cs-h1);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--cs-ink);
+  margin: 0 0 22px;
+  max-width: 34ch;
+}
+
+.metaFields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.metaField {
+  flex: 1 1 0;
+  min-width: 170px;
+}
+.metaLabel {
+  font-family: var(--cs-mono);
+  font-size: var(--cs-label-size);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cs-label);
+  margin: 0 0 3px;
+}
+.metaValue {
+  font-family: var(--cs-sans);
+  font-size: var(--cs-small);
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--cs-body);
+  margin: 0;
+}
+
+.heroMedia {
+  display: block;
+  width: 100%;
+  margin: 40px 0 60px;
+  border-radius: 0;
+}
+
+/* ── Warm-type variant: swaps the editorial greys/serif for the portfolio's
+   heading + Nunito body system (used by Graft to match Wonder Workshop). ── */
+.warm {
+  --cs-serif: var(--font-heading);
+  --cs-sans:  var(--font-body);
+  --cs-mono:  var(--font-label);
+}
+.warm .title { letter-spacing: 0.01em; }
+/* Genshin suits the short title, but full-sentence claims read better in the
+   rounded body face — closer to how Wonder Workshop sets its copy. */
+.warm .claim,
+.warm .question {
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+/* ── Hero footer: tag pills + "skip to solution", à la Wonder Workshop ── */
+.heroFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: -28px 0 60px;
+}
+.heroTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.heroTag {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold-deep);
+  background: rgba(196, 168, 130, 0.1);
+}
+.skipBtn {
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-bg-dark);
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold);
+  border-radius: var(--radius-full);
+  padding: 9px 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(196, 168, 130, 0.3);
+  transition: background var(--duration-fast), color var(--duration-fast),
+              transform var(--duration-fast) var(--ease-bounce);
+  white-space: nowrap;
+}
+.skipBtn:hover {
+  background: var(--color-gold-warm);
+  transform: translateY(-2px);
+}
+
+/* ── Section: label + claim on the left, prose + media on the right ── */
+.section {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 24px;
+  margin-bottom: 76px;
+  scroll-margin-top: 88px;
+}
+.sectionLeft { min-width: 0; }
+.sectionRight { min-width: 0; }
+
+/* Tier 1 — names the section type */
+.label {
+  font-family: var(--cs-mono);
+  font-size: var(--cs-label-size);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cs-label);
+  margin: 0 0 8px;
+}
+
+/* Tier 2 — asserts the claim, as a full sentence */
+.claim {
+  font-family: var(--cs-serif);
+  font-size: var(--cs-h2);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--cs-ink);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* Tier 3 — explains */
+.prose {
+  font-family: var(--cs-sans);
+  font-size: var(--cs-text);
+  font-weight: 300;
+  line-height: 1.62;
+  color: var(--cs-body);
+  margin: 0 0 18px;
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+.prose:last-child { margin-bottom: 0; }
+.prose strong { font-weight: 500; color: var(--cs-ink); }
+
+.proseLink {
+  color: var(--cs-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--cs-label);
+  padding-bottom: 1px;
+  transition: border-color 0.18s ease;
+}
+.proseLink:hover { border-color: var(--cs-ink); }
+
+/* Named sub-block inside the right column (stakeholder splits, principles).
+   Plain text: a title line, then prose. No box, no border, no number. */
+.block { margin: 0; }
+.blockTitle {
+  font-family: var(--cs-sans);
+  font-size: var(--cs-h3);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--cs-ink);
+  margin: 0 0 6px;
+}
+.blockBody {
+  font-family: var(--cs-sans);
+  font-size: var(--cs-text);
+  font-weight: 300;
+  line-height: 1.62;
+  color: var(--cs-body);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* Short consequence note trailing a block */
+.note {
+  font-family: var(--cs-sans);
+  font-size: var(--cs-small);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cs-label);
+  margin: 5px 0 0;
+}
+
+/* Playable embed — a bordered frame, the one place a hairline is allowed */
+.embed {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--cs-hairline);
+  background: #fff;
+  display: block;
+  margin: 26px 0 0;
+}
+.embedNote {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin: 10px 0 0;
+  flex-wrap: wrap;
+}
+.embedLink {
+  font-family: var(--cs-mono);
+  font-size: var(--cs-label-size);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cs-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--cs-label);
+  padding-bottom: 1px;
+  transition: border-color 0.18s ease;
+}
+.embedLink:hover { border-color: var(--cs-ink); }
+
+/* Stacked list of named blocks — title above body, no box or marker */
+.stack {
+  display: grid;
+  gap: 26px;
+  margin: 26px 0;
+}
+.stack:last-child { margin-bottom: 0; }
+
+/* Nested column grids — right column only */
+.cols2,
+.cols3 {
+  display: grid;
+  gap: 32px 24px;
+  margin: 26px 0;
+}
+.cols2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cols2:last-child,
+.cols3:last-child { margin-bottom: 0; }
+
+/* A stat stated as prose, not a card */
+.statValue {
+  font-family: var(--cs-serif);
+  font-size: var(--cs-h2);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--cs-ink);
+  margin: 0 0 5px;
+}
+.statLabel {
+  font-family: var(--cs-sans);
+  font-size: var(--cs-small);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--cs-body);
+  margin: 0;
+}
+
+/* ── Media ── */
+.figure {
+  margin: 0 0 22px;
+}
+.figure:last-child { margin-bottom: 0; }
+.media {
+  display: block;
+  width: 100%;
+  border-radius: 0;
+  border: none;
+  background: none;
+}
+
+/* NDA screens — softened just enough to obscure client data */
+.blurred {
+  filter: blur(2.5px);
+}
+.caption {
+  font-family: var(--cs-mono);
+  font-size: var(--cs-label-size);
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  color: var(--cs-label);
+  margin: 9px 0 0;
+}
+
+/* ── Milestone beat — a bare line that splits the page into acts ── */
+.milestone {
+  font-family: var(--cs-mono);
+  font-size: var(--cs-label-size);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cs-label);
+  margin: 0 0 76px;
+  padding-top: 4px;
+  border-top: 1px solid var(--cs-hairline);
+}
+
+/* ── Question — the "how might we" framing ── */
+.question {
+  font-family: var(--cs-serif);
+  font-size: var(--cs-h2);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--cs-ink);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1180px) {
+  .body { grid-template-columns: 180px minmax(0, 1fr); gap: 36px; }
+  .sideNav { padding-left: 40px; }
+  .section { grid-template-columns: 180px minmax(0, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .body { grid-template-columns: 1fr; padding: 0 24px; }
+  .sidebar { display: none; }
+  .content { padding-top: 76px; }
+  .section {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 56px;
+  }
+  .milestone { margin-bottom: 56px; }
+  .cols2,
+  .cols3 { grid-template-columns: 1fr; gap: 26px; }
+  .title { font-size: 24px; max-width: none; }
+  .heroMedia { margin: 28px 0 44px; }
+}

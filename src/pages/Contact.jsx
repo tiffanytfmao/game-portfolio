@@ -42,9 +42,7 @@ export default function Contact() {
                 className={styles.emailBtn}
                 onClick={handleEmail}
               >
-                <span className={styles.diamond}>◆</span>
                 Say Hello
-                <span className={styles.diamond}>◆</span>
               </a>
 
               <a

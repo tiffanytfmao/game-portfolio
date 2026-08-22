@@ -12,11 +12,32 @@ const TABS = [
   { id: 'contact',    label: 'Contact' },
 ]
 
-const WORK_PROJECTS = [
-  { id: 'wonder',  label: 'Wonder Workshop' },
-  { id: 'cocoon',  label: 'Cocoon' },
-  { id: 'berky',   label: 'Berky the Worm' },
-  { id: 'palbits', label: 'Palbits' },
+// Grouped by discipline so the dropdown reads as a small site map rather than
+// a flat list. Each project sits under its primary category.
+const WORK_GROUPS = [
+  {
+    label: 'UI/UX',
+    projects: [
+      { id: 'cocoon',       label: 'Cocoon', star: true },
+      { id: 'creativemode', label: 'YC Redesign', star: true },
+      { id: 'tintura',      label: 'Tintura' },
+    ],
+  },
+  {
+    label: 'Games',
+    projects: [
+      { id: 'wonder', label: 'Wonder Workshop', star: true },
+      { id: 'graft',  label: 'Graft!' },
+    ],
+  },
+  {
+    label: 'Physical-Digital',
+    projects: [
+      { id: 'berky',   label: 'Berky the Worm', star: true },
+      { id: 'nudge',   label: 'Nudge' },
+      { id: 'palbits', label: 'Palbits' },
+    ],
+  },
 ]
 
 export default function Nav() {
@@ -103,17 +124,22 @@ export default function Nav() {
                   </button>
                   <div className={styles.dropdown} role="menu">
                     <div className={styles.dropdownInner}>
-                      {WORK_PROJECTS.map(p => (
-                        <Link
-                          key={p.id}
-                          to={`/projects/${p.id}`}
-                          className={styles.dropdownItem}
-                          role="menuitem"
-                          onClick={playNavClick}
-                        >
-                          <span className={styles.dropDiamond} aria-hidden="true">◆</span>
-                          {p.label}
-                        </Link>
+                      {WORK_GROUPS.map(group => (
+                        <div key={group.label} className={styles.dropdownGroup}>
+                          <span className={styles.dropdownGroupLabel}>{group.label}</span>
+                          {group.projects.map(p => (
+                            <Link
+                              key={p.id}
+                              to={`/projects/${p.id}`}
+                              className={styles.dropdownItem}
+                              role="menuitem"
+                              onClick={playNavClick}
+                            >
+                              {p.label}
+                              {p.star && <span className={styles.dropStar} aria-hidden="true">★</span>}
+                            </Link>
+                          ))}
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -177,20 +203,23 @@ export default function Nav() {
               </button>
             </li>
           ))}
-          <li className={styles.mobileProjectGroup}>
-            <span className={styles.mobileGroupLabel}>Projects</span>
-            {WORK_PROJECTS.map(p => (
-              <Link
-                key={p.id}
-                to={`/projects/${p.id}`}
-                className={styles.mobileProjectItem}
-                onClick={() => { playNavClick(); setMenuOpen(false) }}
-              >
-                <span className={styles.mobileTabDiamond}>◆</span>
-                {p.label}
-              </Link>
-            ))}
-          </li>
+          {WORK_GROUPS.map(group => (
+            <li key={group.label} className={styles.mobileProjectGroup}>
+              <span className={styles.mobileGroupLabel}>{group.label}</span>
+              {group.projects.map(p => (
+                <Link
+                  key={p.id}
+                  to={`/projects/${p.id}`}
+                  className={styles.mobileProjectItem}
+                  onClick={() => { playNavClick(); setMenuOpen(false) }}
+                >
+                  <span className={styles.mobileTabDiamond}>◆</span>
+                  {p.label}
+                  {p.star && <span className={styles.dropStar} aria-hidden="true">★</span>}
+                </Link>
+              ))}
+            </li>
+          ))}
         </ul>
         <div className={styles.mobileLinks}>
           <a href="mailto:tiffanytfmao@berkeley.edu" className={styles.iconBtn}>

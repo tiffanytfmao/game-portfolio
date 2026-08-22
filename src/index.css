@@ -37,27 +37,28 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom cursor — pink diamond */
+/* Custom cursor — pink flower */
 *, *::before, *::after {
   cursor: none !important;
 }
 
 #cursor {
   position: fixed;
-  width: 12px;
-  height: 12px;
-  background: var(--color-pink-deep);
-  transform: rotate(45deg) translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  /* 6-petal flower with a punched-out center, in --color-pink-deep (#D4899A) */
+  background: center / contain no-repeat
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cdefs%3E%3Cmask id='h'%3E%3Crect width='24' height='24' fill='white'/%3E%3Ccircle cx='12' cy='12' r='3' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url(%23h)' fill='%23D4899A'%3E%3Ccircle cx='12' cy='6' r='5'/%3E%3Ccircle cx='17.2' cy='9' r='5'/%3E%3Ccircle cx='17.2' cy='15' r='5'/%3E%3Ccircle cx='12' cy='18' r='5'/%3E%3Ccircle cx='6.8' cy='15' r='5'/%3E%3Ccircle cx='6.8' cy='9' r='5'/%3E%3C/g%3E%3C/svg%3E");
+  transform: translate(-50%, -50%);
   transform-origin: 0 0;
   pointer-events: none;
   z-index: 9999;
-  transition: transform 80ms var(--ease-smooth), background 200ms;
+  transition: transform 120ms var(--ease-smooth);
   mix-blend-mode: multiply;
 }
 
 #cursor.hovering {
-  background: var(--color-lavender-deep);
-  transform: rotate(45deg) translate(-50%, -50%) scale(1.6);
+  transform: translate(-50%, -50%) scale(1.5) rotate(30deg);
 }
 
 /* Scrollbar */

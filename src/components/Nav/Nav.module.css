@@ -152,6 +152,30 @@
   flex-shrink: 0;
 }
 
+.dropdownGroup {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-2);
+}
+.dropdownGroup + .dropdownGroup {
+  border-top: 1px solid var(--color-border);
+}
+.dropdownGroupLabel {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-gold-deep);
+  padding: var(--space-3) var(--space-4) var(--space-1);
+}
+
+.dropStar {
+  font-size: 8px;
+  color: var(--color-gold);
+  margin-left: 3px;
+}
+
 /* ── Right icons ── */
 .right {
   display: flex;

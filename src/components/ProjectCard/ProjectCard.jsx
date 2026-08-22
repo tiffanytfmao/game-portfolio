@@ -10,6 +10,17 @@ export default function ProjectCard({ project, index = 0, style = {} }) {
   function setVideoRef(el) {
     if (el) {
       el.muted = true
+      // Loop just the opening slice when a project asks for it (e.g. Berky's
+      // 4-second intro), instead of playing the whole clip.
+      if (project.loopDuration) {
+        el.loop = false
+        el.ontimeupdate = () => {
+          if (el.currentTime >= project.loopDuration) {
+            el.currentTime = 0
+            el.play().catch(() => {})
+          }
+        }
+      }
       el.play().catch(() => {})
     }
     videoRef.current = el
@@ -58,11 +69,11 @@ export default function ProjectCard({ project, index = 0, style = {} }) {
           <img className={styles.thumbVideo} src={project.image} alt="" />
         ) : (
           <div className={styles.thumbPlaceholder}>
-            <span className={styles.thumbIcon}>{project.emoji ?? '✦'}</span>
+            <span className={styles.thumbIcon}>{'✦'}</span>
           </div>
         )}
         <div className={styles.thumbOverlay}>
-          <span className={styles.viewLabel}>View project ◆</span>
+          <span className={styles.viewLabel}>View project</span>
         </div>
       </div>
 

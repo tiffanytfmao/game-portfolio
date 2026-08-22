@@ -1,4 +1,4 @@
 #!/bin/bash
-export PATH="/opt/homebrew/Cellar/node/26.0.0/bin:/opt/homebrew/bin:$PATH"
-cd "/Users/tiffanytfmao/game portfolio"
-exec npm run dev -- --port 5173
+export PATH="/opt/homebrew/bin:$PATH"
+cd "$(dirname "$0")"
+exec npm run dev -- --port "${PORT:-5173}" --strictPort

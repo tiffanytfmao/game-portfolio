@@ -145,7 +145,7 @@
   font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: var(--color-text-light);
+  color: var(--color-gold-warm);
 }
 
 /* ── Footer ── */
@@ -163,14 +163,13 @@
   font-family: var(--font-label);
   font-size: var(--text-xs);
   letter-spacing: 0.12em;
-  color: var(--color-text-light);
-  opacity: 0.6;
+  color: rgba(232, 221, 208, 0.85);
 }
 
 .footerDiamond {
   font-size: 8px;
   color: var(--color-gold);
-  opacity: 0.4;
+  opacity: 0.75;
 }
 
 /* ── Responsive ── */

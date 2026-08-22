@@ -183,9 +183,7 @@ export default function CatSketchpad({ onSpriteCreated }) {
           onClick={handleBringToLife}
           disabled={!hasStrokes}
         >
-          <span className={styles.diamond}>◆</span>
           Bring it to life
-          <span className={styles.diamond}>◆</span>
         </button>
       </div>
     </div>

@@ -269,7 +269,6 @@ export default function Hero({ active = true }) {
             </a>
             <a href="#contact" className={styles.ghostBtn} onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}>
               Let's chat
-              <span className={styles.btnSpark}>✦</span>
             </a>
           </div>
         </div>

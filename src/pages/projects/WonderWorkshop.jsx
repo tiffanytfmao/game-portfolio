@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import CatSprite from '../../components/CatSprite/CatSprite'
+import NextCaseStudy from '../../components/NextCaseStudy/NextCaseStudy'
 import { asset } from '../../utils/asset'
 import styles from './WonderWorkshop.module.css'
 
@@ -11,6 +12,7 @@ const SECTIONS = [
   { id: 'problem',     label: 'The Problem' },
   { id: 'inspiration', label: 'Inspiration' },
   { id: 'pivot',       label: 'The Pivot' },
+  { id: 'game',        label: 'The Game' },
   { id: 'decisions',   label: 'Design Decisions' },
   { id: 'try-it',      label: 'Try It' },
   { id: 'research',    label: 'User Testing' },
@@ -18,7 +20,7 @@ const SECTIONS = [
   { id: 'reflection',  label: 'Reflection' },
 ]
 
-const TAGS = ['Game Design', 'Education', 'Children 9–12', 'UX/UI', 'Physical-Digital', 'Research']
+const TAGS = ['Game Design', 'Education', 'Children 9–12', 'UX/UI', 'Research']
 
 const INSPIRATION = [
   {
@@ -321,6 +323,39 @@ export default function WonderWorkshop() {
             </div>
           </section>
 
+          {/* The Game */}
+          <section id="game" ref={el => { sectionRefs.current['game'] = el }} className={styles.section}>
+            <span className={styles.sectionLabel}>The Game</span>
+
+            <p className={styles.prose}>
+              Wonder Workshop is a single-player crafting game for kids 9 to 12, set in a cozy workshop world. Characters made of craft materials give you small making tasks. You build the real thing with your own hands and materials, then keep it in a scrapbook. There is no rush and no way to lose.
+            </p>
+
+            <div className={styles.contextGrid}>
+              <div className={styles.contextItem}>
+                <span className={styles.contextLabel}>Pick your task</span>
+                <p className={styles.contextText}>You choose what to make next, rather than working down a fixed list of chores.</p>
+              </div>
+              <div className={styles.contextItem}>
+                <span className={styles.contextLabel}>Make it for real</span>
+                <p className={styles.contextText}>Each task is a physical craft you build offline with real materials, guided step by step.</p>
+              </div>
+              <div className={styles.contextItem}>
+                <span className={styles.contextLabel}>Characters give the tasks</span>
+                <p className={styles.contextText}>Material-based creatures hand out the tasks and react to what you make, so every craft has a reason behind it.</p>
+              </div>
+              <div className={styles.contextItem}>
+                <span className={styles.contextLabel}>Keep it in a scrapbook</span>
+                <p className={styles.contextText}>Finished crafts go into a personal scrapbook. No scores, no grades, no leaderboard.</p>
+              </div>
+            </div>
+
+            <figure className={styles.pivotFig} style={{ marginTop: 'var(--space-8)', maxWidth: 560, marginInline: 'auto' }}>
+              <img src={`${BASE}/gameplay%202.jpeg`} alt="Wonder Workshop gameplay: a character in the workshop world" className={styles.pivotImg} />
+              <figcaption className={styles.pivotCaption}>A character sets you a task inside the workshop world.</figcaption>
+            </figure>
+          </section>
+
           {/* Design Decisions */}
           <section id="decisions" ref={el => { sectionRefs.current['decisions'] = el }} className={styles.section}>
             <span className={styles.sectionLabel}>Design Decisions</span>
@@ -479,6 +514,8 @@ export default function WonderWorkshop() {
               </div>
             </div>
           </section>
+
+          <NextCaseStudy currentId="wonder" />
 
         </main>
       </div>

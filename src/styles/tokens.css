@@ -49,15 +49,15 @@
   --font-label:     'Nunito', system-ui, sans-serif;
 
   /* Font sizes */
-  --text-xs:   0.625rem;
-  --text-sm:   0.75rem;
-  --text-base: 1rem;
-  --text-md:   1.125rem;
-  --text-lg:   1.375rem;
-  --text-xl:   1.75rem;
-  --text-2xl:  2.25rem;
-  --text-3xl:  3rem;
-  --text-4xl:  4rem;
+  --text-xs:   0.75rem;    /* 12px  (was 10px) */
+  --text-sm:   0.875rem;   /* 14px  (was 12px) */
+  --text-base: 1.0625rem;  /* 17px  (was 16px) */
+  --text-md:   1.1875rem;  /* 19px  (was 18px) */
+  --text-lg:   1.5rem;     /* 24px  (was 22px) */
+  --text-xl:   1.875rem;   /* 30px  (was 28px) */
+  --text-2xl:  2.5rem;     /* 40px  (was 36px) */
+  --text-3xl:  3.25rem;    /* 52px  (was 48px) */
+  --text-4xl:  4.25rem;    /* 68px  (was 64px) */
 
   /* Spacing */
   --space-1:  0.25rem;

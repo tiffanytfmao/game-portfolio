@@ -281,19 +281,21 @@
 }
 .skipBtn {
   font-family: var(--font-label);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--cocoon-green);
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(45,106,79,0.35);
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: var(--cocoon-green);
+  border: 1px solid var(--cocoon-green);
   border-radius: var(--radius-full);
-  padding: 6px 16px;
+  padding: 9px 22px;
   cursor: pointer;
-  transition: background var(--duration-fast), color var(--duration-fast);
+  box-shadow: 0 4px 14px rgba(45,106,79,0.3);
+  transition: background var(--duration-fast), color var(--duration-fast),
+              transform var(--duration-fast) var(--ease-bounce);
   white-space: nowrap;
 }
-.skipBtn:hover { background: rgba(255,255,255,0.92); color: var(--cocoon-green); }
+.skipBtn:hover { background: #2E5C40; color: #fff; transform: translateY(-2px); }
 
 /* ── Body layout ── */
 .body {
@@ -328,14 +330,14 @@
 }
 .navItem {
   font-family: var(--font-label);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--color-text-light);
   background: transparent;
   border: none;
   text-align: left;
-  padding: 7px 10px;
+  padding: 9px 12px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: color var(--duration-fast), background var(--duration-fast);
@@ -435,6 +437,23 @@
   margin-top: var(--space-8);
 }
 
+.ndaBadge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-parchment);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  max-width: 640px;
+}
+
 .linkedinLink {
   display: inline-flex;
   align-items: center;
@@ -497,12 +516,13 @@
   position: relative;
 }
 .roleList li::before {
-  content: '◆';
+  content: '';
   position: absolute;
   left: 0;
-  font-size: 7px;
-  color: var(--cocoon-gold);
-  top: 5px;
+  top: 11px;
+  width: 10px;
+  height: 1px;
+  background: var(--color-border);
 }
 .stakes {
   font-size: var(--text-sm);
@@ -512,7 +532,7 @@
   padding: var(--space-4);
   background: var(--cocoon-green-light);
   border-radius: var(--radius-sm);
-  border-left: 3px solid var(--cocoon-green);
+  border: 1px solid var(--color-border);
 }
 
 /* ── Problem / Gaps ── */
@@ -643,24 +663,20 @@
   line-height: 1.4;
   letter-spacing: 0.01em;
   margin: var(--space-4) 0 var(--space-6);
-  padding: var(--space-6) var(--space-8);
-  border-left: 4px solid var(--cocoon-green);
-  background: var(--cocoon-green-light);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 0;
   max-width: 640px;
 }
 .hmwSubs {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding-left: var(--space-6);
-  border-left: 2px solid var(--color-border);
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--color-border);
 }
 .hmwSub {
   font-size: var(--text-sm);
   line-height: 1.65;
   color: var(--color-text-muted);
-  font-style: italic;
 }
 
 /* ── Principles ── */
@@ -674,8 +690,7 @@
   padding: var(--space-5) var(--space-6);
   background: var(--color-bg-offwhite);
   border: 1px solid var(--color-border);
-  border-left: 4px solid var(--cocoon-green);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -692,7 +707,7 @@
 .decision {
   margin-bottom: var(--space-12);
   padding-bottom: var(--space-12);
-  border-bottom: 1px dashed var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 .decision:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
@@ -719,8 +734,8 @@
 }
 .decisionSplit {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-10);
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
   align-items: start;
 }
 .decisionText { display: flex; flex-direction: column; gap: var(--space-4); }
@@ -757,7 +772,7 @@
 .outcomeVal { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.5; }
 .decisionImg {
   width: 100%;
-  aspect-ratio: 4/3;
+  height: auto;
   object-fit: contain;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
@@ -775,8 +790,7 @@
   padding: var(--space-5) var(--space-6);
   background: var(--color-bg-offwhite);
   border: 1px solid var(--color-border);
-  border-top: 3px solid var(--cocoon-green);
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -839,13 +853,13 @@
 }
 .reflectionCol {
   padding: var(--space-6);
+  background: var(--color-bg-offwhite);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
-.reflectionCol:first-child { background: #FDF3F3; border-top: 3px solid #C0392B; }
-.reflectionCol:last-child { background: var(--cocoon-green-light); border-top: 3px solid var(--cocoon-green); }
 .reflectionColHead {
   font-family: var(--font-label);
   font-size: var(--text-sm);
@@ -866,37 +880,15 @@
   position: relative;
 }
 .reflectionList li::before {
-  content: '◆';
+  content: '';
   position: absolute;
   left: 0;
-  font-size: 7px;
-  color: var(--cocoon-gold);
-  top: 5px;
+  top: 11px;
+  width: 10px;
+  height: 1px;
+  background: var(--color-border);
 }
 
-.closingQuote {
-  font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 2.8vw, 2rem);
-  color: white;
-  line-height: 1.4;
-  margin: 0;
-  padding: var(--space-10) var(--space-10);
-  background: var(--cocoon-green);
-  border-radius: var(--radius-lg);
-  text-align: center;
-  letter-spacing: 0.01em;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-.closingSub {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  font-weight: 400;
-  font-style: italic;
-  color: rgba(255,255,255,0.9);
-  letter-spacing: 0;
-}
 
 /* ── Responsive ── */
 @media (max-width: 900px) {

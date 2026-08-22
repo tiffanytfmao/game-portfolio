@@ -69,7 +69,9 @@ export default function App() {
     }
 
     const handleMouseMove = (e) => {
-      if (e.target.closest('a, button, [role="button"], [role="tab"], input, select')) {
+      const interactive = e.target.closest('a, button, [role="button"], [role="tab"], input, select')
+      cursorRef.current?.classList.toggle('hovering', !!interactive)
+      if (interactive) {
         spawnSparkle(e.clientX, e.clientY)
       }
     }

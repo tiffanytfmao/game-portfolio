@@ -75,21 +75,24 @@
 }
 .skipBtn {
   font-family: var(--font-label);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--color-gold);
-  background: transparent;
-  border: 1px solid rgba(196,168,130,0.3);
+  letter-spacing: 0.08em;
+  color: var(--color-bg-dark);
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold);
   border-radius: var(--radius-full);
-  padding: 6px 16px;
+  padding: 9px 22px;
   cursor: pointer;
-  transition: background var(--duration-fast), color var(--duration-fast);
+  box-shadow: 0 4px 14px rgba(196,168,130,0.35);
+  transition: background var(--duration-fast), color var(--duration-fast),
+              transform var(--duration-fast) var(--ease-bounce);
   white-space: nowrap;
 }
 .skipBtn:hover {
-  background: rgba(196,168,130,0.12);
-  color: var(--color-gold-warm);
+  background: var(--color-gold-warm);
+  color: var(--color-bg-dark);
+  transform: translateY(-2px);
 }
 
 /* ── Body layout ── */
@@ -133,14 +136,14 @@
 }
 .navItem {
   font-family: var(--font-label);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--color-text-light);
   background: transparent;
   border: none;
   text-align: left;
-  padding: 7px 10px;
+  padding: 9px 12px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: color var(--duration-fast), background var(--duration-fast);
@@ -264,12 +267,13 @@
   position: relative;
 }
 .roleList li::before {
-  content: '◆';
+  content: '';
   position: absolute;
   left: 0;
-  font-size: 6px;
-  color: var(--color-gold);
-  top: 6px;
+  top: 0.7em;
+  width: 8px;
+  height: 1px;
+  background: var(--color-border);
 }
 
 /* ── Stat callouts ── */
@@ -313,10 +317,7 @@
   line-height: 1.4;
   letter-spacing: 0.01em;
   margin: var(--space-8) 0;
-  padding: var(--space-6) var(--space-8);
-  border-left: 4px solid var(--color-gold);
-  background: var(--color-bg-parchment);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 0;
   max-width: 600px;
 }
 .contextGrid {
@@ -416,14 +417,20 @@
 /* ── Inspiration grid ── */
 .inspoGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
   margin-top: var(--space-6);
 }
 .inspoCard { display: flex; flex-direction: column; gap: var(--space-2); cursor: default; }
+.inspoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+}
 .inspoMedia {
   position: relative;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/10;
   border-radius: var(--radius-md);
   overflow: hidden;
 }
@@ -461,23 +468,32 @@
   color: var(--color-gold);
 }
 .inspoDesc {
-  font-size: 12px;
-  line-height: 1.55;
-  color: rgba(253,250,245,0.9);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  /* Sits inside the dark hover overlay — needs a light value */
+  color: rgba(253, 250, 245, 0.86);
 }
 .inspoName {
   font-family: var(--font-label);
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--color-text-dark);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
+}
+.inspoCategory {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-gold-deep);
 }
 
 /* ── Design decisions ── */
 .decision {
   margin-bottom: var(--space-12);
   padding-bottom: var(--space-12);
-  border-bottom: 1px dashed var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 .decision:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .decisionMeta {
@@ -522,9 +538,7 @@
 }
 .insightBox {
   padding: var(--space-4) var(--space-5);
-  background: var(--color-bg-parchment);
-  border-left: 3px solid var(--color-gold);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-left: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -613,9 +627,8 @@
 .quoteCard {
   padding: var(--space-5) var(--space-6);
   background: var(--color-bg-offwhite);
-  border: 1.5px solid var(--color-border-pink);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  border-left: 4px solid var(--color-pink-dusty);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -636,6 +649,7 @@
 .findingsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
   gap: var(--space-4);
 }
 .finding {
@@ -647,13 +661,14 @@
   border: 1px solid var(--color-border);
   align-items: flex-start;
 }
-.findingDiamond { color: var(--color-gold); font-size: 9px; margin-top: 6px; flex-shrink: 0; }
+.findingDiamond { width: 8px; height: 1px; background: var(--color-border); margin-top: 11px; flex-shrink: 0; }
 .findingText { font-size: var(--text-sm); line-height: 1.6; color: var(--color-text-muted); }
 
 /* ── Next steps ── */
 .nextGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
   gap: var(--space-4);
   margin-top: var(--space-6);
 }
@@ -666,7 +681,15 @@
   border-radius: var(--radius-md);
   align-items: flex-start;
 }
-.nextIcon { font-size: 24px; flex-shrink: 0; line-height: 1; }
+.nextNum {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--color-text-light);
+  flex-shrink: 0;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
 .nextTitle {
   font-family: var(--font-label);
   font-size: var(--text-sm);
@@ -698,119 +721,6 @@
 }
 
 /* ── Quest Board ── */
-.questBoard {
-  position: relative;
-  margin: var(--space-10) 0 0;
-  padding: clamp(24px, 4vw, 48px) clamp(24px, 5vw, 56px);
-  background:
-    repeating-linear-gradient(
-      92deg,
-      transparent,
-      transparent 2px,
-      rgba(255,255,255,0.03) 2px,
-      rgba(255,255,255,0.03) 4px
-    ),
-    repeating-linear-gradient(
-      180deg,
-      rgba(0,0,0,0.05) 0px,
-      rgba(0,0,0,0.05) 1px,
-      transparent 1px,
-      transparent 18px
-    ),
-    linear-gradient(
-      175deg,
-      #6b3f1c 0%,
-      #7d4a22 12%,
-      #5c3318 25%,
-      #8a5530 38%,
-      #6b3f1c 50%,
-      #7d4a22 62%,
-      #5c3318 75%,
-      #7d4a22 88%,
-      #6b3f1c 100%
-    );
-  border-radius: 6px;
-  border-top: 6px solid #4a2910;
-  border-bottom: 8px solid #3a2008;
-  border-left: 5px solid #4a2910;
-  border-right: 5px solid #3a2008;
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,0.4),
-    inset 0 -2px 4px rgba(255,255,255,0.05),
-    0 8px 24px rgba(0,0,0,0.35),
-    0 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Nails in corners */
-.questBoardNailTL,
-.questBoardNailTR,
-.questBoardNailBL,
-.questBoardNailBR {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #d4a84b, #8b6914 60%, #5a4008);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.2);
-  z-index: 2;
-}
-.questBoardNailTL { top: 10px; left: 12px; }
-.questBoardNailTR { top: 10px; right: 12px; }
-.questBoardNailBL { bottom: 10px; left: 12px; }
-.questBoardNailBR { bottom: 10px; right: 12px; }
-
-/* Paper pinned to board */
-.questPaper {
-  position: relative;
-  background:
-    repeating-linear-gradient(
-      180deg,
-      transparent,
-      transparent 27px,
-      rgba(180,160,120,0.18) 27px,
-      rgba(180,160,120,0.18) 28px
-    ),
-    linear-gradient(
-      170deg,
-      #fdf6e3 0%,
-      #f9f0d8 40%,
-      #f5ead0 70%,
-      #f9f0d8 100%
-    );
-  border-radius: 3px;
-  padding: clamp(20px, 3vw, 36px) clamp(20px, 3vw, 36px) clamp(24px, 3.5vw, 40px);
-  box-shadow:
-    0 4px 16px rgba(0,0,0,0.3),
-    0 1px 3px rgba(0,0,0,0.2),
-    inset 0 0 0 1px rgba(180,150,90,0.15);
-  transform: rotate(-0.6deg);
-}
-
-/* Tape strip across top of paper */
-.questTapeTop {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%) rotate(1deg);
-  width: 80px;
-  height: 28px;
-  background: rgba(255, 240, 180, 0.65);
-  border: 1px solid rgba(200, 180, 100, 0.4);
-  border-radius: 2px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-  backdrop-filter: blur(1px);
-}
-
-.questText {
-  font-family: var(--font-heading);
-  font-size: clamp(1rem, 2.2vw, 1.4rem);
-  color: #3a2a10;
-  line-height: 1.55;
-  text-align: center;
-  letter-spacing: 0.01em;
-  margin: 0;
-}
-
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .body { grid-template-columns: 1fr; }

@@ -12,6 +12,7 @@ function ScrollToTop() {
 }
 import LoadingScreen from './components/LoadingScreen/LoadingScreen'
 import Nav from './components/Nav/Nav'
+import PawTrail from './components/PawTrail/PawTrail'
 import Hero from './pages/Hero'
 import Work from './pages/Work'
 import About from './pages/About'
@@ -69,7 +70,9 @@ export default function App() {
     }
 
     const handleMouseMove = (e) => {
-      const interactive = e.target.closest('a, button, [role="button"], [role="tab"], input, select')
+      // Synthetic events can carry a non-element target (window, document),
+      // which has no closest().
+      const interactive = e.target?.closest?.('a, button, [role="button"], [role="tab"], input, select')
       cursorRef.current?.classList.toggle('hovering', !!interactive)
       if (interactive) {
         spawnSparkle(e.clientX, e.clientY)
@@ -89,6 +92,7 @@ export default function App() {
   return (
     <>
       <div id="cursor" ref={cursorRef} aria-hidden="true" />
+      <PawTrail />
 
       {loading && <LoadingScreen onComplete={handleLoadComplete} />}
 

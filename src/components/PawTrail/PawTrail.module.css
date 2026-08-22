@@ -1,0 +1,30 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  /* Sits above page content but well below #cursor (9999) and the nav. */
+  z-index: 2;
+}
+
+.paw {
+  position: absolute;
+  color: var(--color-pink-dusty);
+  line-height: 0;
+  opacity: 0;
+  will-change: opacity, filter, transform;
+  animation: pawStep var(--life, 1500ms) var(--ease-out) forwards;
+}
+
+/* Blur in, hold, then fade — the blur is what makes the trail read as
+   background texture rather than as a cursor decoration. */
+@keyframes pawStep {
+  0%   { opacity: 0;    filter: blur(4px); }
+  18%  { opacity: 0.20; filter: blur(0px); }
+  55%  { opacity: 0.20; filter: blur(0px); }
+  100% { opacity: 0;    filter: blur(2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layer { display: none; }
+}

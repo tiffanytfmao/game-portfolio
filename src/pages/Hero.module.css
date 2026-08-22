@@ -146,7 +146,7 @@
 /* ── Cat mini-game ── */
 .catWrap {
   position: absolute;
-  right: clamp(1.5rem, 5vw, 5rem);
+  left: clamp(1.5rem, 5vw, 5rem);
   bottom: clamp(1rem, 3.5vh, 2.5rem);
   display: flex;
   flex-direction: column;
@@ -162,9 +162,8 @@
 .petPrompt {
   position: absolute;
   bottom: 6px;
-  left: -104px;
+  right: -104px;
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
   gap: var(--space-2);
   pointer-events: none;
@@ -176,12 +175,12 @@
 
 /* The asset points down-left at rest; -45deg brings the head round to
    horizontal so it reads as an arrow aimed back at the cat. */
-/* Mirrored from the left-pointing -45deg now that the label sits on the
-   cat's left and the arrow has to point back the other way. */
+/* The asset points down-left at rest; -45deg brings the head round to
+   horizontal so it aims back at the cat sitting to its left. */
 .petArrow {
   width: 26px;
   height: auto;
-  transform: rotate(135deg);
+  transform: rotate(-45deg);
 }
 
 .petLabel {
@@ -270,7 +269,7 @@
   }
   .bioText { white-space: normal; }
   .bioBreak { display: none; }
-  .petPrompt { left: -92px; }
+  .petPrompt { right: -92px; }
   .credRow { gap: var(--space-3); }
   .credDivider { display: none; }
 }

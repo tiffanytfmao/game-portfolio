@@ -6,9 +6,9 @@ import { asset } from '../utils/asset'
 import styles from './Hero.module.css'
 
 const HEADLINE_1 = 'I design digital products,'
-const HEADLINE_2 = 'social games, and experiences'
+const HEADLINE_2 = 'games, and experiences'
 const HEADLINE_3 = 'built for '
-const CHAR_DELAY = 38
+const CHAR_DELAY = 32
 
 const STAGE_MESSAGES = [
   "Piggy seems interested in you.",
@@ -17,7 +17,6 @@ const STAGE_MESSAGES = [
   "Piggy loves you.",
 ]
 
-// Outline briefcase icon
 const iconStyle = { color: 'var(--color-text-light)', flexShrink: 0, display: 'block' }
 
 const BriefcaseIcon = () => (
@@ -34,27 +33,6 @@ const GradCapIcon = () => (
     <path d="M6 12v5c3 3 9 3 12 0v-5"/>
   </svg>
 )
-
-// Paw print SVG — 1 large pad + 3 toe circles in triangle above
-const PawPrint = () => (
-  <svg width="11" height="13" viewBox="0 0 16 18" fill="currentColor" aria-hidden="true">
-    <ellipse cx="8" cy="14" rx="4.5" ry="3.5" />
-    <circle cx="3"  cy="8"  r="2" />
-    <circle cx="8"  cy="6"  r="2.2" />
-    <circle cx="13" cy="8"  r="2" />
-  </svg>
-)
-
-const PAW_TRAIL = [
-  { x: 9,  y: 75, r: 88 },
-  { x: 12, y: 79, r: 92 },
-  { x: 15, y: 75, r: 88 },
-  { x: 18, y: 79, r: 92 },
-  { x: 21, y: 75, r: 88 },
-  { x: 24, y: 79, r: 92 },
-  { x: 27, y: 75, r: 88 },
-  { x: 30, y: 79, r: 92 },
-]
 
 function useTypewriter(text, triggerKey, delayMs = 500, onComplete, holdMs = 900) {
   const [count, setCount]           = useState(0)
@@ -140,11 +118,15 @@ export default function Hero({ active = true }) {
   // whole course underneath the overlay and finish before it's visible.
   const [line2Trigger, setLine2Trigger] = useState(0)
   const [line3Trigger, setLine3Trigger] = useState(0)
-  const [line1Count, showLine1Cursor] = useTypewriter(HEADLINE_1, (inView && active) ? 1 : 0, 650, () => setLine2Trigger(t => t + 1), 300)
-  const [line2Count, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0, () => setLine3Trigger(t => t + 1), 300)
-  const [line3Count, showLine3Cursor] = useTypewriter(HEADLINE_3, line3Trigger, 0, undefined, 400)
+  const [line1Count, showLine1Cursor] = useTypewriter(HEADLINE_1, (inView && active) ? 1 : 0, 450, () => setLine2Trigger(t => t + 1), 220)
+  const [line2Count, showLine2Cursor] = useTypewriter(HEADLINE_2, line2Trigger, 0, () => setLine3Trigger(t => t + 1), 220)
+  const [line3Count, showLine3Cursor] = useTypewriter(HEADLINE_3, line3Trigger, 0, undefined, 300)
 
   const line3Done = line3Count === HEADLINE_3.length
+  // Supporting copy rides in with the last line rather than waiting for it to
+  // finish, so the page settles about a second sooner without losing the
+  // sense that the headline leads.
+  const tailStarted = line3Trigger > 0
 
   // ── Pet mini-game ──
   const [hasPetted, setHasPetted]   = useState(false)
@@ -168,137 +150,97 @@ export default function Hero({ active = true }) {
 
   const [stageCount, showStageCursor] = useTypewriter(stageMsg, burstCount, 200, handleMsgComplete)
 
+  const scrollToWork = useCallback((e) => {
+    e.preventDefault()
+    document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })
+  }, [])
+
   return (
-    <section id="hero" className={`${styles.hero}`} ref={ref}>
+    <section id="hero" className={styles.hero} ref={ref}>
       <div className={`${styles.inner} ${(inView && active) ? styles.visible : ''}`}>
 
-        {/* ── Left: portrait panel ── */}
-        <aside className={styles.portraitPanel}>
-          <div className={styles.flipWrapper}>
-            <div className={styles.flipCard}>
-              <div className={styles.flipFront}>
-                <div className={styles.portraitFrame}>
-                  <img src={asset('portraits/portrait.png')} alt="Tiffany Mao" className={styles.portraitImg} />
-                </div>
-              </div>
-              <div className={styles.flipBack}>
-                <div className={styles.portraitFrame}>
-                  <img src={asset('portraits/tiff.jpg')} alt="Tiffany Mao" className={styles.portraitImg} />
-                </div>
-              </div>
+        <p className={styles.greeting}>
+          HI, I'M TIFFANY <span className={styles.greetingMark}>✳</span>
+        </p>
+
+        <h1 className={styles.headline} aria-label={`${HEADLINE_1} ${HEADLINE_2} ${HEADLINE_3}play.`}>
+          <span className={styles.headlineLine}>
+            <TypedText text={HEADLINE_1} count={line1Count} showCursor={showLine1Cursor} />
+          </span>
+          <span className={styles.headlineLine}>
+            <TypedText text={HEADLINE_2} count={line2Count} showCursor={showLine2Cursor} />
+          </span>
+          <span className={styles.headlineLine}>
+            {/* HEADLINE_3 + "play." are both always rendered in full (revealed via
+                per-character opacity) so the browser computes line-wrapping once
+                up front instead of re-wrapping as the typed string grows. */}
+            <TypedText text={HEADLINE_3} count={line3Count} showCursor={showLine3Cursor} />
+            <span className={`${styles.playWord} ${line3Done ? styles.playVisible : ''}`}>play</span>
+            <span className={`${styles.playStop} ${line3Done ? styles.playVisible : ''}`}>.</span>
+          </span>
+        </h1>
+
+        <p className={`${styles.bioText} ${tailStarted ? styles.revealed : ''}`}>
+          I <span className={styles.accent}>research</span>, <span className={styles.accent}>prototype</span>,{' '}
+          and <span className={styles.accent}>ship</span> interactive experiences
+          <br className={styles.bioBreak} /> from concept to code.
+        </p>
+
+        {/* ── Cat mini-game ── */}
+        <div className={`${styles.catWrap} ${tailStarted ? styles.revealed : ''}`}>
+          <div className={styles.catPromptArea}>
+            <CatSprite
+              variant="idle"
+              size="md"
+              onFirstPet={handleFirstPet}
+              onBurst={handleBurst}
+            />
+            <div className={`${styles.petPrompt} ${hasPetted ? styles.petPromptHidden : ''}`}>
+              <img src={asset('other assets/arrow.svg')} alt="" className={styles.petArrow} />
+              <span className={styles.petLabel}>Pet me?</span>
             </div>
           </div>
 
-          <p className={styles.coinLabel}>Product Designer</p>
-
-          {/* Cat area */}
-          <div className={styles.catWrap}>
-            <div className={styles.catPromptArea}>
-              <CatSprite
-                variant="idle"
-                size="md"
-                onFirstPet={handleFirstPet}
-                onBurst={handleBurst}
-              />
-              <div className={`${styles.petPrompt} ${hasPetted ? styles.petPromptHidden : ''}`}>
-                <img src={asset('other assets/arrow.svg')} alt="" className={styles.petArrow} />
-                <span className={styles.petLabel}>Pet me?</span>
-              </div>
-            </div>
-
-            {burstCount > 0 && (
-              <p
-                className={`${styles.stageMsg} ${msgFading ? styles.stageMsgFading : ''}`}
-                aria-live="polite"
-                aria-label={stageMsg}
-              >
-                <TypedText text={stageMsg} count={stageCount} showCursor={showStageCursor} />
-              </p>
-            )}
-          </div>
-        </aside>
-
-        {/* ── Right: bio ── */}
-        <div className={styles.bio}>
-          <p className={styles.greeting}><span className={styles.greetingDiamond}>◆</span>HEY THERE, I'M TIFFANY <span className={styles.greetingDiamond}>◆</span></p>
-
-          <h2 className={styles.bioHeadline} aria-label={`${HEADLINE_1} ${HEADLINE_2} ${HEADLINE_3}play.`}>
-            <span className={styles.headlineLine}>
-              <TypedText text={HEADLINE_1} count={line1Count} showCursor={showLine1Cursor} />
-            </span>
-            <span className={styles.headlineLine}>
-              <TypedText text={HEADLINE_2} count={line2Count} showCursor={showLine2Cursor} />
-            </span>
-            <span className={styles.headlineLine}>
-              {/* HEADLINE_3 + "play." are both always rendered in full (revealed via
-                  per-character opacity) so the browser computes line-wrapping once
-                  up front instead of re-wrapping as the typed string grows. */}
-              <TypedText text={HEADLINE_3} count={line3Count} showCursor={showLine3Cursor} />
-              <span className={`${styles.squiggleWord} ${line3Done ? styles.squiggleVisible : ''}`}>play.</span>
-            </span>
-          </h2>
-
-          <p className={`${styles.bioText} ${line3Done ? styles.bioTextVisible : ''}`}>
-            Designer interested in making the world feel more human. I <span className={styles.accent}>research</span>, <span className={styles.accent}>prototype</span>,{' '}
-            and <span className={styles.accent}>ship</span> interactive experiences from concept to code.
-          </p>
-
-          {/* Credential row */}
-          <div className={`${styles.credRow} ${line3Done ? styles.credRowVisible : ''}`}>
-            <span className={styles.credGroup}>
-              <BriefcaseIcon />
-              <span className={styles.credLabel}>Previously engineering at</span>
-              <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="Meta" className={styles.credLogo} />
-              <span className={styles.credLabel}>Meta</span>
-              <span className={styles.credCocoon} />
-              <span className={styles.credCocoonLabel}>Cocoon</span>
-              <img src={asset('other assets/SUSELogo.png')} alt="SUSE" className={styles.credLogo} />
-              <span className={styles.credLabel}>SUSE</span>
-            </span>
-            <span className={styles.credDivider}>|</span>
-            <span className={styles.credGroup}>
-              <GradCapIcon />
-              <span className={styles.credLabel}>MDes @ UC Berkeley</span>
-            </span>
-          </div>
-
-          <div className={`${styles.bioActions} ${line3Done ? styles.bioActionsVisible : ''}`}>
-            <a href="#work" className={styles.primaryBtn} onClick={e => { e.preventDefault(); document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' }) }}>
-              See my work
-              <span className={styles.btnArrow}>→</span>
-            </a>
-            <a href="#contact" className={styles.ghostBtn} onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}>
-              Let's chat
-            </a>
-          </div>
+          {burstCount > 0 && (
+            <p
+              className={`${styles.stageMsg} ${msgFading ? styles.stageMsgFading : ''}`}
+              aria-live="polite"
+              aria-label={stageMsg}
+            >
+              <TypedText text={stageMsg} count={stageCount} showCursor={showStageCursor} />
+            </p>
+          )}
         </div>
 
-      </div>
-
-      {/* ── Paw print trail ── */}
-      <div className={styles.pawTrail} aria-hidden="true">
-        {PAW_TRAIL.map((p, i) => (
-          <span
-            key={i}
-            className={styles.paw}
-            style={{ left: `${p.x}%`, top: `${p.y}%`, transform: `rotate(${p.r}deg)` }}
-          >
-            <PawPrint />
+        {/* ── Credential row ── */}
+        <div className={`${styles.credRow} ${tailStarted ? styles.revealed : ''}`}>
+          <span className={styles.credGroup}>
+            <BriefcaseIcon />
+            <span className={styles.credLabel}>Prev. Engineer @</span>
+            <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="Meta" className={styles.credLogo} />
+            <span className={styles.credLabel}>Meta</span>
+            <span className={styles.credCocoon} />
+            <span className={styles.credLabel}>Cocoon</span>
+            <img src={asset('other assets/SUSELogo.png')} alt="SUSE" className={styles.credLogo} />
+            <span className={styles.credLabel}>SUSE</span>
           </span>
-        ))}
-      </div>
+          <span className={styles.credDivider} aria-hidden="true" />
+          <span className={styles.credGroup}>
+            <GradCapIcon />
+            <span className={styles.credLabel}>MDes @ UC Berkeley</span>
+          </span>
+        </div>
 
-      {/* ── Separator: full-width line + upward chevron ── */}
-      <div className={styles.separatorWrap} aria-hidden="true">
-        <svg className={styles.separatorSvg} viewBox="0 0 1000 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <polyline
-            points={`0,14 487,14 500,3 513,14 1000,14`}
-            fill="none"
-            stroke="var(--color-border)"
-            strokeWidth="1"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+        {/* ── Scroll cue (replaces the old CTA pair) ── */}
+        <a
+          href="#work"
+          className={`${styles.scrollCue} ${tailStarted ? styles.revealed : ''}`}
+          onClick={scrollToWork}
+        >
+          <span className={styles.scrollLabel}>Scroll to see my work</span>
+          <span className={styles.scrollArrow} aria-hidden="true">↓</span>
+        </a>
+
       </div>
     </section>
   )

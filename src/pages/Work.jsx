@@ -165,15 +165,9 @@ export default function Work() {
   return (
     <section id="work" className={`${styles.section}`} ref={ref}>
       <div className={styles.inner}>
-        <div className={styles.featuredHeader}>
-          <p className={styles.featuredLabel}>
-            <span aria-hidden="true">✦</span>
-            FEATURED WORK
-            <span aria-hidden="true">✦</span>
-          </p>
-        </div>
-
-        {/* Filter tabs */}
+        {/* Filter tabs — these double as the section header now that the
+            "Featured work" eyebrow is gone, which is what buys the vertical
+            room for the card tops to clear the fold. */}
         <div className={styles.filters} role="tablist" aria-label="Filter projects">
           {TABS.map(t => (
             <button

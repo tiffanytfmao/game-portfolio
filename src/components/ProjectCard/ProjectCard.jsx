@@ -43,7 +43,6 @@ export default function ProjectCard({ project, index = 0, style = {} }) {
       ref={cardRef}
       className={styles.card}
       style={{
-        '--rotate': `${project.rotate ?? 0}deg`,
         '--delay': `${index * 80}ms`,
         ...style,
       }}

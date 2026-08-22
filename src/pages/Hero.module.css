@@ -68,18 +68,18 @@
 /* ── Greeting eyebrow ── */
 .greeting {
   font-family: var(--font-label);
-  font-size: var(--text-sm);
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
   font-weight: var(--weight-medium);
-  letter-spacing: var(--tracking-wide);
-  color: var(--color-text-light);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-dark);
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--space-2);
-  margin-bottom: clamp(0.75rem, 2vh, 1.25rem);
+  margin-bottom: clamp(0.5rem, 1.4vh, 0.875rem);
 }
 .greetingMark {
-  color: var(--color-text-faint);
-  font-size: 10px;
+  color: inherit;
 }
 
 /* ── Headline ── */
@@ -151,7 +151,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
 }
 
 .catPromptArea {
@@ -194,6 +193,10 @@
 }
 
 .stageMsg {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-pixel);
   font-size: 7px;
   color: var(--color-pink-deep);

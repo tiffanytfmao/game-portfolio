@@ -141,7 +141,7 @@ export default function Hero({ active = true }) {
       <div className={`${styles.inner} ${(inView && active) ? styles.visible : ''}`}>
 
         <p className={styles.greeting}>
-          HI, I'M TIFFANY <span className={styles.greetingMark}>✳</span>
+          Hi, I'm Tiffany <span className={styles.greetingMark}>:)</span>
         </p>
 
         <h1 className={styles.headline} aria-label={`${HEADLINE_1} ${HEADLINE_2}play.`}>

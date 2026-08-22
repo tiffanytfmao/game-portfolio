@@ -76,7 +76,7 @@
 .playablesLabel {
   font-family: var(--font-label);
   font-size: var(--text-xs);
-  font-weight: 700;
+  font-weight: var(--weight-medium);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-gold-deep);
@@ -147,7 +147,7 @@
 .playableLabel {
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  font-weight: 700;
+  font-weight: var(--weight-medium);
   color: var(--color-text-dark);
 }
 

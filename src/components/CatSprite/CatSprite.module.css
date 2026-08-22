@@ -68,7 +68,7 @@
   bottom: 40%;
   font-size: 11px;
   font-family: var(--font-label);
-  font-weight: 700;
+  font-weight: var(--weight-medium);
   color: var(--color-pink-deep);
   pointer-events: none;
   animation: popFloat 0.9s ease-out forwards;

@@ -60,7 +60,7 @@
   color: #fff;
   font-family: var(--cs-mono);
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: var(--weight-medium);
 }
 
 .stepNum::before { content: counter(step); }
@@ -92,7 +92,7 @@
   opacity: 0.7;
 }
 
-.creditName { font-size: 0.98rem; font-weight: 600; }
+.creditName { font-size: 0.98rem; font-weight: var(--weight-medium); }
 
 .creditMe .creditName { color: var(--graft-green, #5e8c4e); }
 

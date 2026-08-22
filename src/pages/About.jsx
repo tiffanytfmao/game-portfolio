@@ -2,6 +2,7 @@ import { useInView } from '../hooks/useInView'
 import SectionBanner from '../components/SectionBanner/SectionBanner'
 import QuestEntry from '../components/QuestEntry/QuestEntry'
 import DialogueBox from '../components/DialogueBox/DialogueBox'
+import { asset } from '../utils/asset'
 import styles from './About.module.css'
 
 const TIMELINE = [
@@ -85,6 +86,19 @@ export default function About() {
               {TIMELINE.map((entry, i) => (
                 <QuestEntry key={entry.title} entry={entry} index={i} />
               ))}
+            </div>
+
+            {/* Fills the space the timeline leaves at the bottom of this
+                column, where the testimonials opposite run longer. */}
+            <div className={styles.polaroids}>
+              <figure className={styles.polaroid} style={{ '--rot': '-3deg' }}>
+                <img src={asset('portraits/tiff.jpg')} alt="Tiffany Mao" />
+                <figcaption>hello!</figcaption>
+              </figure>
+              <figure className={styles.polaroid} style={{ '--rot': '2.5deg' }}>
+                <img src={asset('portraits/portrait.png')} alt="Illustrated portrait of Tiffany" />
+                <figcaption>me, but drawn</figcaption>
+              </figure>
             </div>
           </div>
 

@@ -17,6 +17,7 @@ const STAGE_MESSAGES = [
   "Piggy seems to want you to pet her more.",
   "Piggy is very happy!",
   "Piggy loves you.",
+  "Piggy is also a devoted light mode enjoyer.",
 ]
 
 function useTypewriter(text, triggerKey, delayMs = 500, onComplete, holdMs = 900) {
@@ -158,13 +159,7 @@ export default function Hero({ active = true }) {
         </h1>
 
         <p className={`${styles.bioText} ${tailStarted ? styles.revealed : ''}`}>
-          Designer interested in making the world feel more human,
-          and a devoted <span className={styles.accent}>light mode</span> enjoyer.
-        </p>
-
-        <p className={`${styles.bioSub} ${tailStarted ? styles.revealed : ''}`}>
-          I <span className={styles.accent}>research</span>, <span className={styles.accent}>prototype</span>,{' '}
-          and <span className={styles.accent}>ship</span> interactive experiences
+          I research, prototype, and ship interactive experiences
           <br className={styles.bioBreak} /> from concept to code.
         </p>
 

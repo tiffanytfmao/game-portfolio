@@ -55,7 +55,6 @@
 
 /* Staged reveal for everything below the headline. */
 .bioText,
-.bioSub,
 .catWrap,
 .credRow {
   opacity: 0;
@@ -63,7 +62,6 @@
   transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 .bioText.revealed  { opacity: 1; transform: none; transition-delay: 0s; }
-.bioSub.revealed   { opacity: 1; transform: none; transition-delay: 0.07s; }
 .catWrap.revealed  { opacity: 1; transform: none; transition-delay: 0.16s; }
 .credRow.revealed  { opacity: 1; transform: none; transition-delay: 0.20s; }
 
@@ -77,10 +75,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  margin-bottom: clamp(0.5rem, 1.6vh, 1.25rem);
+  margin-bottom: clamp(0.5rem, 1.4vh, 0.875rem);
 }
 .greetingMark {
-  color: var(--color-pink-dusty);
+  color: var(--color-text-faint);
   font-size: 10px;
 }
 
@@ -136,31 +134,17 @@
   line-height: 1.55;
   letter-spacing: var(--tracking-snug);
   color: var(--color-text-muted);
-  margin-top: clamp(1rem, 2.6vh, 1.75rem);
+  margin-top: clamp(1.5rem, 4.4vh, 2.5rem);
   max-width: 34em;
   /* Keeps the two lines even instead of orphaning the last word. */
   text-wrap: balance;
 }
 
-/* Second, quieter line — sits under the lead without competing with it. */
-.bioSub {
-  font-size: var(--text-base);
-  font-weight: var(--weight-light);
-  line-height: 1.55;
-  letter-spacing: var(--tracking-snug);
-  color: var(--color-text-light);
-  margin-top: clamp(0.4rem, 1vh, 0.6rem);
-  max-width: 34em;
-  text-wrap: balance;
-}
 
-.accent {
-  color: var(--color-pink-deep);
-}
 
 /* ── Cat mini-game ── */
 .catWrap {
-  margin-top: clamp(0.75rem, 2.2vh, 1.5rem);
+  margin-top: clamp(2.5rem, 8vh, 4.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -223,7 +207,7 @@
   justify-content: center;
   gap: var(--space-4);
   flex-wrap: wrap;
-  margin-top: clamp(0.75rem, 2vh, 1.25rem);
+  margin-top: clamp(2rem, 6.2vh, 3.5rem);
 }
 
 .credGroup {
@@ -279,7 +263,6 @@
 @media (prefers-reduced-motion: reduce) {
   .inner,
   .bioText,
-  .bioSub,
   .catWrap,
   .credRow {
     transition-duration: 0.01ms;

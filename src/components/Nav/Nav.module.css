@@ -10,7 +10,6 @@
   justify-content: flex-start;
   padding: 0 var(--space-6);
   background: var(--color-bg-cream);
-  border-bottom: 1px solid var(--color-border);
   transition: box-shadow var(--duration-normal) var(--ease-smooth),
               backdrop-filter var(--duration-normal);
   height: 64px;
@@ -49,42 +48,62 @@
   height: 100%;
 }
 
-/* Cat-ear tab — rounded ears via SVG mask */
 .tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-label);
   font-size: var(--text-sm);
-  font-weight: var(--weight-medium);
-  letter-spacing: 0.1em;
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-snug);
   color: var(--color-text-muted);
-  background: var(--color-bg-parchment);
+  background: none;
   border: none;
-  padding: 8px 18px 12px;
-  padding-top: 22px;
-  position: relative;
-  transition: color var(--duration-fast), background var(--duration-fast);
+  padding: 8px 14px 14px;
+  transition: color var(--duration-fast) var(--ease-smooth);
   white-space: nowrap;
-  /* Original cat-ear notches */
-  clip-path: polygon(
-    0% 100%,
-    0% 28%,
-    18% 0%,
-    27% 28%,
-    73% 28%,
-    82% 0%,
-    100% 28%,
-    100% 100%
-  );
 }
 
-.tab:hover {
-  color: var(--color-text-dark);
-  background: var(--color-pink-light);
+.tab:hover,
+.tab:focus-visible {
+  color: var(--color-pink-deep);
+}
+.tab:hover .labelText,
+.tab:focus-visible .labelText {
+  font-weight: var(--weight-bold);
 }
 
 .tabActive {
-  color: var(--color-text-onpink) !important;
-  background: var(--color-pink-blush) !important;
+  color: var(--color-text-dark);
+}
+.tabActive .labelText {
   font-weight: var(--weight-medium);
+}
+
+/* Active marker — the cursor's flower in ink. */
+.flower {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  background: center / contain no-repeat
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cdefs%3E%3Cmask id='h'%3E%3Crect width='24' height='24' fill='white'/%3E%3Ccircle cx='12' cy='12' r='3' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url(%23h)' fill='%23141414'%3E%3Ccircle cx='12' cy='6' r='5'/%3E%3Ccircle cx='17.2' cy='9' r='5'/%3E%3Ccircle cx='17.2' cy='15' r='5'/%3E%3Ccircle cx='12' cy='18' r='5'/%3E%3Ccircle cx='6.8' cy='15' r='5'/%3E%3Ccircle cx='6.8' cy='9' r='5'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Label and a hidden bold twin share one grid cell, so the cell is always
+   as wide as the bold text and hovering never reflows the row. */
+.labelStack {
+  display: grid;
+}
+.labelStack > .labelText,
+.labelStack::after {
+  grid-area: 1 / 1;
+  text-align: center;
+}
+.labelStack::after {
+  content: attr(data-label);
+  font-weight: var(--weight-bold);
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* ── Work dropdown ── */
@@ -257,29 +276,19 @@
   gap: var(--space-3);
   width: 100%;
   padding: var(--space-3) var(--space-4);
-  padding-top: 18px;
   font-family: var(--font-label);
   font-size: var(--text-base);
   font-weight: var(--weight-medium);
   letter-spacing: 0.06em;
   color: var(--color-text-muted);
-  background: var(--color-bg-parchment);
-  clip-path: polygon(
-    0% 100%,
-    0% 22%,
-    12% 0%,
-    18% 22%,
-    82% 22%,
-    88% 0%,
-    100% 22%,
-    100% 100%
-  );
-  transition: background var(--duration-fast);
+  background: transparent;
+  transition: background var(--duration-fast), color var(--duration-fast);
 }
-.mobileTab:hover { background: var(--color-pink-light); }
+.mobileTab:hover { background: var(--color-bg-sunken); color: var(--color-pink-deep); }
 .mobileTabActive {
-  background: var(--color-pink-blush) !important;
-  color: var(--color-text-onpink);
+  background: transparent;
+  color: var(--color-text-dark);
+  font-weight: var(--weight-medium);
 }
 .mobileTabDiamond { color: var(--color-gold); font-size: var(--text-xs); }
 

@@ -41,6 +41,18 @@ const WORK_GROUPS = [
   },
 ]
 
+// Same 6-petal flower as the cursor, in ink rather than pink. Marks the
+// tab you are currently on.
+const FlowerMark = () => <span className={styles.flower} aria-hidden="true" />
+
+// The bold width is reserved by a hidden copy stacked in the same grid
+// cell, so the hover weight change cannot shift the tabs beside it.
+const TabLabel = ({ children }) => (
+  <span className={styles.labelStack} data-label={children}>
+    <span className={styles.labelText}>{children}</span>
+  </span>
+)
+
 export default function Nav() {
   const [active, setActive] = useState('home')
   const [scrolled, setScrolled] = useState(false)
@@ -121,7 +133,8 @@ export default function Nav() {
                     onClick={() => scrollTo('work')}
                     aria-current={active === 'work' && isHome ? 'page' : undefined}
                   >
-                    Work
+                    {active === 'work' && isHome && <FlowerMark />}
+                    <TabLabel>Work</TabLabel>
                   </button>
                   <div className={styles.dropdown} role="menu">
                     <div className={styles.dropdownInner}>
@@ -151,7 +164,8 @@ export default function Nav() {
                   onClick={() => scrollTo(t.id)}
                   aria-current={active === t.id && isHome ? 'page' : undefined}
                 >
-                  {t.label}
+                  {active === t.id && isHome && <FlowerMark />}
+                  <TabLabel>{t.label}</TabLabel>
                 </button>
               )}
             </li>
@@ -199,7 +213,7 @@ export default function Nav() {
                 className={`${styles.mobileTab} ${active === t.id && isHome ? styles.mobileTabActive : ''}`}
                 onClick={() => scrollTo(t.id)}
               >
-                <span className={styles.mobileTabDiamond}>◆</span>
+                {active === t.id && isHome && <FlowerMark />}
                 {t.label}
               </button>
             </li>

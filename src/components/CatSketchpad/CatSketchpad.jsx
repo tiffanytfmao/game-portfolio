@@ -58,7 +58,7 @@ export default function CatSketchpad({ onSpriteCreated }) {
     ctx.scale(dpr, dpr)
     ctx.lineCap = 'round'
     ctx.lineJoin = 'round'
-    ctx.strokeStyle = '#1f1810'
+    ctx.strokeStyle = '#141414'
     ctx.lineWidth = 3.5
     ctx.globalAlpha = 0.88
   }, [])
@@ -79,7 +79,7 @@ export default function CatSketchpad({ onSpriteCreated }) {
     lastPosRef.current = pos
     const ctx = canvasRef.current.getContext('2d')
     ctx.beginPath()
-    ctx.fillStyle = '#1f1810'
+    ctx.fillStyle = '#141414'
     ctx.globalAlpha = 0.88
     ctx.arc(pos.x, pos.y, 1.75, 0, Math.PI * 2)
     ctx.fill()

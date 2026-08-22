@@ -4,7 +4,7 @@
   --cm-green-light: #D8EFDE;
   --cm-green-muted: #4E7A61;
   --cm-lime:        #3FB07A;
-  --cm-gold:        #B7952A;
+  --cm-gold:        var(--color-text-faint);
   --cm-ink:         #14211A;
 }
 
@@ -52,7 +52,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
 }
 .heroGrid {
   position: absolute;
@@ -113,7 +113,7 @@
   background: var(--cm-green);
 }
 .heroHeading {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
   font-size: clamp(34px, 4.2vw, 60px);
   line-height: 1.06;
   color: var(--color-text-dark);
@@ -168,14 +168,14 @@
 }
 .heroBrowserBar {
   height: 30px;
-  background: #EFEAE0;
+  background: #FAFAFA;
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 0 12px;
   border-bottom: 1px solid var(--color-border);
 }
-.heroBrowserDot { width: 9px; height: 9px; border-radius: 50%; background: #D9CDB6; flex-shrink: 0; }
+.heroBrowserDot { width: 9px; height: 9px; border-radius: 50%; background: #E5E5E7; flex-shrink: 0; }
 .heroBrowser img { display: block; width: 100%; height: auto; }
 
 .heroBottomLabel {

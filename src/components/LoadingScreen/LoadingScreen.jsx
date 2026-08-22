@@ -18,7 +18,7 @@ export default function LoadingScreen({ onComplete }) {
 
   return (
     <div
-      className={`${styles.overlay} texture-parchment ${done ? styles.fadeOut : ''}`}
+      className={`${styles.overlay} ${done ? styles.fadeOut : ''}`}
       role="status"
       aria-label="Loading"
     >

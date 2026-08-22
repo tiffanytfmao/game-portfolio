@@ -42,7 +42,7 @@
 /* ── Card (polaroid) ── */
 .card {
   position: absolute;
-  background: #FEFCF8;
+  background: #FFFFFF;
   border-radius: 2px;
   padding: 8px 8px 0;
   box-shadow:
@@ -89,7 +89,7 @@
   width: 13px;
   height: 13px;
   border-radius: var(--radius-full);
-  background: radial-gradient(circle at 35% 35%, #E8C56D 0%, #8A7D30 100%);
+  background: radial-gradient(circle at 35% 35%, var(--color-pink-blush) 0%, var(--color-pink-deep) 100%);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0,0,0,0.1);
   z-index: 1;
 }

@@ -69,7 +69,7 @@ export default function About() {
   const [ref, inView] = useInView()
 
   return (
-    <section id="about" className={`${styles.section} texture-crosshatch`} ref={ref}>
+    <section id="about" className={`${styles.section}`} ref={ref}>
       <div className={`${styles.inner} ${inView ? styles.visible : ''}`}>
         <SectionBanner sub="The lore, the skills, the people who put up with me">
           About

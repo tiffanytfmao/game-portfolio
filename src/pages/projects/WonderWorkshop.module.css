@@ -38,7 +38,7 @@
 .hero {
   width: 100%;
   position: relative;
-  background: #2a1f10;
+  background: var(--color-text-dark);
 }
 .heroGif {
   width: 100%;
@@ -572,7 +572,7 @@
   padding-bottom: 62.5%;
   height: 0;
   overflow: hidden;
-  background: #1a1108;
+  background: var(--color-text-dark);
 }
 .gameFrame {
   position: absolute;

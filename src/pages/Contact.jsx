@@ -15,7 +15,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className={`${styles.section} texture-dark`} ref={ref}>
+    <section id="contact" className={`${styles.section}`} ref={ref}>
       <div className={`${styles.inner} ${inView ? styles.visible : ''}`}>
         <SectionBanner sub="I love yapping." dark>
           Let's Chat

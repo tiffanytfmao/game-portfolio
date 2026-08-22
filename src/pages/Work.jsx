@@ -163,7 +163,7 @@ export default function Work() {
   ), [tab])
 
   return (
-    <section id="work" className={`${styles.section} texture-parchment`} ref={ref}>
+    <section id="work" className={`${styles.section}`} ref={ref}>
       <div className={styles.inner}>
         <div className={styles.featuredHeader}>
           <p className={styles.featuredLabel}>

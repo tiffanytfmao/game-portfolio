@@ -39,15 +39,15 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  background: #F4F1EB;
+  background: #FFFFFF;
 }
 .heroBg {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 1000px 700px at 25% 65%, #EDE9DF 0%, transparent 65%),
-    radial-gradient(ellipse 700px 600px at 78% 25%, #F3E9DA 0%, transparent 60%),
-    #F4F1EB;
+    radial-gradient(ellipse 1000px 700px at 25% 65%, #FAFAFA 0%, transparent 65%),
+    radial-gradient(ellipse 700px 600px at 78% 25%, #FAFAFA 0%, transparent 60%),
+    #FFFFFF;
   pointer-events: none;
 }
 .heroGrid {
@@ -78,12 +78,12 @@
   justify-content: center;
 }
 .heroEyebrow {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #8C856E;
+  color: var(--color-text-light);
   margin-bottom: 28px;
   display: flex;
   align-items: center;
@@ -94,16 +94,16 @@
   display: block;
   width: 32px;
   height: 1px;
-  background: #8C856E;
+  background: var(--color-text-light);
   flex-shrink: 0;
 }
 .heroTitle {
-  font-family: 'Syne', 'DM Sans', sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(64px, 8vw, 116px);
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: -0.04em;
-  color: #17140E;
+  color: var(--color-text-dark);
   margin-bottom: 28px;
 }
 .heroAccent { color: #B9761F; }
@@ -115,11 +115,11 @@
   margin-bottom: 24px;
 }
 .heroTagline {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(14px, 1.4vw, 20px);
   font-weight: 300;
   line-height: 1.55;
-  color: #534D3E;
+  color: var(--color-text-muted);
   max-width: 400px;
   margin-bottom: 40px;
 }
@@ -130,18 +130,18 @@
 }
 .heroMetaItem { display: flex; flex-direction: column; gap: 5px; }
 .heroMetaLabel {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #8C856E;
+  color: var(--color-text-light);
 }
 .heroMetaValue {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 13px;
   font-weight: 400;
-  color: #2E2A1E;
+  color: var(--color-text-muted);
 }
 .heroTags {
   display: flex;
@@ -211,10 +211,10 @@
   border: 1px solid rgba(0,0,0,0.09);
   border-radius: 100px;
   padding: 8px 16px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 400;
-  color: #2E2A1E;
+  color: var(--color-text-muted);
   letter-spacing: 0.025em;
   white-space: nowrap;
   backdrop-filter: blur(8px);

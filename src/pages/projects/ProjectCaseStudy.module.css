@@ -7,8 +7,8 @@
 
 /* ── Hero banner ── */
 .heroBanner {
-  background: var(--accent-light, #F2D0D8);
-  border-bottom: 2px solid var(--accent, #D4899A);
+  background: var(--accent-light, var(--color-pink-blush));
+  border-bottom: 2px solid var(--accent, var(--color-pink-dusty));
   padding: var(--space-12) var(--space-8) var(--space-16);
   position: relative;
   display: flex;
@@ -39,14 +39,14 @@
               transform var(--duration-fast) var(--ease-bounce);
 }
 .backBtn:hover {
-  border-color: var(--accent, #D4899A);
+  border-color: var(--accent, var(--color-pink-dusty));
   color: var(--color-text-dark);
   transform: translateX(-3px);
 }
 
 .backDiamond {
   font-size: 8px;
-  color: var(--accent, #D4899A);
+  color: var(--accent, var(--color-pink-dusty));
 }
 
 .heroContent {

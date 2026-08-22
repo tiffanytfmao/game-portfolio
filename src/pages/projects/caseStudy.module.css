@@ -6,16 +6,15 @@
    ============================================================ */
 
 .page {
-  --cs-ink:     #101010;
-  --cs-body:    #3d3d3d;
-  --cs-muted:   #606060;
-  /* Warm greys — tuned for contrast against the cream background */
-  --cs-label:   #756c5d;
-  --cs-hairline:#ded5c5;
+  --cs-ink:     var(--color-text-dark);
+  --cs-body:    var(--color-text-muted);
+  --cs-muted:   var(--color-text-light);
+  --cs-label:   var(--color-text-faint);
+  --cs-hairline: var(--color-border);
 
-  --cs-serif: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
-  --cs-sans:  'Inter', system-ui, sans-serif;
-  --cs-mono:  'IBM Plex Mono', ui-monospace, monospace;
+  --cs-serif: var(--font-heading);
+  --cs-sans:  var(--font-body);
+  --cs-mono:  var(--font-label);
 
   /* Type scale — close to Isabel's actual sizes (22/16/12), nudged up
      just enough to stay comfortable at 1x. Keeps text visually

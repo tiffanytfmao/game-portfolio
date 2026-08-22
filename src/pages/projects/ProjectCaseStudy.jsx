@@ -38,8 +38,8 @@ const PROJECT_META = {
   cocoon: {
     title: 'Cocoon',
     subtitle: 'UX/UI · B2B · Startup',
-    accent: '#D4899A',
-    accentLight: '#F2D0D8',
+    accent: '#E58BA4',
+    accentLight: '#F6D4DD',
     year: '2023 – 2024',
     blurb: 'Leading the design of an in-product compliant Pregnancy Leave Tracker as lead designer and engineer.',
   },
@@ -74,8 +74,8 @@ export default function ProjectCaseStudy() {
   const meta = PROJECT_META[id] ?? {
     title: 'Project',
     subtitle: '',
-    accent: '#D4899A',
-    accentLight: '#F2D0D8',
+    accent: '#E58BA4',
+    accentLight: '#F6D4DD',
     year: '',
     blurb: '',
   }

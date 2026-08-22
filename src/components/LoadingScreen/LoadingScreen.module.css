@@ -2,6 +2,7 @@
 .overlay {
   position: fixed;
   inset: 0;
+  background: #FFFFFF;
   z-index: var(--z-loading);
   display: flex;
   flex-direction: column;

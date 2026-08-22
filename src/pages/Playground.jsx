@@ -162,7 +162,7 @@ export default function Playground() {
   }
 
   return (
-    <section id="playground" className={`${styles.section} texture-parchment`} ref={sectionRef}>
+    <section id="playground" className={`${styles.section}`} ref={sectionRef}>
       <div className={`${styles.inner} ${inView ? styles.visible : ''}`}>
         <SectionBanner sub="Side projects, experiments, and things that exist purely for fun">
           Playground

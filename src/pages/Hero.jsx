@@ -169,7 +169,7 @@ export default function Hero({ active = true }) {
   const [stageCount, showStageCursor] = useTypewriter(stageMsg, burstCount, 200, handleMsgComplete)
 
   return (
-    <section id="hero" className={`${styles.hero} texture-dots`} ref={ref}>
+    <section id="hero" className={`${styles.hero}`} ref={ref}>
       <div className={`${styles.inner} ${(inView && active) ? styles.visible : ''}`}>
 
         {/* ── Left: portrait panel ── */}

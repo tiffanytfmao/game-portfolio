@@ -126,7 +126,7 @@
   font-size: var(--text-sm);
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: #E8DDD0;
+  color: #F4F4F5;
   transition: border-color var(--duration-fast), color var(--duration-fast),
               background var(--duration-fast),
               transform var(--duration-fast) var(--ease-bounce);

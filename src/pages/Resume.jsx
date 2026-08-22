@@ -21,7 +21,7 @@ export default function Resume() {
   }
 
   return (
-    <section id="resume" className={`${styles.section} texture-crosshatch`} ref={ref}>
+    <section id="resume" className={`${styles.section}`} ref={ref}>
       <div className={`${styles.inner} ${inView ? styles.visible : ''}`}>
         <SectionBanner sub="The official document version of everything above">
           Resume

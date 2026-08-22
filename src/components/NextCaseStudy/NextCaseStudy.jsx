@@ -48,8 +48,8 @@ const PROJECTS = [
     title: 'Cocoon',
     description: 'Helping startup HR teams stop drowning in spreadsheets when someone goes on leave.',
     tags: ['UX/UI', 'B2B', 'Startup'],
-    accent: '#D4899A',
-    accentLight: '#F2D0D8',
+    accent: '#E58BA4',
+    accentLight: '#F6D4DD',
     image: asset('cocoon assets/cocoon.gif'),
   },
   {
@@ -77,7 +77,7 @@ const PROJECTS = [
     description: 'Smart entryway furniture that reminds you before you forget — no screens involved.',
     tags: ['Physical-Digital', 'Research', 'Interaction Design'],
     accent: '#B9761F',
-    accentLight: '#F6E4C8',
+    accentLight: '#FAFAFA',
     image: asset('nudge assets/hook-box-wall.png'),
   },
 ]

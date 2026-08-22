@@ -5,7 +5,6 @@ import { useScrollProgress } from '../hooks/useScrollProgress'
 import CatSprite from '../components/CatSprite/CatSprite'
 import { asset } from '../utils/asset'
 import styles from './Hero.module.css'
-import { scrollToId } from '../utils/scroll'
 
 const HEADLINE_1 = 'I design digital products,'
 const HEADLINE_2 = 'games, and experiences'
@@ -18,23 +17,6 @@ const STAGE_MESSAGES = [
   "Piggy is very happy!",
   "Piggy loves you.",
 ]
-
-const iconStyle = { color: 'var(--color-text-light)', flexShrink: 0, display: 'block' }
-
-const BriefcaseIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={iconStyle}>
-    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-    <line x1="8" y1="12" x2="16" y2="12"/>
-  </svg>
-)
-
-const GradCapIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={iconStyle}>
-    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-  </svg>
-)
 
 function useTypewriter(text, triggerKey, delayMs = 500, onComplete, holdMs = 900) {
   const [count, setCount]           = useState(0)
@@ -154,11 +136,6 @@ export default function Hero({ active = true }) {
 
   const [stageCount, showStageCursor] = useTypewriter(stageMsg, burstCount, 200, handleMsgComplete)
 
-  const scrollToWork = useCallback((e) => {
-    e.preventDefault()
-    scrollToId('work')
-  }, [])
-
   return (
     <section id="hero" className={styles.hero} ref={ref}>
       <div className={`${styles.inner} ${(inView && active) ? styles.visible : ''}`}>
@@ -219,7 +196,6 @@ export default function Hero({ active = true }) {
         {/* ── Credential row ── */}
         <div className={`${styles.credRow} ${tailStarted ? styles.revealed : ''}`}>
           <span className={styles.credGroup}>
-            <BriefcaseIcon />
             <span className={styles.credLabel}>Prev. Engineer @</span>
             <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="Meta" className={styles.credLogo} />
             <span className={styles.credLabel}>Meta</span>
@@ -230,20 +206,10 @@ export default function Hero({ active = true }) {
           </span>
           <span className={styles.credDivider} aria-hidden="true" />
           <span className={styles.credGroup}>
-            <GradCapIcon />
             <span className={styles.credLabel}>MDes @ UC Berkeley</span>
           </span>
         </div>
 
-        {/* ── Scroll cue (replaces the old CTA pair) ── */}
-        <a
-          href="#work"
-          className={`${styles.scrollCue} ${tailStarted ? styles.revealed : ''}`}
-          onClick={scrollToWork}
-        >
-          <span className={styles.scrollLabel}>Scroll to see my work</span>
-          <span className={styles.scrollArrow} aria-hidden="true">↓</span>
-        </a>
 
       </div>
     </section>

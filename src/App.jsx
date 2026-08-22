@@ -50,7 +50,7 @@ export default function App() {
 
   useEffect(() => {
     let lastSparkle = 0
-    const COLORS = ['#E58BA4', '#D4517A', '#F6D4DD', '#C4798A', '#FDF2F5']
+    const COLORS = ['#E58BA4', '#C0416A', '#F6D4DD', '#C4798A', '#FDF2F5']
 
     const spawnSparkle = (x, y) => {
       const now = Date.now()

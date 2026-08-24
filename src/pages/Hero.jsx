@@ -12,6 +12,10 @@ const HEADLINE_1 = 'I design digital products, games,'
 const HEADLINE_2 = 'and experiences built for '
 const CHAR_DELAY = 32
 
+// Scroll distance over which the hero blurs out, re-read on every update so
+// a resize cannot leave a stale value behind.
+const HERO_FADE_DISTANCE = () => window.innerHeight * 0.8
+
 const STAGE_MESSAGES = [
   "Piggy seems interested in you.",
   "Piggy seems to want you to pet her more.",
@@ -97,7 +101,7 @@ function TypedText({ text, count, showCursor }) {
 export default function Hero({ active = true }) {
   const [ref, inView] = useInView()
   // One viewport of scroll takes the hero from sharp to fully receded.
-  useScrollProgress(ref, typeof window !== 'undefined' ? window.innerHeight * 0.8 : 600)
+  useScrollProgress(ref, HERO_FADE_DISTANCE)
 
   // ── Headline typewriter (three lines, sequential) ──
   // Gated on `active` (not just `inView`) because Hero is mounted and
@@ -159,7 +163,7 @@ export default function Hero({ active = true }) {
         </h1>
 
         <p className={`${styles.bioText} ${tailStarted ? styles.revealed : ''}`}>
-          I research, prototype, and ship interactive experiences from concept to code.
+          I make complex systems feel simple and playful because I used to build them.
         </p>
 
         {/* ── Credential row ── */}

@@ -8,9 +8,11 @@ import { useEffect, useRef } from 'react'
  * state — this updates every frame while scrolling, and re-rendering the
  * tree that often would be wasteful.
  *
- * @param {React.RefObject<HTMLElement>} ref   element to write the property on
- * @param {number} distance                    px of scroll that maps to 0 -> 1
- * @param {string} prop                        custom property name
+ * @param {React.RefObject<HTMLElement>} ref  element to write the property on
+ * @param {number|() => number} distance      px of scroll that maps to 0 -> 1.
+ *   Pass a function when the value depends on viewport size: it is re-read on
+ *   every update, so a resize cannot leave a stale distance behind.
+ * @param {string} prop                       custom property name
  */
 export function useScrollProgress(ref, distance, prop = '--progress') {
   const frameRef = useRef(0)
@@ -24,10 +26,20 @@ export function useScrollProgress(ref, distance, prop = '--progress') {
 
     const update = () => {
       frameRef.current = 0
-      const raw = Math.min(1, Math.max(0, window.scrollY / distance))
+
+      // A zero or absent distance would make this 0/0 -> NaN, which CSS
+      // then propagates into transform: scale(NaN) and collapses the
+      // element to nothing. Fall back to a full viewport, and treat any
+      // non-finite result as "not scrolled yet".
+      const d = typeof distance === 'function' ? distance() : distance
+      const span = Number.isFinite(d) && d > 0 ? d : (window.innerHeight || 1)
+
+      const raw = window.scrollY / span
+      const clamped = Number.isFinite(raw) ? Math.min(1, Math.max(0, raw)) : 0
+
       // Round before writing: sub-1% changes aren't visible and skipping
       // them avoids a style recalc on nearly every frame.
-      const p = Math.round(raw * 100) / 100
+      const p = Math.round(clamped * 100) / 100
       if (p === last) return
       last = p
       el.style.setProperty(prop, String(p))

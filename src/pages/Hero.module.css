@@ -67,7 +67,6 @@
 
 /* ── Greeting eyebrow ── */
 .greeting {
-  font-family: var(--font-label);
   font-family: var(--font-heading);
   font-size: clamp(1.4rem, 2.6vw, 2rem);
   font-weight: var(--weight-medium);
@@ -136,12 +135,11 @@
   color: var(--color-text-muted);
   margin-top: clamp(1.75rem, 5vh, 3rem);
   max-width: none;
-  white-space: nowrap;
-  /* Keeps the two lines even instead of orphaning the last word. */
+  /* text-wrap is part of the white-space shorthand, so `balance` here also
+     means the line can wrap rather than spill — it simply has room not to
+     on a wide viewport. Balance keeps the two lines even once it does. */
   text-wrap: balance;
 }
-
-
 
 /* ── Cat mini-game ── */
 .catWrap {
@@ -173,8 +171,6 @@
   opacity: 0;
 }
 
-/* The asset points down-left at rest; -45deg brings the head round to
-   horizontal so it reads as an arrow aimed back at the cat. */
 /* The asset points down-left at rest; -45deg brings the head round to
    horizontal so it aims back at the cat sitting to its left. */
 .petArrow {
@@ -257,6 +253,15 @@
 }
 
 /* ── Responsive ── */
+/* Below ~800px the one-line bio no longer fits, so let it wrap. */
+/* Narrow the measure so the sentence breaks into two even lines well
+   before it would reach the viewport edge. */
+@media (max-width: 820px) {
+  .bioText {
+    max-width: 26em;
+  }
+}
+
 @media (max-width: 720px) {
   .hero {
     min-height: auto;
@@ -267,8 +272,6 @@
     position: static;
     margin: var(--space-8) auto 0;
   }
-  .bioText { white-space: normal; }
-  .bioBreak { display: none; }
   .petPrompt { right: -92px; }
   .credRow { gap: var(--space-3); }
   .credDivider { display: none; }

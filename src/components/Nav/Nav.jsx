@@ -184,7 +184,7 @@ export default function Nav() {
           </a>
           <a
             className={styles.iconBtn}
-            href="https://linkedin.com/in/tiffanymao"
+            href="https://www.linkedin.com/in/tiffanytfmao"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"

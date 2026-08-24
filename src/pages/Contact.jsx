@@ -5,7 +5,7 @@ import { playButtonPress } from '../sounds/AudioManager'
 import styles from './Contact.module.css'
 
 const EMAIL = 'tiffanytfmao@berkeley.edu'
-const LINKEDIN = 'https://linkedin.com/in/tiffanytfmao'
+const LINKEDIN = 'https://www.linkedin.com/in/tiffanytfmao'
 
 export default function Contact() {
   const [ref, inView] = useInView()

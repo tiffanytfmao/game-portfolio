@@ -168,13 +168,20 @@ export default function Work() {
       <div className={styles.inner}>
         {/* Filter tabs — these double as the section header now that the
             "Featured work" eyebrow is gone, which is what buys the vertical
-            room for the card tops to clear the fold. */}
-        <div className={styles.filters} role="tablist" aria-label="Filter projects">
+            room for the card tops to clear the fold. The section still needs
+            a name and a rung on the heading ladder, so the h2 is present but
+            only read aloud. */}
+        <h2 className="visually-hidden" id="work-heading">Work</h2>
+
+        {/* These were role="tab" without a tabpanel or arrow-key handling,
+            which promises a keyboard contract the component does not honour.
+            They are filter toggles, so they say so. */}
+        <div className={styles.filters} role="group" aria-labelledby="work-filter-label">
+          <span className="visually-hidden" id="work-filter-label">Filter projects</span>
           {TABS.map(t => (
             <button
               key={t.id}
-              role="tab"
-              aria-selected={tab === t.id}
+              aria-pressed={tab === t.id}
               className={`${styles.filterTab} ${tab === t.id ? styles.filterActive : ''}`}
               onClick={() => selectTab(t.id)}
             >
@@ -189,6 +196,12 @@ export default function Work() {
             <ProjectCard key={p.id} project={p} index={i} />
           ))}
         </div>
+
+        {/* Swapping the filter silently replaces the grid. This says what
+            happened for anyone who cannot see it change. */}
+        <p className="visually-hidden" role="status" aria-live="polite">
+          {`${visible.length} project${visible.length === 1 ? '' : 's'} shown`}
+        </p>
 
         {tab === 'games' && (
           <div className={styles.playables}>

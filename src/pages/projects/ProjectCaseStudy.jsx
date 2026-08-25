@@ -88,7 +88,7 @@ export default function ProjectCaseStudy() {
         style={{ '--accent': meta.accent, '--accent-light': meta.accentLight }}
       >
         <Link to="/" className={styles.backBtn}>
-          <span className={styles.backDiamond}>◆</span>
+          <span className={styles.backDiamond} aria-hidden="true">◆</span>
           Back to Home
         </Link>
 
@@ -110,9 +110,9 @@ export default function ProjectCaseStudy() {
               This case study is being crafted with care. Check back soon for the full deep-dive.
             </p>
             <Link to="/" className={styles.homeBtn}>
-              <span>◆</span>
+              <span aria-hidden="true">◆</span>
               Back to Portfolio
-              <span>◆</span>
+              <span aria-hidden="true">◆</span>
             </Link>
           </div>
         </div>

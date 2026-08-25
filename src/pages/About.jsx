@@ -1,7 +1,7 @@
 import { useInView } from '../hooks/useInView'
 import SectionBanner from '../components/SectionBanner/SectionBanner'
 import QuestEntry from '../components/QuestEntry/QuestEntry'
-import DialogueBox from '../components/DialogueBox/DialogueBox'
+import DialogueDeck from '../components/DialogueDeck/DialogueDeck'
 import { asset } from '../utils/asset'
 import styles from './About.module.css'
 
@@ -42,10 +42,45 @@ const TIMELINE = [
   },
 ]
 
-const SKILLS = [
-  'Figma', 'Prototyping', 'User Research', 'Design Systems',
-  'React', 'CSS / Animation', 'TypeScript', 'Node.js',
-  'CAD', 'Game Design', 'Accessibility', 'Branding',
+/* Grouped like a skill tree: the three lenses I work across, with the
+   ones I lead with marked as signature abilities. */
+const SKILL_TREE = [
+  {
+    branch: 'Craft',
+    skills: [
+      { name: 'Interaction Design', signature: true },
+      { name: 'Figma (components, prototyping)', signature: true },
+      { name: 'Design Systems', signature: true },
+      { name: 'Typography & Hierarchy' },
+      { name: 'Motion & Micro-interactions' },
+      { name: 'Accessibility' },
+      { name: 'Branding' },
+    ],
+  },
+  {
+    branch: 'Build',
+    skills: [
+      { name: 'React', signature: true },
+      { name: 'TypeScript', signature: true },
+      { name: 'AI-Assisted Prototyping', signature: true },
+      { name: 'CSS & Animation' },
+      { name: 'iOS / Mobile Dev' },
+      { name: 'React Native' },
+      { name: 'Node.js' },
+      { name: 'CAD' },
+    ],
+  },
+  {
+    branch: 'Judgment',
+    skills: [
+      { name: 'Product Thinking', signature: true },
+      { name: 'Systems over Screens', signature: true },
+      { name: 'User Research (qual + quant)' },
+      { name: 'Emotional & Game Design' },
+      { name: 'Design Critique' },
+      { name: 'Shipping End-to-End' },
+    ],
+  },
 ]
 
 const TESTIMONIALS = [
@@ -80,7 +115,7 @@ export default function About() {
           {/* ── Left: timeline ── */}
           <div className={styles.timelineCol}>
             <h2 className={styles.colHeading}>
-              <span className={styles.diamond}>◆</span> Quest Log
+              <span className={styles.diamond} aria-hidden="true">◆</span> Quest Log
             </h2>
             <div className={styles.timeline}>
               {TIMELINE.map((entry, i) => (
@@ -106,24 +141,30 @@ export default function About() {
           <div className={styles.sideCol}>
             <div className={styles.skillsBlock}>
               <h2 className={styles.colHeading}>
-                <span className={styles.diamond}>◆</span> Abilities
+                <span className={styles.diamond} aria-hidden="true">◆</span> Abilities
               </h2>
-              <div className={styles.skills}>
-                {SKILLS.map(s => (
-                  <span key={s} className={styles.skill}>{s}</span>
-                ))}
-              </div>
+              {SKILL_TREE.map(branch => (
+                <div key={branch.branch} className={styles.branch}>
+                  <span className={styles.branchName}>{branch.branch}</span>
+                  <div className={styles.skills}>
+                    {branch.skills.map(s => (
+                      <span
+                        key={s.name}
+                        className={s.signature ? `${styles.skill} ${styles.signature}` : styles.skill}
+                      >
+                        {s.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
 
             <div className={styles.testimonialsBlock}>
               <h2 className={styles.colHeading}>
-                <span className={styles.diamond}>◆</span> Party Reviews
+                <span className={styles.diamond} aria-hidden="true">◆</span> Party Reviews
               </h2>
-              <div className={styles.testimonials}>
-                {TESTIMONIALS.map((t, i) => (
-                  <DialogueBox key={i} {...t} index={i} />
-                ))}
-              </div>
+              <DialogueDeck items={TESTIMONIALS} featured={1} />
             </div>
           </div>
         </div>

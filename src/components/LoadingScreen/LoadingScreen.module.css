@@ -147,3 +147,39 @@
   from { transform: translateX(-100%); }
   to   { transform: translateX(200%); }
 }
+
+/* ── Skip control ──
+   The loader holds the page for 2.8s. WCAG 2.2.1 wants a way past a timed
+   hold, so this sits in the corner, takes first focus, and is always
+   reachable by keyboard even while it is visually understated. */
+.skip {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-offwhite);
+  opacity: 0.55;
+  transition: opacity var(--duration-fast) var(--ease-smooth);
+}
+
+.skip:hover,
+.skip:focus-visible {
+  opacity: 1;
+  color: var(--color-text-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The cat walk and the bar are decoration on a screen that is about to
+     disappear; nothing is lost by removing them. */
+  .catTrack,
+  .barWrap {
+    display: none;
+  }
+}

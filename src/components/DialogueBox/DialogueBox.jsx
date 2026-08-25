@@ -7,12 +7,15 @@ export default function DialogueBox({ quote, author, role, index = 0 }) {
       style={{ '--delay': `${index * 120}ms` }}
     >
       <blockquote className={styles.quote}>
-        <span className={styles.openQuote}>"</span>
+        {/* Typographic ornament around a quotation that <blockquote> already
+            marks up. Announced as "quotation mark" twice per testimonial
+            otherwise, and exempt from contrast as decoration. */}
+        <span className={styles.openQuote} aria-hidden="true">"</span>
         {quote}
-        <span className={styles.closeQuote}>"</span>
+        <span className={styles.closeQuote} aria-hidden="true">"</span>
       </blockquote>
       <figcaption className={styles.attribution}>
-        <span className={styles.diamond}>◆</span>
+        <span className={styles.diamond} aria-hidden="true">◆</span>
         <span className={styles.author}>{author}</span>
         {role && <span className={styles.role}> · {role}</span>}
       </figcaption>

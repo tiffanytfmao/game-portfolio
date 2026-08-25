@@ -61,9 +61,9 @@ export default function Contact() {
         </div>
 
         <footer className={styles.footer}>
-          <span className={styles.footerDiamond}>✦</span>
+          <span className={styles.footerDiamond} aria-hidden="true">✦</span>
           <span className={styles.footerText}>Designed & built by Tiffany Mao · {new Date().getFullYear()}</span>
-          <span className={styles.footerDiamond}>✦</span>
+          <span className={styles.footerDiamond} aria-hidden="true">✦</span>
         </footer>
       </div>
     </section>

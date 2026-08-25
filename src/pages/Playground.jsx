@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
+import { useModal } from '../hooks/useModal'
 import SectionBanner from '../components/SectionBanner/SectionBanner'
 import CatSketchpad from '../components/CatSketchpad/CatSketchpad'
 import FollowSketch from '../components/FollowSketch/FollowSketch'
@@ -32,6 +34,15 @@ const ITEMS = [
     link: null,
     x: 18, y: 210, rot: -0.8, w: 340,
     iframeNativeW: 1000, iframeNativeH: 600,
+  },
+  {
+    id: 'nudge',
+    src: asset('nudge assets/diffuser-side.png'),
+    label: 'Nudge',
+    sub: 'case study',
+    to: '/projects/nudge',
+    link: null,
+    x: 668, y: 470, rot: -1.4, w: 200,
   },
   {
     id: 'sketch',
@@ -68,6 +79,7 @@ const ITEMS = [
 ]
 
 export default function Playground() {
+  const navigate = useNavigate()
   const [sectionRef, inView] = useInView()
   const [positions, setPositions] = useState(() =>
     Object.fromEntries(ITEMS.map(item => [item.id, { x: item.x, y: item.y }]))
@@ -77,7 +89,7 @@ export default function Playground() {
   )
   const [topZ, setTopZ] = useState(ITEMS.length + 1)
   const [draggingId, setDraggingId] = useState(null)
-  const [lightboxSrc, setLightboxSrc] = useState(null)
+  const [lightbox, setLightbox] = useState(null) // { src, label }
   const [followSketch, setFollowSketch] = useState(null) // { imageUrl, origin }
   const drag = useRef(null)
 
@@ -107,12 +119,14 @@ export default function Playground() {
 
     function onUp() {
       if (!drag.current) return
-      const { moved, link, src } = drag.current
+      const { moved, link, to, src, label } = drag.current
       if (!moved) {
-        if (link) {
+        if (to) {
+          navigate(to)
+        } else if (link) {
           window.open(link, '_blank', 'noopener,noreferrer')
         } else if (src) {
-          setLightboxSrc(src)
+          setLightbox({ src, label })
         }
       }
       setDraggingId(null)
@@ -129,15 +143,10 @@ export default function Playground() {
       window.removeEventListener('touchmove', onMove)
       window.removeEventListener('touchend', onUp)
     }
-  }, [])
+  }, [navigate])
 
-  useEffect(() => {
-    function onKey(e) {
-      if (e.key === 'Escape') setLightboxSrc(null)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [])
+  const closeLightbox = useCallback(() => setLightbox(null), [])
+  const dialogRef = useModal(!!lightbox, closeLightbox)
 
   function startDrag(e, item) {
     // Don't initiate drag from inside the iframe
@@ -152,7 +161,9 @@ export default function Playground() {
     drag.current = {
       id: item.id,
       link: item.link ?? null,
+      to: item.to ?? null,
       src: item.src ?? null,
+      label: item.label,
       startClientX: clientX,
       startClientY: clientY,
       startPosX: positions[item.id].x,
@@ -169,9 +180,9 @@ export default function Playground() {
         </SectionBanner>
 
         <p className={styles.hint}>
-          <span className={styles.hintDiamond}>◆</span>
+          <span className={styles.hintDiamond} aria-hidden="true">◆</span>
           drag things around · click images to expand · play some games and have fun!
-          <span className={styles.hintDiamond}>◆</span>
+          <span className={styles.hintDiamond} aria-hidden="true">◆</span>
         </p>
 
         {/* Drag guard — prevents iframes from swallowing mousemove during drag */}
@@ -185,8 +196,8 @@ export default function Playground() {
               key={item.id}
               className={[
                 styles.card,
-                item.link ? styles.cardLink : '',
-                !item.link && item.src ? styles.cardExpandable : '',
+                item.link || item.to ? styles.cardLink : '',
+                !item.link && !item.to && item.src ? styles.cardExpandable : '',
                 item.iframe ? styles.cardEmbed : '',
                 draggingId === item.id ? styles.cardDragging : '',
               ].join(' ')}
@@ -240,13 +251,56 @@ export default function Playground() {
                 </div>
               )}
 
+              {/* Dragging a pinned card is a mouse flourish, but opening the
+                  thing it points at is the actual feature — and until this
+                  existed it was reachable only by mousedown/mouseup on a div.
+                  The caption is a real link or button so the whole board
+                  works from the keyboard; the drag stays as enhancement. */}
               <div className={styles.meta}>
-                <div className={styles.metaText}>
-                  <span className={styles.label}>{item.label}</span>
-                  {item.sub && <span className={styles.sub}>{item.sub}</span>}
-                </div>
-                {item.link && <span className={styles.linkArrow} aria-hidden="true">↗</span>}
-                {!item.link && item.src && <span className={styles.expandIcon} aria-hidden="true">⊕</span>}
+                {item.to ? (
+                  <Link to={item.to} className={styles.metaAction} onMouseDown={e => e.stopPropagation()}>
+                    <span className={styles.metaText}>
+                      <span className={styles.label}>{item.label}</span>
+                      {item.sub && <span className={styles.sub}>{item.sub}</span>}
+                    </span>
+                    <span className={styles.linkArrow} aria-hidden="true">→</span>
+                  </Link>
+                ) : item.link ? (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.metaAction}
+                    onMouseDown={e => e.stopPropagation()}
+                  >
+                    <span className={styles.metaText}>
+                      <span className={styles.label}>{item.label}</span>
+                      {item.sub && <span className={styles.sub}>{item.sub}</span>}
+                    </span>
+                    <span className={styles.linkArrow} aria-hidden="true">↗</span>
+                  </a>
+                ) : item.src ? (
+                  <button
+                    className={styles.metaAction}
+                    onMouseDown={e => e.stopPropagation()}
+                    onClick={() => setLightbox({ src: item.src, label: item.label })}
+                    aria-haspopup="dialog"
+                    aria-label={`Expand ${item.label}`}
+                  >
+                    <span className={styles.metaText}>
+                      <span className={styles.label}>{item.label}</span>
+                      {item.sub && <span className={styles.sub}>{item.sub}</span>}
+                    </span>
+                    <span className={styles.expandIcon} aria-hidden="true">⊕</span>
+                  </button>
+                ) : (
+                  <span className={styles.metaAction}>
+                    <span className={styles.metaText}>
+                      <span className={styles.label}>{item.label}</span>
+                      {item.sub && <span className={styles.sub}>{item.sub}</span>}
+                    </span>
+                  </span>
+                )}
               </div>
             </div>
           ))}
@@ -262,22 +316,25 @@ export default function Playground() {
       )}
 
       {/* Lightbox */}
-      {lightboxSrc && (
+      {lightbox && (
         <div
+          ref={dialogRef}
           className={styles.lightboxBackdrop}
-          onClick={() => setLightboxSrc(null)}
+          onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
-          aria-label="Image expanded"
+          aria-label={`${lightbox.label} — expanded`}
         >
           <button
             className={styles.lightboxClose}
-            onClick={() => setLightboxSrc(null)}
-            aria-label="Close"
+            onClick={closeLightbox}
+            aria-label="Close expanded image"
           >✕</button>
+          {/* The expanded image is the entire content of this dialog, so it
+              is described rather than hidden as decoration. */}
           <img
-            src={lightboxSrc}
-            alt=""
+            src={lightbox.src}
+            alt={lightbox.label}
             className={styles.lightboxImg}
             onClick={e => e.stopPropagation()}
           />

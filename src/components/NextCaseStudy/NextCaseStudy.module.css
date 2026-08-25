@@ -116,10 +116,15 @@
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
   letter-spacing: 0.05em;
-  color: var(--accent, var(--color-text-dark));
+  /* The per-project accents are brand colours picked for washes and
+     borders; as 14px text on white, six of the eight land between 2.4
+     and 3.9:1. The accent stays on the arrow and the card chrome, the
+     label reads in ink. */
+  color: var(--color-text-dark);
 }
 
 .ctaArrow {
+  color: var(--accent, var(--color-text-dark));
   display: inline-block;
   transition: transform var(--duration-normal) var(--ease-bounce);
 }

@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { asset } from '../../utils/asset'
 import { playCardHover } from '../../sounds/AudioManager'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import styles from './NextCaseStudy.module.css'
 
 // Order drives the "next case study" sequence (wraps around at the end).
@@ -82,15 +83,23 @@ const PROJECTS = [
   },
 ]
 
-function setVideoRef(el) {
-  if (el) {
+function makeSetVideoRef(reducedMotion) {
+  return (el) => {
+    if (!el) return
     el.muted = true
+    // Calling play() by hand overrides the autoPlay attribute, so the
+    // reduced-motion check has to happen here too.
+    if (reducedMotion) {
+      el.pause()
+      return
+    }
     el.play().catch(() => {})
   }
 }
 
 export default function NextCaseStudy({ currentId }) {
   const cardRef = useRef(null)
+  const reducedMotion = usePrefersReducedMotion()
   const index = PROJECTS.findIndex((p) => p.id === currentId)
   if (index === -1) return null
   const next = PROJECTS[(index + 1) % PROJECTS.length]
@@ -111,14 +120,15 @@ export default function NextCaseStudy({ currentId }) {
         <div className={styles.thumb}>
           {next.video ? (
             <video
-              ref={setVideoRef}
+              ref={makeSetVideoRef(reducedMotion)}
               className={styles.media}
               src={next.video}
               poster={next.image}
-              autoPlay
+              autoPlay={!reducedMotion}
               loop
               muted
               playsInline
+              aria-hidden="true"
             />
           ) : next.image ? (
             <img className={styles.media} src={next.image} alt="" />

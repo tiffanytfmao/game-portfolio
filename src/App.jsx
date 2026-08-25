@@ -3,16 +3,41 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import ReactGA from 'react-ga4'
 import { scrollToTop } from './utils/scroll'
 
-function ScrollToTop() {
+/* A client-side route change moves the scroll position but not the
+   keyboard focus or the screen reader's cursor, so without this a
+   navigation is silent: focus stays on the link that was just clicked,
+   which now belongs to a page that no longer exists. Sending focus to
+   the main landmark makes the new page the starting point, and the live
+   region says which page it is. */
+function RouteChange({ mainRef }) {
   const { pathname } = useLocation()
+  const [announcement, setAnnouncement] = useState('')
+  const isFirstRender = useRef(true)
+
   useEffect(() => {
     // Immediate, not animated: a route change should start at the top, not
     // scroll there. Goes through the helper so Lenis's internal position
     // stays in sync with the document's.
     scrollToTop({ immediate: true })
     ReactGA.send({ hitType: 'pageview', page: pathname })
-  }, [pathname])
-  return null
+
+    // Skip the initial mount — the page was not navigated to, it was loaded.
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+
+    mainRef.current?.focus({ preventScroll: true })
+    // Read the title after the new route has set it.
+    const t = setTimeout(() => setAnnouncement(document.title), 100)
+    return () => clearTimeout(t)
+  }, [pathname, mainRef])
+
+  return (
+    <div className="visually-hidden" role="status" aria-live="polite">
+      {announcement}
+    </div>
+  )
 }
 import LoadingScreen from './components/LoadingScreen/LoadingScreen'
 import Nav from './components/Nav/Nav'
@@ -34,12 +59,16 @@ export default function App() {
   const [loading, setLoading] = useState(!hasLoaded)
   const [muted, setMutedState] = useState(getMuted())
   const cursorRef = useRef(null)
+  const mainRef = useRef(null)
 
   useSmoothScroll()
 
   useEffect(() => {
     const el = cursorRef.current
     if (!el) return
+    // The flower cursor is hidden by CSS under reduced motion and on coarse
+    // pointers; no need to keep tracking it there.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const move = (e) => {
       el.style.left = `${e.clientX}px`
       el.style.top  = `${e.clientY}px`
@@ -49,6 +78,11 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+    // Purely decorative motion. Nothing here conveys information, so under
+    // prefers-reduced-motion the whole effect sits out rather than running
+    // faster.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
     let lastSparkle = 0
     const COLORS = ['#E58BA4', '#C0416A', '#F6D4DD', '#C4798A', '#FDF2F5']
 
@@ -103,7 +137,12 @@ export default function App() {
 
       {loading && <LoadingScreen onComplete={handleLoadComplete} />}
 
-      <div className={`${styles.site} ${loading ? styles.hidden : styles.visible}`}>
+      <div
+        className={`${styles.site} ${loading ? styles.hidden : styles.visible}`}
+        {...(loading ? { inert: '' } : {})}
+      >
+        <a className="skip-link" href="#main-content">Skip to main content</a>
+
         <Nav />
 
         <button
@@ -114,20 +153,22 @@ export default function App() {
           {muted ? '🔇' : '🔊'}
         </button>
 
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={
-            <main>
-              <Hero active={!loading} />
-              <Work />
-              <About />
-              <Playground />
-              <Resume />
-              <Contact />
-            </main>
-          } />
-          <Route path="/projects/:id" element={<ProjectCaseStudy />} />
-        </Routes>
+        <RouteChange mainRef={mainRef} />
+        <main id="main-content" ref={mainRef} tabIndex={-1}>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Hero active={!loading} />
+                <Work />
+                <About />
+                <Playground />
+                <Resume />
+                <Contact />
+              </>
+            } />
+            <Route path="/projects/:id" element={<ProjectCaseStudy />} />
+          </Routes>
+        </main>
       </div>
     </>
   )

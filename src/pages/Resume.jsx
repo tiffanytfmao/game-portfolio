@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useInView } from '../hooks/useInView'
+import { useModal } from '../hooks/useModal'
 import SectionBanner from '../components/SectionBanner/SectionBanner'
 import { playButtonPress } from '../sounds/AudioManager'
 import { asset } from '../utils/asset'
@@ -17,9 +18,8 @@ export default function Resume() {
     playButtonPress()
     setLightboxOpen(true)
   }
-  function closeLightbox() {
-    setLightboxOpen(false)
-  }
+  const closeLightbox = useCallback(() => setLightboxOpen(false), [])
+  const dialogRef = useModal(lightboxOpen, closeLightbox)
 
   return (
     <section id="resume" className={`${styles.section}`} ref={ref}>
@@ -29,22 +29,26 @@ export default function Resume() {
         </SectionBanner>
 
         <div className={styles.card}>
-          {/* Clickable PDF preview */}
-          <button
-            className={styles.preview}
-            onClick={openLightbox}
-            aria-label="View resume"
-          >
+          {/* Clickable PDF preview. The frame is decoration sitting behind a
+              real button — an <iframe> nested inside a <button> is invalid
+              and eats the clicks and keystrokes meant for the control. */}
+          <div className={styles.preview}>
             <iframe
               src={asset('docs/resume.pdf') + '#toolbar=0&navpanes=0&scrollbar=0'}
               className={styles.previewFrame}
               title="Resume preview"
               tabIndex={-1}
+              aria-hidden="true"
             />
-            <div className={styles.previewOverlay}>
+            <button
+              className={styles.previewOverlay}
+              onClick={openLightbox}
+              aria-label="View resume full size"
+              aria-haspopup="dialog"
+            >
               <span className={styles.previewLabel}>Click to view ◆</span>
-            </div>
-          </button>
+            </button>
+          </div>
 
           <div className={styles.info}>
             <h2 className={styles.name}>Tiffany Mao</h2>
@@ -58,9 +62,9 @@ export default function Resume() {
               className={styles.viewBtn}
               onClick={() => playButtonPress()}
             >
-              <span className={styles.diamond}>◆</span>
+              <span className={styles.diamond} aria-hidden="true">◆</span>
               View Resume
-              <span className={styles.diamond}>◆</span>
+              <span className={styles.diamond} aria-hidden="true">◆</span>
             </a>
 
             <p className={styles.note}>
@@ -79,9 +83,16 @@ export default function Resume() {
 
       {/* Lightbox */}
       {lightboxOpen && (
-        <div className={styles.lightboxBackdrop} onClick={closeLightbox}>
+        <div
+          ref={dialogRef}
+          className={styles.lightboxBackdrop}
+          onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Resume"
+        >
           <div className={styles.lightboxContent} onClick={e => e.stopPropagation()}>
-            <button className={styles.lightboxClose} onClick={closeLightbox} aria-label="Close">
+            <button className={styles.lightboxClose} onClick={closeLightbox} aria-label="Close resume">
               ✕
             </button>
             <iframe
@@ -89,6 +100,12 @@ export default function Resume() {
               className={styles.lightboxFrame}
               title="Resume"
             />
+            <p className={styles.lightboxNote}>
+              Press <kbd>Esc</kbd> to close, or{' '}
+              <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+                open the PDF in a new tab
+              </a>.
+            </p>
           </div>
         </div>
       )}

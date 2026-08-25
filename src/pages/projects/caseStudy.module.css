@@ -58,9 +58,13 @@
 /* ── Shell: sticky cat nav + content ── */
 .body {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1000px);
-  justify-content: center;
-  gap: 56px;
+  /* Three tracks: the nav rides the left edge, the article stays centred.
+     The left track is the nav's 200px plus the breathing room before the
+     article, so no gap is left stranded beside the empty right track. */
+  grid-template-columns: minmax(312px, 1fr) minmax(0, 1000px) minmax(0, 1fr);
+  gap: 0;
+  max-width: 1600px;
+  margin: 0 auto;
   padding: 0 32px;
   align-items: start;
 }
@@ -75,6 +79,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  width: 200px; /* fixed, so extra track width becomes gap, not wider hover pills */
   padding-left: 68px; /* clears the cat sprite sitting at left: 0 */
 }
 /* Cat sprite indicator — behavior unchanged, follows active section */
@@ -372,6 +377,32 @@
 .cols2:last-child,
 .cols3:last-child { margin-bottom: 0; }
 
+/* Media beside its argument — a figure in a fixed left column with the
+   points it supports stacked alongside, so a portrait screenshot doesn't
+   force a full-width band with the text pushed below it. */
+.mediaSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  margin: 26px 0;
+}
+.mediaSplit:last-child { margin-bottom: 0; }
+.mediaSplit .figure { margin: 0; position: sticky; top: 96px; }
+.mediaSplit .stack { margin: 0; }
+
+/* A row of figures compared side by side — each carries its own caption,
+   so the grid stays even whether it holds two studies or four. */
+.figRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 24px;
+  align-items: start;
+  margin: 26px 0;
+}
+.figRow:last-child { margin-bottom: 0; }
+.figRow .figure { margin: 0; }
+
 /* A stat stated as prose, not a card */
 .statValue {
   font-family: var(--cs-serif);
@@ -443,8 +474,8 @@
 
 /* ── Responsive ── */
 @media (max-width: 1180px) {
-  .body { grid-template-columns: 180px minmax(0, 1fr); gap: 36px; }
-  .sideNav { padding-left: 40px; }
+  .body { grid-template-columns: minmax(265px, 280px) minmax(0, 1fr); }
+  .sideNav { width: 170px; padding-left: 40px; }
   .section { grid-template-columns: 180px minmax(0, 1fr); }
 }
 
@@ -460,6 +491,26 @@
   .milestone { margin-bottom: 56px; }
   .cols2,
   .cols3 { grid-template-columns: 1fr; gap: 26px; }
+  .mediaSplit { grid-template-columns: 1fr; gap: 26px; }
+  .figRow { grid-template-columns: 1fr; gap: 26px; }
+  .mediaSplit .figure { position: static; max-width: 260px; }
   .title { font-size: 24px; max-width: none; }
   .heroMedia { margin: 28px 0 44px; }
+}
+
+/* ── Four-item groups pair up instead of orphaning ──────────────────
+   A group of four in a three-column grid renders as 3 + 1, and the
+   lone item on the second row reads as a mistake rather than a
+   layout. :has() only matches when the grid actually holds exactly
+   four children, so groups of three, five, or six are left alone and
+   nothing has to be kept in sync by hand as content changes.
+
+   Scoped above the collapse breakpoint so the single-column mobile
+   rules still win — :has() carries the specificity of its argument
+   and would otherwise outrank them.
+   ------------------------------------------------------------------ */
+@media (min-width: 901px) {
+  .cols3:has(> :last-child:nth-child(4)) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

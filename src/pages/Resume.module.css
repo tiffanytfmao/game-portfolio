@@ -53,7 +53,8 @@
   box-shadow: var(--shadow-lifted);
   transform: translateY(-2px);
 }
-.preview:hover .previewOverlay {
+.preview:hover .previewOverlay,
+.previewOverlay:focus-visible {
   opacity: 1;
 }
 
@@ -73,7 +74,9 @@
 .previewOverlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  width: 100%;
+  /* 0.45 left the white label at 3.36:1 over the white PDF behind it. */
+  background: rgba(0, 0, 0, 0.65);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,7 +156,9 @@
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-.contactLink:hover { color: var(--color-pink-dusty); }
+/* The hover state used to drop to --color-pink-dusty (2.45:1); a link
+   should not become harder to read when you point at it. */
+.contactLink:hover { color: var(--color-pink-text); }
 
 /* ── Lightbox ── */
 .lightboxBackdrop {
@@ -179,6 +184,9 @@
   overflow: hidden;
   box-shadow: 0 32px 80px rgba(0,0,0,0.6);
   animation: scaleIn 0.25s var(--ease-bounce);
+  display: flex;
+  flex-direction: column;
+  background: white;
 }
 @keyframes scaleIn {
   from { transform: scale(0.92); opacity: 0; }
@@ -207,12 +215,40 @@
 }
 
 .lightboxFrame {
-  width: 102%;
-  height: 102%;
-  margin: -1%;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
   border: none;
   display: block;
   background: white;
+}
+
+/* An embedded PDF viewer is its own keyboard context and not every browser
+   or assistive tech gets out of it cleanly, so the dialog states its exit
+   route and offers a plain link as the fallback. */
+.lightboxNote {
+  flex: none;
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  background: var(--color-bg-raised);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.lightboxNote a {
+  color: var(--color-pink-deep);
+  text-decoration: underline;
+}
+
+.lightboxNote kbd {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  padding: 1px 6px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-offwhite);
 }
 
 /* ── Responsive ── */

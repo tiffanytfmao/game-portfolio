@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { playNavClick } from '../../sounds/AudioManager'
 import styles from './Nav.module.css'
@@ -10,7 +10,6 @@ const TABS = [
   { id: 'about',      label: 'About' },
   { id: 'playground', label: 'Playground' },
   { id: 'resume',     label: 'Resume' },
-  { id: 'contact',    label: 'Contact' },
 ]
 
 // Grouped by discipline so the dropdown reads as a small site map rather than
@@ -20,7 +19,7 @@ const WORK_GROUPS = [
     label: 'UI/UX',
     projects: [
       { id: 'cocoon',       label: 'Cocoon', star: true },
-      { id: 'creativemode', label: 'YC Redesign', star: true },
+      { id: 'creativemode', label: 'YC Redesign' },
       { id: 'tintura',      label: 'Tintura' },
     ],
   },
@@ -34,7 +33,7 @@ const WORK_GROUPS = [
   {
     label: 'Physical-Digital',
     projects: [
-      { id: 'berky',   label: 'Berky the Worm', star: true },
+      { id: 'berky',   label: 'Berky the Worm' },
       { id: 'nudge',   label: 'Nudge' },
       { id: 'palbits', label: 'Palbits' },
     ],
@@ -60,6 +59,21 @@ export default function Nav() {
   const location = useLocation()
   const navigate = useNavigate()
   const isHome = location.pathname === '/'
+  const hamburgerRef = useRef(null)
+
+  // Escape closes the mobile panel and puts focus back on the control that
+  // opened it, so keyboard users are not stranded at the top of the page.
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false)
+        hamburgerRef.current?.focus()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -116,10 +130,10 @@ export default function Nav() {
 
   return (
     <>
-      <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
+      <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`} aria-label="Main">
         {/* Logo */}
-        <button className={styles.logo} onClick={handleLogoClick}>
-          <img src={`${import.meta.env.BASE_URL}cat/logo_pink.png`} alt="Tiffany Mao" className={styles.logoImg} />
+        <button className={styles.logo} onClick={handleLogoClick} aria-label="Tiffany Mao — back to top">
+          <img src={`${import.meta.env.BASE_URL}images/icon.svg`} alt="" className={styles.logoImg} />
         </button>
 
         {/* Tabs (desktop) */}
@@ -136,23 +150,30 @@ export default function Nav() {
                     {active === 'work' && isHome && <FlowerMark />}
                     <TabLabel>Work</TabLabel>
                   </button>
-                  <div className={styles.dropdown} role="menu">
+                  <div className={styles.dropdown}>
                     <div className={styles.dropdownInner}>
                       {WORK_GROUPS.map(group => (
                         <div key={group.label} className={styles.dropdownGroup}>
-                          <span className={styles.dropdownGroupLabel}>{group.label}</span>
-                          {group.projects.map(p => (
-                            <Link
-                              key={p.id}
-                              to={`/projects/${p.id}`}
-                              className={styles.dropdownItem}
-                              role="menuitem"
-                              onClick={playNavClick}
-                            >
-                              {p.label}
-                              {p.star && <span className={styles.dropStar} aria-hidden="true">★</span>}
-                            </Link>
-                          ))}
+                          <span className={styles.dropdownGroupLabel} id={`nav-group-${group.label.replace(/\W/g, '')}`}>
+                            {group.label}
+                          </span>
+                          <ul
+                            className={styles.dropdownList}
+                            aria-labelledby={`nav-group-${group.label.replace(/\W/g, '')}`}
+                          >
+                            {group.projects.map(p => (
+                              <li key={p.id}>
+                                <Link
+                                  to={`/projects/${p.id}`}
+                                  className={styles.dropdownItem}
+                                  onClick={playNavClick}
+                                >
+                                  {p.label}
+                                  {p.star && <span className={styles.dropStar} aria-hidden="true">★</span>}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       ))}
                     </div>
@@ -192,10 +213,12 @@ export default function Nav() {
             <LinkedInIcon />
           </a>
           <button
+            ref={hamburgerRef}
             className={styles.hamburger}
             onClick={() => setMenuOpen(o => !o)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             <span className={menuOpen ? styles.burgerOpen : ''} />
             <span className={menuOpen ? styles.burgerOpen : ''} />
@@ -205,13 +228,18 @@ export default function Nav() {
       </nav>
 
       {/* Mobile slide-in panel */}
-      <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ''}`}>
+      <div
+        id="mobile-menu"
+        className={`${styles.mobileMenu} ${menuOpen ? styles.mobileMenuOpen : ''}`}
+        {...(menuOpen ? {} : { inert: '' })}
+      >
         <ul role="list">
           {TABS.map(t => (
             <li key={t.id}>
               <button
                 className={`${styles.mobileTab} ${active === t.id && isHome ? styles.mobileTabActive : ''}`}
                 onClick={() => scrollTo(t.id)}
+                aria-current={active === t.id && isHome ? 'page' : undefined}
               >
                 {active === t.id && isHome && <FlowerMark />}
                 {t.label}
@@ -228,7 +256,7 @@ export default function Nav() {
                   className={styles.mobileProjectItem}
                   onClick={() => { playNavClick(); setMenuOpen(false) }}
                 >
-                  <span className={styles.mobileTabDiamond}>◆</span>
+                  <span className={styles.mobileTabDiamond} aria-hidden="true">◆</span>
                   {p.label}
                   {p.star && <span className={styles.dropStar} aria-hidden="true">★</span>}
                 </Link>
@@ -242,7 +270,7 @@ export default function Nav() {
           </a>
         </div>
       </div>
-      {menuOpen && <div className={styles.overlay} onClick={() => setMenuOpen(false)} />}
+      {menuOpen && <div className={styles.overlay} onClick={() => setMenuOpen(false)} aria-hidden="true" />}
     </>
   )
 }

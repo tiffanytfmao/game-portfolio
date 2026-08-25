@@ -98,11 +98,12 @@
 /* ── Body layout ── */
 .body {
   display: grid;
-  grid-template-columns: 220px 1fr;
-  max-width: 1200px;
+  /* Nav rides the left edge; the article keeps its own centred column. */
+  grid-template-columns: minmax(312px, 1fr) minmax(0, 1000px) minmax(0, 1fr);
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 var(--space-6) var(--space-16);
-  gap: var(--space-12);
+  gap: 0;
   align-items: start;
 }
 
@@ -117,6 +118,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  width: 200px;
   padding-left: 48px;
 }
 .catIndicator {
@@ -383,7 +385,9 @@
   font-size: var(--text-xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  /* These are h3s on the white page body, not on the dark video card —
+     --color-gold (#E58BA4) put them at 2.45:1. */
+  color: var(--color-pink-text);
   margin: var(--space-6) 0 var(--space-2);
 }
 .pivotArrow {
@@ -461,10 +465,14 @@
 .inspoCard:hover .inspoOverlay { opacity: 1; }
 .inspoCategory {
   font-family: var(--font-label);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: var(--weight-medium);
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  /* Sits on .inspoOverlay, which is rgba(0,0,0,0.88) — 7.51:1 here. A
+     duplicate rule further down this file used to override this with
+     --color-gold-deep, a dark grey meant for light backgrounds, which
+     put it at 3.11:1. */
   color: var(--color-gold);
 }
 .inspoDesc {
@@ -479,14 +487,6 @@
   font-weight: var(--weight-medium);
   color: var(--color-text-dark);
   letter-spacing: 0.02em;
-}
-.inspoCategory {
-  font-family: var(--font-label);
-  font-size: 11px;
-  font-weight: var(--weight-medium);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-gold-deep);
 }
 
 /* ── Design decisions ── */
@@ -525,7 +525,10 @@
 .decisionText {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  /* Each decision now runs as three plain paragraphs rather than prose plus
+     a boxed callout, so the gap has to do the separating work the border
+     used to do. */
+  gap: var(--space-5);
 }
 .decisionText .prose { margin-bottom: 0; }
 .decisionImg {
@@ -535,26 +538,6 @@
   border-radius: var(--radius-md);
   border: none;
   background: var(--color-bg-parchment);
-}
-.insightBox {
-  padding: var(--space-4) var(--space-5);
-  border-left: 1px solid var(--color-border);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-.insightLabel {
-  font-family: var(--font-label);
-  font-size: 10px;
-  font-weight: var(--weight-medium);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-gold-deep);
-}
-.insightBox p {
-  font-size: var(--text-sm);
-  line-height: 1.6;
-  color: var(--color-text-muted);
 }
 
 /* ── Game embed ── */
@@ -600,8 +583,15 @@
   font-weight: var(--weight-medium);
   letter-spacing: 0.1em;
   color: var(--color-gold-deep);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   transition: color var(--duration-fast);
+  /* Standalone link, not inline in a sentence, so it does not get the
+     WCAG 2.5.8 inline exemption — 12px text left it 19px tall. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 2px 4px;
 }
 .gameLink:hover { color: var(--color-text-dark); }
 
@@ -742,4 +732,98 @@
   .inspoGrid { grid-template-columns: 1fr; }
   .metaRow { gap: var(--space-4); }
   .body { padding: 0 var(--space-4) var(--space-12); }
+}
+
+/* ── Accessibility section ── */
+.accessGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+}
+
+.accessItem {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.accessDiamond {
+  color: var(--color-pink-text);
+  font-size: 9px;
+  line-height: 1.9;
+  flex: none;
+}
+
+.accessTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-dark);
+  margin-bottom: var(--space-2);
+  line-height: 1.35;
+}
+
+.accessBody {
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+/* ── Media and embed notes ── */
+.videoDesc {
+  display: block;
+  margin-top: var(--space-2);
+  /* Inside .videoCard, which is --color-bg-dark. --color-text-muted is a
+     light-background value and came to 1.63:1 here. 7.89:1. */
+  color: #A9A9B0;
+}
+
+.embedNote {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin: var(--space-6) 0 var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-bg-sunken);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.embedNoteIcon {
+  color: var(--color-pink-text);
+  font-size: 9px;
+  line-height: 2.2;
+  flex: none;
+}
+
+.embedNote kbd {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  padding: 1px 6px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-offwhite);
+  color: var(--color-text-dark);
+}
+
+/* ── Four-item groups pair up instead of orphaning ──────────────────
+   A group of four in a three-column grid renders as 3 + 1, and the
+   lone item on the second row reads as a mistake rather than a
+   layout. :has() only matches when the grid actually holds exactly
+   four children, so groups of three, five, or six are left alone and
+   nothing has to be kept in sync by hand as content changes.
+
+   Scoped above the collapse breakpoint so the single-column mobile
+   rules still win — :has() carries the specificity of its argument
+   and would otherwise outrank them.
+   ------------------------------------------------------------------ */
+@media (min-width: 901px) {
+  .contextGrid:has(> :last-child:nth-child(4)),
+  .accessGrid:has(> :last-child:nth-child(4)),
+  .statCallouts:has(> :last-child:nth-child(4)) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

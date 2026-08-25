@@ -163,7 +163,7 @@ export default function Hero({ active = true }) {
         </h1>
 
         <p className={`${styles.bioText} ${tailStarted ? styles.revealed : ''}`}>
-          I make complex systems feel simple and playful because I used to build them.
+          Product designer turning complex systems into experiences that feel simple, human, playful, and accessible.
         </p>
 
         {/* ── Credential row ── */}

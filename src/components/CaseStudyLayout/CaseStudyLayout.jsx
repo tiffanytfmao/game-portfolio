@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback, createContext, useContext } f
 import { Link } from 'react-router-dom'
 import CatSprite from '../CatSprite/CatSprite'
 import NextCaseStudy from '../NextCaseStudy/NextCaseStudy'
+import { scrollToId } from '../../utils/scroll'
 import styles from '../../pages/projects/caseStudy.module.css'
 
 /* Lets <Section> register itself with the layout's scroll observer without
@@ -26,6 +27,8 @@ export default function CaseStudyLayout({
   children,
 }) {
   const [activeSection, setActiveSection] = useState(sections[0]?.id)
+  const prefersReducedMotion = typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const [catY, setCatY] = useState(0)
   const sectionRefs = useRef({})
   const navItemRefs = useRef({})
@@ -62,8 +65,14 @@ export default function CaseStudyLayout({
   const scrollToSection = useCallback((sectionId) => {
     const el = sectionRefs.current[sectionId]
     if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 88
-    window.scrollTo({ top, behavior: 'smooth' })
+    // Lenis owns the scroll position while it is mounted, which makes a raw
+    // window.scrollTo a no-op — the sidebar and the skip button were not
+    // moving the page at all. utils/scroll.js is the single scroller.
+    scrollToId(sectionId, { offset: -88 })
+    // Focus follows the scroll. Without this a keyboard user activates a
+    // sidebar link and their focus is still in the sidebar, so the next Tab
+    // takes them to the following nav item rather than into the section.
+    el.focus({ preventScroll: true })
   }, [])
 
   return (
@@ -88,6 +97,7 @@ export default function CaseStudyLayout({
                 ref={(el) => { navItemRefs.current[sectionId] = el }}
                 className={`${styles.navItem} ${activeSection === sectionId ? styles.navActive : ''}`}
                 onClick={() => scrollToSection(sectionId)}
+                aria-current={activeSection === sectionId ? 'true' : undefined}
               >
                 {label}
               </button>
@@ -95,7 +105,7 @@ export default function CaseStudyLayout({
           </nav>
         </aside>
 
-        <main className={styles.content}>
+        <article className={styles.content}>
           <nav className={styles.breadcrumb} aria-label="Breadcrumb">
             <Link to="/work" className={styles.breadcrumbHome}>All work</Link>
             <span className={styles.breadcrumbSep} aria-hidden="true">/</span>
@@ -125,11 +135,15 @@ export default function CaseStudyLayout({
                 src={heroMedia.src}
                 poster={heroMedia.poster}
                 style={style}
-                autoPlay
+                autoPlay={!prefersReducedMotion}
                 loop
                 muted
                 playsInline
-                controls={heroMedia.controls}
+                // A looping clip that cannot be stopped is motion the viewer
+                // has no control over (WCAG 2.2.2). Controls are always
+                // available; under reduced motion it also starts paused.
+                controls={heroMedia.controls ?? true}
+                aria-label={heroMedia.alt}
               />
             ) : (
               <img className={styles.heroMedia} src={heroMedia.src} alt={heroMedia.alt} style={style} />
@@ -158,7 +172,7 @@ export default function CaseStudyLayout({
           </RegistryContext.Provider>
 
           <NextCaseStudy currentId={id} />
-        </main>
+        </article>
       </div>
     </div>
   )
@@ -170,10 +184,28 @@ export default function CaseStudyLayout({
  */
 export function Section({ id, label, claim, question, children }) {
   const register = useContext(RegistryContext)
+  const labelId = `${id}-label`
   return (
-    <section id={id} ref={(el) => register?.(id, el)} className={styles.section}>
+    <section
+      id={id}
+      ref={(el) => register?.(id, el)}
+      className={styles.section}
+      // Receives focus when the sidebar jumps here. -1 keeps it out of the
+      // normal tab order.
+      tabIndex={-1}
+      aria-labelledby={label ? labelId : undefined}
+    >
       <div className={styles.sectionLeft}>
-        {label && <p className={styles.label}>{label}</p>}
+        {/* The eyebrow is the section's title as far as a reader is
+            concerned — every case study is navigated by these labels — so
+            it is a heading rather than a styled paragraph. Sections that
+            also carry a claim keep the claim as the visible h2 and the
+            label stays as the accessible name. */}
+        {label && (
+          claim || question
+            ? <p className={styles.label} id={labelId}>{label}</p>
+            : <h2 className={styles.label} id={labelId}>{label}</h2>
+        )}
         {claim && <h2 className={styles.claim}>{claim}</h2>}
         {question && <h2 className={styles.question}>{question}</h2>}
       </div>

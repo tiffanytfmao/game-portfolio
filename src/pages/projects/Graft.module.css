@@ -94,8 +94,86 @@
 
 .creditName { font-size: 0.98rem; font-weight: var(--weight-medium); }
 
-.creditMe .creditName { color: var(--graft-green, #5e8c4e); }
+/* The project green (#5e8c4e) is 3.93:1 on white — fine for the borders
+   and washes it is used for elsewhere, short of AA as a name in the
+   credits list. Darkened here only. 5.48:1. */
+.creditMe .creditName { color: var(--graft-green-text, #4C7340); }
 
 @media (max-width: 720px) {
   .creditsList { grid-template-columns: 1fr; }
+}
+
+/* ── Video facade ──
+   Our own poster + play button, standing in for the YouTube player until the
+   viewer asks for it. Keeps the title/channel overlay off the page. */
+.videoFacade {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  display: block;
+  margin: 26px 0 0;
+  background: #000;
+  cursor: pointer;
+}
+
+.videoPoster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.videoFacade:hover .videoPoster,
+.videoFacade:focus-visible .videoPoster { transform: scale(1.02); filter: brightness(0.92); }
+
+.videoPlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 74px;
+  height: 74px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.62);
+  backdrop-filter: blur(2px);
+  transition: background 220ms ease, transform 220ms ease;
+}
+
+/* The triangle, drawn with a border so there's no extra asset. */
+.videoPlay::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.videoFacade:hover .videoPlay,
+.videoFacade:focus-visible .videoPlay {
+  background: var(--graft-green, #5e8c4e);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .videoPoster, .videoPlay { transition: none; }
+  .videoFacade:hover .videoPoster { transform: none; }
+  .videoFacade:hover .videoPlay { transform: translate(-50%, -50%); }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

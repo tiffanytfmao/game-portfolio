@@ -6,14 +6,14 @@
    ============================================================ */
 
 .hero {
-  min-height: 70vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   /* Vertical rhythm is viewport-relative rather than fixed: the whole
      section plus the Work filter row has to clear the fold on a short
      laptop viewport, while still breathing on a tall one. */
-  padding: clamp(1rem, 2vh, 2.5rem) var(--page-gutter-x) clamp(0.5rem, 1.5vh, 1.5rem);
+  padding: clamp(2.5rem, 5.5vh, 5.5rem) var(--page-gutter-x) clamp(4.5rem, 10vh, 10rem);
 
   /* The hero is pinned and the rest of the page scrolls over it, which is
      what lets it blur and recede in place instead of sliding away.
@@ -68,14 +68,14 @@
 /* ── Greeting eyebrow ── */
 .greeting {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-size: clamp(1.55rem, 2.9vw, 2.25rem);
   font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-tight);
   color: var(--color-text-dark);
   display: inline-flex;
   align-items: baseline;
   gap: var(--space-2);
-  margin-bottom: clamp(0.5rem, 1.4vh, 0.875rem);
+  margin-bottom: clamp(0.375rem, 0.9vh, 0.625rem);
 }
 .greetingMark {
   color: inherit;
@@ -84,13 +84,13 @@
 /* ── Headline ── */
 .headline {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4.6vw, 3.5rem);
+  font-size: clamp(2.15rem, 5vw, 3.875rem);
   font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-hero);
-  line-height: 1.14;
+  line-height: 1.2;
   color: var(--color-text-dark);
   /* Reserve both lines up front so the typewriter can't shift layout. */
-  min-height: calc(2 * 1.14em);
+  min-height: calc(2 * 1.2em);
 }
 .headlineLine {
   display: block;
@@ -128,13 +128,16 @@
 
 /* ── Bio ── */
 .bioText {
-  font-size: var(--text-lg);
+  font-size: clamp(1.375rem, 1.85vw, 1.5rem);
   font-weight: var(--weight-light);
-  line-height: 1.5;
+  line-height: 1.65;
   letter-spacing: var(--tracking-snug);
   color: var(--color-text-muted);
-  margin-top: clamp(1.75rem, 5vh, 3rem);
-  max-width: none;
+  margin-top: clamp(0.375rem, 1vh, 0.75rem);
+  /* At 24px the sentence is ~1074px — just past .inner's 1060px cap — so it
+     would wrap anyway. Capping the measure here makes that break deliberate
+     and even (via balance) instead of dropping a two-word orphan. */
+  max-width: 34em;
   /* text-wrap is part of the white-space shorthand, so `balance` here also
      means the line can wrap rather than spill — it simply has room not to
      on a wide viewport. Balance keeps the two lines even once it does. */
@@ -211,17 +214,21 @@
   justify-content: center;
   gap: var(--space-4);
   flex-wrap: wrap;
-  margin-top: clamp(1rem, 2.6vh, 1.5rem);
+  margin-top: clamp(2rem, 4.6vh, 3rem);
 }
 
 .credGroup {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: var(--space-2);
 }
 
 .credLabel {
   font-family: var(--font-label);
+  /* Deliberately a step below the bio: the credentials are the quietest
+     line in the hero, and equal sizing was flattening the hierarchy. */
   font-size: var(--text-base);
   font-weight: var(--weight-regular);
   color: var(--color-text-light);
@@ -258,7 +265,7 @@
    before it would reach the viewport edge. */
 @media (max-width: 820px) {
   .bioText {
-    max-width: 26em;
+    max-width: 24em;
   }
 }
 
@@ -274,6 +281,8 @@
   }
   .petPrompt { right: -92px; }
   .credRow { gap: var(--space-3); }
+  .credLabel { font-size: var(--text-base); }
+  .credLogo { height: 17px; }
   .credDivider { display: none; }
 }
 

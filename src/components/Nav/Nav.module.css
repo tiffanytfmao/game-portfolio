@@ -12,7 +12,7 @@
   background: var(--color-bg-cream);
   transition: box-shadow var(--duration-normal) var(--ease-smooth),
               backdrop-filter var(--duration-normal);
-  height: 64px;
+  height: 72px;
 }
 
 .nav.scrolled {
@@ -33,9 +33,39 @@
 }
 
 .logoImg {
-  height: 36px;
+  height: 40px;
   width: auto;
   display: block;
+  transform-origin: 50% 85%;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+/* Head-tilt wobble on hover — settles upright, with a small lift so the
+   mark reads as responsive without shifting the nav's baseline. */
+.logo:hover .logoImg,
+.logo:focus-visible .logoImg {
+  animation: logoTilt 600ms var(--ease-out);
+}
+
+.logo:active .logoImg {
+  transform: scale(0.94);
+  transition-duration: var(--duration-fast);
+}
+
+@keyframes logoTilt {
+  0%   { transform: rotate(0deg)   translateY(0)     scale(1); }
+  30%  { transform: rotate(-9deg)  translateY(-2px)  scale(1.06); }
+  60%  { transform: rotate(6deg)   translateY(-1px)  scale(1.04); }
+  85%  { transform: rotate(-2deg)  translateY(0)     scale(1.01); }
+  100% { transform: rotate(0deg)   translateY(0)     scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo:hover .logoImg,
+  .logo:focus-visible .logoImg {
+    animation: none;
+    transform: scale(1.04);
+  }
 }
 
 /* ── Tabs ── */
@@ -53,13 +83,13 @@
   align-items: center;
   gap: 8px;
   font-family: var(--font-label);
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: var(--weight-light);
   letter-spacing: var(--tracking-snug);
   color: var(--color-text-muted);
   background: none;
   border: none;
-  padding: 8px 14px 14px;
+  padding: 8px 16px 16px;
   transition: color var(--duration-fast) var(--ease-smooth);
   white-space: nowrap;
 }
@@ -82,8 +112,8 @@
 
 /* Active marker — the cursor's flower in ink. */
 .flower {
-  width: 11px;
-  height: 11px;
+  width: 13px;
+  height: 13px;
   flex-shrink: 0;
   background: center / contain no-repeat
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cdefs%3E%3Cmask id='h'%3E%3Crect width='24' height='24' fill='white'/%3E%3Ccircle cx='12' cy='12' r='3' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Cg mask='url(%23h)' fill='%23141414'%3E%3Ccircle cx='12' cy='6' r='5'/%3E%3Ccircle cx='17.2' cy='9' r='5'/%3E%3Ccircle cx='17.2' cy='15' r='5'/%3E%3Ccircle cx='12' cy='18' r='5'/%3E%3Ccircle cx='6.8' cy='15' r='5'/%3E%3Ccircle cx='6.8' cy='9' r='5'/%3E%3C/g%3E%3C/svg%3E");
@@ -269,6 +299,22 @@
 }
 .mobileMenu ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
 .mobileMenuOpen { transform: translateX(0); }
+
+/* Belt and braces alongside `inert` on the element: a panel parked off the
+   right edge is still in the tab order and still read by screen readers, so
+   the closed state is hidden outright. The delay lets the slide-out finish
+   before it disappears. */
+.mobileMenu:not(.mobileMenuOpen) {
+  visibility: hidden;
+  transition: transform var(--duration-normal) var(--ease-smooth),
+              visibility 0s linear var(--duration-normal);
+}
+
+.dropdownList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
 
 .mobileTab {
   display: flex;

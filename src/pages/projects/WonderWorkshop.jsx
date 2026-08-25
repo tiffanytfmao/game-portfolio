@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import CatSprite from '../../components/CatSprite/CatSprite'
 import NextCaseStudy from '../../components/NextCaseStudy/NextCaseStudy'
 import { asset } from '../../utils/asset'
+import { scrollToId } from '../../utils/scroll'
 import styles from './WonderWorkshop.module.css'
 
 const BASE = asset('wonder workshop assets')
@@ -13,6 +14,7 @@ const SECTIONS = [
   { id: 'inspiration', label: 'Inspiration' },
   { id: 'pivot',       label: 'The Pivot' },
   { id: 'game',        label: 'The Game' },
+  { id: 'access',      label: 'Accessibility' },
   { id: 'decisions',   label: 'Design Decisions' },
   { id: 'try-it',      label: 'Try It' },
   { id: 'research',    label: 'User Testing' },
@@ -87,6 +89,30 @@ const NEXT_STEPS = [
   { icon: '⚗️', title: 'New learning categories', desc: 'Science projects and engineering builds beyond basic crafting.' },
   { icon: '📷', title: 'Computer vision', desc: 'Evaluate completed physical crafts through photos, with safety filtering.' },
   { icon: '🤝', title: 'Safe sharing', desc: 'Let kids show finished work to friends or classrooms.' },
+  { icon: '🔊', title: 'Character voice-over', desc: 'Every task and line of dialogue read aloud, so a kid who is still building reading fluency is not locked out of the story the tasks live in.' },
+  { icon: '📝', title: 'Transcripts for everything', desc: 'A text version of every spoken line and step-by-step build, readable at your own pace and usable without audio.' },
+]
+
+/* Accessibility decisions that were made during the build, kept to what the
+   team actually did. Voice-over and transcripts are in NEXT_STEPS above,
+   because they are the honest gap rather than a shipped feature. */
+const ACCESS_NOTES = [
+  {
+    title: 'Type sized for a nine-year-old, not a designer',
+    body: 'Body copy sits at 16px minimum and dialogue runs larger, in a rounded sans with open counters and unambiguous letterforms. Nothing important is set below 14px, and no line of instruction runs past roughly 60 characters.',
+  },
+  {
+    title: 'Every colour pair meets a contrast minimum',
+    body: 'The workshop palette is warm and low-saturation, which is exactly where contrast quietly fails. Text and its background were checked to at least 4.5:1, and interface controls to 3:1, with the hand-painted backgrounds darkened behind any text that sits on them.',
+  },
+  {
+    title: 'Colour is never the only signal',
+    body: 'Task states, categories, and character cues carry a shape or a label alongside the colour, so nothing depends on telling two warm tones apart.',
+  },
+  {
+    title: 'No timers, no failure states',
+    body: 'Originally a tone decision — the world should not rush you. It doubles as an accommodation: nothing expires, nothing punishes a slow read, and a task can be left and returned to.',
+  },
 ]
 
 export default function WonderWorkshop() {
@@ -125,22 +151,28 @@ export default function WonderWorkshop() {
   const scrollToSection = useCallback((id) => {
     const el = sectionRefs.current[id]
     if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 80
-    window.scrollTo({ top, behavior: 'smooth' })
+    // Lenis owns the scroll position while it is mounted, which makes a raw
+    // window.scrollTo a no-op — the sidebar and the skip button were not
+    // moving the page at all. utils/scroll.js is the single scroller.
+    scrollToId(id, { offset: -80 })
+    // Focus follows the scroll. Without this a keyboard user activates a
+    // sidebar link and their focus is still in the sidebar, so the next Tab
+    // takes them to the following nav item rather than into the section.
+    el.focus({ preventScroll: true })
   }, [])
 
   return (
     <div className={styles.page}>
       {/* Back */}
       <Link to="/" className={styles.backBtn}>
-        <span className={styles.backDiamond}>◆</span> Back
+        <span className={styles.backDiamond} aria-hidden="true">◆</span> Back
       </Link>
 
       {/* Hero */}
       <div className={styles.hero}>
         <img
           src={`${BASE}/Hero-animation-WITH%20TITLE.gif`}
-          alt="Wonder Workshop"
+          alt="Wonder Workshop title card: the hand-painted workshop interior with its craft-material characters moving around it."
           className={styles.heroGif}
         />
         <div className={styles.heroFooter}>
@@ -175,6 +207,7 @@ export default function WonderWorkshop() {
                 ref={el => { navItemRefs.current[id] = el }}
                 className={`${styles.navItem} ${activeSection === id ? styles.navActive : ''}`}
                 onClick={() => scrollToSection(id)}
+                aria-current={activeSection === id ? 'true' : undefined}
               >
                 {label}
               </button>
@@ -183,10 +216,10 @@ export default function WonderWorkshop() {
         </aside>
 
         {/* ── Content ── */}
-        <main className={styles.content}>
+        <article className={styles.content}>
 
           {/* Overview */}
-          <section id="overview" ref={el => { sectionRefs.current['overview'] = el }} className={styles.section}>
+          <section id="overview" ref={el => { sectionRefs.current['overview'] = el }} tabIndex={-1} className={styles.section}>
             <span className={styles.sectionLabel}>Overview</span>
             <h1 className={styles.projectTitle}>Wonder Workshop</h1>
             <p className={styles.tagline}>A crafting game that asks what digital spaces could look like if they were built around making.</p>
@@ -205,7 +238,7 @@ export default function WonderWorkshop() {
             <div className={styles.roleBlock}>
               <div className={styles.roleCols}>
                 <div>
-                  <span className={styles.sectionLabel}>My Role</span>
+                  <h2 className={styles.sectionLabel}>My Role</h2>
                   <ul className={styles.roleList}>
                     <li>Ideation &amp; concept direction</li>
                     <li>Pitched original critter mechanic</li>
@@ -216,7 +249,7 @@ export default function WonderWorkshop() {
                   </ul>
                 </div>
                 <div>
-                  <span className={styles.sectionLabel}>Team</span>
+                  <h2 className={styles.sectionLabel}>Team</h2>
                   <ul className={styles.roleList}>
                     <li>Ajia Grant</li>
                     <li>Olivia Martinoli Issler</li>
@@ -228,9 +261,9 @@ export default function WonderWorkshop() {
           </section>
 
           {/* The Problem */}
-          <section id="problem" ref={el => { sectionRefs.current['problem'] = el }} className={`${styles.section} ${styles.sectionRelative}`}>
-            <img src={`${BASE}/happyhugh.gif`} alt="Hugh character" className={styles.charFloatRight} />
-            <span className={styles.sectionLabel}>The Problem</span>
+          <section id="problem" ref={el => { sectionRefs.current['problem'] = el }} tabIndex={-1} className={`${styles.section} ${styles.sectionRelative}`}>
+            <img src={`${BASE}/happyhugh.gif`} alt="" className={styles.charFloatRight} />
+            <h2 className={styles.sectionLabel}>The Problem</h2>
 
             <p className={styles.prose}>
               Children 9 to 12 are growing up in digital environments optimized for personalization and continuous engagement. These platforms <strong>actively shape behaviour, habits, and identity</strong> during exactly the window when those things are most malleable. Reward-seeking consistently develops before critical thinking, so children interact with algorithmic systems without understanding how the content they see is selected or why.
@@ -257,8 +290,8 @@ export default function WonderWorkshop() {
           </section>
 
           {/* Inspiration */}
-          <section id="inspiration" ref={el => { sectionRefs.current['inspiration'] = el }} className={styles.section}>
-            <span className={styles.sectionLabel}>Inspiration</span>
+          <section id="inspiration" ref={el => { sectionRefs.current['inspiration'] = el }} tabIndex={-1} className={styles.section}>
+            <h2 className={styles.sectionLabel}>Inspiration</h2>
             <p className={styles.prose}>These are the things we actually looked at, and what they changed.</p>
 
             <div className={styles.inspoGrid}>
@@ -281,9 +314,9 @@ export default function WonderWorkshop() {
           </section>
 
           {/* The Pivot */}
-          <section id="pivot" ref={el => { sectionRefs.current['pivot'] = el }} className={`${styles.section} ${styles.sectionRelative}`}>
-            <img src={`${BASE}/Mentordog.gif`} alt="Mentor Dog character" className={`${styles.charFloatRight} ${styles.charFloatRightLow}`} />
-            <span className={styles.sectionLabel}>The Pivot</span>
+          <section id="pivot" ref={el => { sectionRefs.current['pivot'] = el }} tabIndex={-1} className={`${styles.section} ${styles.sectionRelative}`}>
+            <img src={`${BASE}/Mentordog.gif`} alt="" className={`${styles.charFloatRight} ${styles.charFloatRightLow}`} />
+            <h2 className={styles.sectionLabel}>The Pivot</h2>
 
             <div className={styles.pivotVisual}>
               <figure className={styles.pivotFig}>
@@ -317,15 +350,24 @@ export default function WonderWorkshop() {
                 controls
                 muted
                 playsInline
+                preload="metadata"
                 className={styles.prototypeVideo}
+                aria-label="Screen recording of the Skrawl midterm prototype"
               />
-              <p className={styles.videoCaption}>Early prototype — the midterm direction</p>
+              <p className={styles.videoCaption}>
+                Early prototype — the midterm direction.{' '}
+                <span className={styles.videoDesc}>
+                  Silent screen recording: a crafted creature is scanned, assigned
+                  five stats, and played against a grey opponent in a turn-based
+                  card battle.
+                </span>
+              </p>
             </div>
           </section>
 
           {/* The Game */}
-          <section id="game" ref={el => { sectionRefs.current['game'] = el }} className={styles.section}>
-            <span className={styles.sectionLabel}>The Game</span>
+          <section id="game" ref={el => { sectionRefs.current['game'] = el }} tabIndex={-1} className={styles.section}>
+            <h2 className={styles.sectionLabel}>The Game</h2>
 
             <p className={styles.prose}>
               Wonder Workshop is a single-player crafting game for kids 9 to 12, set in a cozy workshop world. Characters made of craft materials give you small making tasks. You build the real thing with your own hands and materials, then keep it in a scrapbook. There is no rush and no way to lose.
@@ -356,9 +398,34 @@ export default function WonderWorkshop() {
             </figure>
           </section>
 
+          {/* Accessibility */}
+          <section id="access" ref={el => { sectionRefs.current['access'] = el }} tabIndex={-1} className={styles.section}>
+            <h2 className={styles.sectionLabel}>Accessibility</h2>
+
+            <p className={styles.prose}>
+              The audience is nine to twelve, which is a range that contains kids
+              reading two grades apart, kids using a tablet at arm's length, and
+              kids who have never been asked to read an interface at all. A few
+              decisions were treated as requirements rather than polish.
+            </p>
+
+            <div className={styles.accessGrid}>
+              {ACCESS_NOTES.map(note => (
+                <div key={note.title} className={styles.accessItem}>
+                  <span className={styles.accessDiamond} aria-hidden="true">◆</span>
+                  <div>
+                    <h3 className={styles.accessTitle}>{note.title}</h3>
+                    <p className={styles.accessBody}>{note.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </section>
+
           {/* Design Decisions */}
-          <section id="decisions" ref={el => { sectionRefs.current['decisions'] = el }} className={styles.section}>
-            <span className={styles.sectionLabel}>Design Decisions</span>
+          <section id="decisions" ref={el => { sectionRefs.current['decisions'] = el }} tabIndex={-1} className={styles.section}>
+            <h2 className={styles.sectionLabel}>Design Decisions</h2>
 
             <div className={styles.decision}>
               <div className={styles.decisionMeta}>
@@ -367,11 +434,9 @@ export default function WonderWorkshop() {
               </div>
               <div className={styles.decisionSplit}>
                 <div className={styles.decisionText}>
-                  <p className={styles.prose}>Most game mechanics give you something to do <em>with</em> what you make. In practice that subordinates making to a larger system. We removed that layer entirely.</p>
-                  <div className={styles.insightBox}>
-                    <span className={styles.insightLabel}>Key insight</span>
-                    <p>A child completes a craft task, documents it in their scrapbook, and that is the loop. Nothing depends on it performing well.</p>
-                  </div>
+                  <p className={styles.prose}>Most mechanics give you something to do <em>with</em> what you make, which quietly subordinates the making. We removed that layer. Craft a thing, put it in the scrapbook, done.</p>
+                  <p className={styles.prose}>That is the overjustification effect: attach points to something a child already enjoys and the points become the reason. Every stat we added converted play into work.</p>
+                  <p className={styles.prose}>It is also the commercial case. Reward-driven engagement needs constant refuelling; the making does not. And "my kid makes things" is what a parent pays for.</p>
                 </div>
                 <img src={`${BASE}/gameplay%201.jpeg`} alt="Wonder Workshop gameplay" className={styles.decisionImg} />
               </div>
@@ -385,11 +450,9 @@ export default function WonderWorkshop() {
               <div className={styles.decisionSplit}>
                 <img src={`${BASE}/gameplay%202.jpeg`} alt="Wonder Workshop character" className={styles.decisionImg} />
                 <div className={styles.decisionText}>
-                  <p className={styles.prose}>Craft without context feels like an assignment. Each task in Wonder Workshop comes from a character with a problem to solve.</p>
-                  <div className={styles.insightBox}>
-                    <span className={styles.insightLabel}>Key insight</span>
-                    <p>The child is not completing a worksheet about paper folding. They are helping someone. Characters act as guides <em>and</em> emotional anchors.</p>
-                  </div>
+                  <p className={styles.prose}>Craft without context feels like an assignment. Every task comes from a character with a problem. You are not folding paper, you are helping someone.</p>
+                  <p className={styles.prose}>Nine to twelve is when attachment to fictional characters runs strongest, and a prosocial ask sustains effort where an instruction stalls. It also softens a wobbly result — you made something for Hugh.</p>
+                  <p className={styles.prose}>So characters are the retention asset. Kids come back for them without needing a constant supply of new levels.</p>
                 </div>
               </div>
             </div>
@@ -401,11 +464,9 @@ export default function WonderWorkshop() {
               </div>
               <div className={styles.decisionSplit}>
                 <div className={styles.decisionText}>
-                  <p className={styles.prose}>Progress comes from participation and experimentation, not performance scores. No grading, no leaderboard, no punishment for a craft going wrong.</p>
-                  <div className={styles.insightBox}>
-                    <span className={styles.insightLabel}>Key insight</span>
-                    <p>Finished work lives in a personal scrapbook. We wanted children to return because they <em>wanted</em> to, not because they were anxious about falling behind.</p>
-                  </div>
+                  <p className={styles.prose}>Progress comes from participation, not scores. No grading, no leaderboard, no punishment for a craft going wrong. Finished work goes in a scrapbook.</p>
+                  <p className={styles.prose}>Scoring shifts a child from "what if I try this" to "will this be good enough" — and the experimentation it suppresses <em>is</em> the product.</p>
+                  <p className={styles.prose}>Streaks retain better in week one. They also churn hard: break one and returning means facing how far behind you are. We bet on month six.</p>
                 </div>
                 <img src={`${BASE}/gameplay%203.jpeg`} alt="Wonder Workshop scrapbook" className={styles.decisionImg} />
               </div>
@@ -413,10 +474,18 @@ export default function WonderWorkshop() {
           </section>
 
           {/* Try It */}
-          <section id="try-it" ref={el => { sectionRefs.current['try-it'] = el }} className={styles.section}>
-            <span className={styles.sectionLabel}>Try It</span>
+          <section id="try-it" ref={el => { sectionRefs.current['try-it'] = el }} tabIndex={-1} className={styles.section}>
+            <h2 className={styles.sectionLabel}>Try It</h2>
             <p className={styles.prose}>
               Wonder Workshop is live and playable now! Try it yourself. When a task says "done," the full version would repopulate with a more complex task in the same category.
+            </p>
+
+            <p className={styles.embedNote}>
+              <span className={styles.embedNoteIcon} aria-hidden="true">◆</span>
+              The game below runs in an embedded frame and takes over the arrow
+              keys while it has focus. Press <kbd>Esc</kbd> then <kbd>Tab</kbd> to
+              step back out to the page, or open it in its own tab using the link
+              underneath.
             </p>
 
             <div className={styles.gameCard}>
@@ -443,12 +512,12 @@ export default function WonderWorkshop() {
           </section>
 
           {/* User Testing */}
-          <section id="research" ref={el => { sectionRefs.current['research'] = el }} className={styles.section}>
-            <span className={styles.sectionLabel}>User Testing</span>
+          <section id="research" ref={el => { sectionRefs.current['research'] = el }} tabIndex={-1} className={styles.section}>
+            <h2 className={styles.sectionLabel}>User Testing</h2>
 
             <div className={styles.photoRow}>
               <img src={`${BASE}/kids%20in%20action.jpeg`} alt="Kids playtesting Wonder Workshop" className={styles.photo} />
-              <img src={`${BASE}/users%20in%20action.jpeg`} alt="Users in action" className={styles.photo} />
+              <img src={`${BASE}/users%20in%20action.jpeg`} alt="A tester building a craft at a table while the game is open beside them" className={styles.photo} />
             </div>
 
             <div className={styles.quotesGrid}>
@@ -468,7 +537,7 @@ export default function WonderWorkshop() {
                 'More time was spent off-screen than on. That was the goal.',
               ].map((f, i) => (
                 <div key={i} className={styles.finding}>
-                  <span className={styles.findingDiamond}>◆</span>
+                  <span className={styles.findingDiamond} aria-hidden="true">◆</span>
                   <p className={styles.findingText}>{f}</p>
                 </div>
               ))}
@@ -476,8 +545,8 @@ export default function WonderWorkshop() {
           </section>
 
           {/* Next Steps */}
-          <section id="next-steps" ref={el => { sectionRefs.current['next-steps'] = el }} className={styles.section}>
-            <span className={styles.sectionLabel}>What's Next</span>
+          <section id="next-steps" ref={el => { sectionRefs.current['next-steps'] = el }} tabIndex={-1} className={styles.section}>
+            <h2 className={styles.sectionLabel}>What's Next</h2>
             <div className={styles.nextGrid}>
               {NEXT_STEPS.map(n => (
                 <div key={n.title} className={styles.nextItem}>
@@ -492,9 +561,9 @@ export default function WonderWorkshop() {
           </section>
 
           {/* Reflection */}
-          <section id="reflection" ref={el => { sectionRefs.current['reflection'] = el }} className={`${styles.section} ${styles.sectionLast} ${styles.sectionRelative}`}>
-            <img src={`${BASE}/Puff.gif`} alt="Puff character" className={`${styles.charFloatRight} ${styles.charFloatRightTop}`} />
-            <span className={styles.sectionLabel}>Reflection</span>
+          <section id="reflection" ref={el => { sectionRefs.current['reflection'] = el }} tabIndex={-1} className={`${styles.section} ${styles.sectionLast} ${styles.sectionRelative}`}>
+            <img src={`${BASE}/Puff.gif`} alt="" className={`${styles.charFloatRight} ${styles.charFloatRightTop}`} />
+            <h2 className={styles.sectionLabel}>Reflection</h2>
             <p className={styles.prose}>
               This project required building the wrong version first. The critter battle system was coherent and technically interesting, and we needed to build it before we could see what it was doing to our goals. The clearer lesson: the research case for craft-as-intervention existed before the midterm. The signal was in the literature before we found it in the feedback.
             </p>
@@ -517,7 +586,7 @@ export default function WonderWorkshop() {
 
           <NextCaseStudy currentId="wonder" />
 
-        </main>
+        </article>
       </div>
     </div>
   )

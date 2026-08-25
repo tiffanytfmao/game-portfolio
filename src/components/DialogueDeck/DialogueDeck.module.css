@@ -1,0 +1,171 @@
+.wrap {
+  margin: var(--space-8) 0 var(--space-10);
+}
+
+/* Height comes from the tallest card; the cards are absolute, so nothing
+   the fan does moves the rest of the page. */
+.deck {
+  position: relative;
+  height: 300px;
+}
+
+/* Cards and their hit areas share one geometry, driven by four
+   variables that each slot below sets. */
+.card,
+.hit {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 80%;
+  height: 100%;
+  transform: translateX(calc(-50% + var(--x, 0px)))
+             translateY(var(--y, 0px))
+             rotate(var(--rot, 0deg))
+             scale(var(--s, 1));
+  transform-origin: 50% 100%;
+}
+
+.card {
+  /* Hovering is the hit areas' job — see below. */
+  pointer-events: none;
+  transition: transform var(--duration-normal) var(--ease-out),
+              opacity var(--duration-normal) var(--ease-out);
+  outline: none;
+}
+
+.card > * {
+  /* Equal-height cards, but a quote that runs long grows its card
+     rather than spilling past the border. */
+  min-height: 100%;
+}
+
+/* Invisible twins that stay put at the resting positions, so the
+   pointer keeps its target while the card animates away from it. */
+.hit {
+  cursor: pointer;
+}
+
+/* Whichever one you're on comes to the top of the pile, so sliding
+   across an opened card doesn't hand you off to the card behind it. */
+.hit:hover {
+  z-index: 9;
+}
+
+/* ── Resting: a fanned hand, all three legible ── */
+.left {
+  --x: -56px;
+  --y: 12px;
+  --rot: -7deg;
+  --s: 0.96;
+  z-index: 1;
+}
+
+.front {
+  z-index: 3;
+}
+
+.right {
+  --x: 56px;
+  --y: 12px;
+  --rot: 7deg;
+  --s: 0.96;
+  z-index: 2;
+}
+
+/* Hit areas sit above every card, stacked so the middle of the deck
+   belongs to the card you can actually see there. */
+.hit.left  { z-index: 6; }
+.hit.right { z-index: 7; }
+.hit.front { z-index: 8; }
+
+/* ── Pulling a card out of the hand ── */
+.deck:has(.hit:hover) .card,
+.deck:has(.card:focus-visible) .card {
+  opacity: 0.45;
+}
+
+.deck:has(.hit.left:hover) .card.left,
+.deck:has(.hit.front:hover) .card.front,
+.deck:has(.hit.right:hover) .card.right,
+.deck:has(.card:focus-visible) .card:focus-visible {
+  --x: 0px;
+  --y: -14px;
+  --rot: 0deg;
+  --s: 1.03;
+  opacity: 1;
+  z-index: 10;
+}
+
+/* …and the other two lean further out of the way. */
+.deck:has(.hit.left:hover) .card.front,
+.deck:has(.card.left:focus-visible) .card.front {
+  --x: 34px;
+  --rot: 5deg;
+}
+.deck:has(.hit.right:hover) .card.front,
+.deck:has(.card.right:focus-visible) .card.front {
+  --x: -34px;
+  --rot: -5deg;
+}
+.deck:has(.hit.front:hover) .card.left,
+.deck:has(.card.front:focus-visible) .card.left {
+  --x: -78px;
+  --rot: -10deg;
+}
+.deck:has(.hit.front:hover) .card.right,
+.deck:has(.card.front:focus-visible) .card.right {
+  --x: 78px;
+  --rot: 10deg;
+}
+
+/* Says out loud what the fan is for. */
+.hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: var(--space-6) 0 0;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+}
+
+.hintDot {
+  font-size: 8px;
+  color: var(--color-gold);
+}
+
+/* Nothing to hover with, so lay the hand out as a plain column. */
+@media (hover: none) {
+  .wrap {
+    margin: 0;
+  }
+  .deck {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .card {
+    position: static;
+    width: 100%;
+    height: auto;
+    transform: none;
+    pointer-events: auto;
+  }
+  .card > * {
+    min-height: 0;
+  }
+  .hit,
+  .hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition-duration: 1ms;
+  }
+}

@@ -38,13 +38,32 @@
   --color-gold-warm:      #E58BA4;
   --color-tan:            #72727A;
 
-  /* Text */
+  /* Text
+     ------------------------------------------------------------
+     Every value here is checked against the surfaces it is actually
+     used on. Ratios are vs #FFFFFF / --color-bg-raised / --color-bg-sunken:
+
+       text-dark   18.42 / 17.65 / 16.76   AAA
+       text-muted  11.31 / 10.83 / 10.29   AAA
+       text-light   5.30 /  5.08 /  4.82   AA
+       text-faint   5.88 /  5.63 /  5.35   AA
+       text-onpink  8.35 /  8.00 /  7.59   AAA
+
+     text-faint was #72727A, which came to 4.34 on --color-bg-sunken and
+     failed AA for the small-caps section labels that use it most.
+     ------------------------------------------------------------ */
   --color-text-dark:      #141414;
   --color-text-muted:     #3A3A3F;
   --color-text-light:     #6B6B70;
-  --color-text-faint:     #72727A;
+  --color-text-faint:     #646469;
   --color-text-onpink:    #8A2A4C;
   --color-text-ondark:    #FAFAFA;
+
+  /* Pink that is safe to set body-sized text in. --color-pink-deep clears
+     AA at 4.99 with almost no margin, and --color-pink-dusty is 2.45 on
+     white — fine for a decorative diamond, not for a word anyone has to
+     read. 6.42 on white. */
+  --color-pink-text:      #A83355;
 
   /* Borders — hairlines, not frames */
   --color-border:         rgba(0, 0, 0, 0.10);

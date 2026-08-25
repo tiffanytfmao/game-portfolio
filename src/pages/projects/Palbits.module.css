@@ -944,3 +944,20 @@
   .metaRow { gap: var(--space-4); }
   .body { padding: 0 var(--space-4) var(--space-12); }
 }
+
+/* ── Four-item groups pair up instead of orphaning ──────────────────
+   A group of four in a three-column grid renders as 3 + 1, and the
+   lone item on the second row reads as a mistake rather than a
+   layout. :has() only matches when the grid actually holds exactly
+   four children, so groups of three, five, or six are left alone and
+   nothing has to be kept in sync by hand as content changes.
+
+   Scoped above the collapse breakpoint so the single-column mobile
+   rules still win — :has() carries the specificity of its argument
+   and would otherwise outrank them.
+   ------------------------------------------------------------------ */
+@media (min-width: 901px) {
+  .contextGrid:has(> :last-child:nth-child(4)) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

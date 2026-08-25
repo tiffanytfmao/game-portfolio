@@ -118,9 +118,30 @@
 .meta {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 7px 2px 8px;
+}
+
+/* The caption is the keyboard-reachable control for the card. It fills the
+   bar so the hit area matches what it looks like, and clears the 24px
+   minimum target size (WCAG 2.5.8) even on the narrowest card. */
+.metaAction {
+  flex: 1;
+  min-width: 0;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--space-2);
+  padding: 0;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  background: none;
+  border: none;
+}
+
+.metaAction:focus-visible {
+  outline-offset: 2px;
 }
 
 .metaText {

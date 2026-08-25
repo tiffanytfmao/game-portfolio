@@ -158,6 +158,9 @@
   font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   letter-spacing: 0.1em;
+  /* This block sits on --color-bg-dark, not on white: --color-gold-warm
+     (#E58BA4) is 7.51:1 there. Do not "fix" it to a darker pink — on this
+     background darker is worse. */
   color: var(--color-gold-warm);
 }
 

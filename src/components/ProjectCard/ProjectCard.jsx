@@ -1,15 +1,25 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { playCardHover } from '../../sounds/AudioManager'
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import styles from './ProjectCard.module.css'
 
 export default function ProjectCard({ project, index = 0, style = {} }) {
   const cardRef = useRef(null)
   const videoRef = useRef(null)
+  const reducedMotion = usePrefersReducedMotion()
 
   function setVideoRef(el) {
     if (el) {
       el.muted = true
+      // The autoPlay attribute alone is not enough — this ref handler calls
+      // play() by hand, which would restart the loop no matter what the OS
+      // setting says. It holds on the poster frame instead.
+      if (reducedMotion) {
+        el.pause()
+        videoRef.current = el
+        return
+      }
       // Loop just the opening slice when a project asks for it (e.g. Berky's
       // 4-second intro), instead of playing the whole clip.
       if (project.loopDuration) {
@@ -56,9 +66,14 @@ export default function ProjectCard({ project, index = 0, style = {} }) {
             ref={setVideoRef}
             className={styles.thumbVideo}
             src={project.video}
-            autoPlay
+            // A looping thumbnail is decoration; the card's title and tags
+            // carry the meaning, so under reduced motion it holds on the
+            // first frame instead.
+            autoPlay={!reducedMotion}
             loop
+            muted
             playsInline
+            aria-hidden="true"
           />
         ) : project.image && project.imageBounce ? (
           <div className={styles.thumbBounce}>

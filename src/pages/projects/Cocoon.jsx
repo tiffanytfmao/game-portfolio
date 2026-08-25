@@ -104,22 +104,6 @@ const HERO_SCREENS = [
   },
 ]
 
-// Smaller source files — kept in a 2-up grid so they never upscale.
-const DETAIL_SCREENS = [
-  {
-    title: 'Claims dashboard',
-    body: 'California EDD and disability tasks with clear pending/complete states.',
-    img: `${BASE}/final%202.png`,
-    alt: 'Claims dashboard with pending and complete task states',
-  },
-  {
-    title: 'Leave type selector',
-    body: 'Plain-language descriptions that answer "which one applies to me?"',
-    img: `${BASE}/final%201.png`,
-    alt: 'Leave type selector with plain-language descriptions',
-  },
-]
-
 export default function Cocoon() {
   return (
     <CaseStudyLayout
@@ -381,28 +365,6 @@ export default function Cocoon() {
             <p className={cs.blockBody}>{s.body}</p>
           </div>
         ))}
-
-        <figure className={cs.figure} style={{ marginBottom: 34 }}>
-          <img
-            src={`${BASE}/full%20final%201.png`}
-            alt="Full employee leave planner flow, end to end"
-            className={cs.media}
-            style={{ maxWidth: 650 }}
-          />
-          <figcaption className={cs.caption}>The full planner flow, end to end</figcaption>
-        </figure>
-
-        <div className={cs.cols2}>
-          {DETAIL_SCREENS.map((s) => (
-            <div key={s.title} className={cs.block}>
-              <figure className={cs.figure}>
-                <img src={s.img} alt={s.alt} className={cs.media} />
-              </figure>
-              <p className={cs.blockTitle}>{s.title}</p>
-              <p className={cs.blockBody}>{s.body}</p>
-            </div>
-          ))}
-        </div>
 
         <figure className={cs.figure}>
           <img

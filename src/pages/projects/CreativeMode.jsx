@@ -8,7 +8,6 @@ const SECTIONS = [
   { id: 'overview',     label: 'Overview' },
   { id: 'brief',        label: 'The Brief' },
   { id: 'painpoints',   label: 'Pain Points' },
-  { id: 'users',        label: 'The Users' },
   { id: 'research',     label: 'Research' },
   { id: 'challenge',    label: 'The Challenge' },
   { id: 'explorations', label: 'Explorations' },
@@ -44,14 +43,6 @@ const PAINPOINTS = [
   { title: 'Browsing rarely became doing', body: 'Nothing bridged the gap between scanning a card and actually installing or remixing it. Discovery and engagement felt like two separate steps.', note: 'Browse → engage drop-off' },
 ]
 
-const PERSONAS = [
-  { name: 'The Tinkerer', body: 'Comes in with a specific thing to add and wants to execute fast. Gets frustrated by anything that slows them down.', stake: 'Judges the product entirely on whether they got what they came for.' },
-  { name: 'The Dabbler', body: "Curious but uncommitted. Wants to see what's possible before investing effort, and bounces the moment something feels confusing.", stake: 'The explore page lives or dies on this person.' },
-  { name: 'The Collector', body: 'Browses constantly, downloads a lot, creates rarely. Cares about discovery quality, filtering, and curation above all.', stake: 'Largely the SEO audience arriving from Google.' },
-  { name: 'The Evangelist', body: 'Makes mods to share with their friends or community. Success means other people playing their creation.', stake: 'Cares about share flow and social proof, the source of organic growth.' },
-  { name: 'The Reluctant Parent', body: "Doesn't play themselves. They're helping a kid get set up, patience low and technical tolerance near zero.", stake: "If it doesn't work in 5 minutes, they're gone, and they take the kid with them." },
-]
-
 const TAKEAWAYS = [
   { src: 'A streamlined mod marketplace', body: 'Compact cards with thumbnail, name, short description, download count, and category tags, plus a sidebar filter system that stays easily scannable.' },
   { src: 'An established mod platform', body: 'A category-first architecture and hero spotlights that promote one big creation well, but do less to encourage broader community browsing.' },
@@ -63,6 +54,13 @@ const DIRECTIONS = [
   { tag: 'Direction B', title: 'Compact high-density', body: 'Smaller cards, more per row, icon-only CTAs that label on hover, for a feeling of abundance across the page.' },
   { tag: 'Direction C', title: 'Horizontal list row', body: 'Landscape cards that fit more detail without growing taller. Better for scanning specifics, at the cost of fewer cards on screen at once.' },
   { tag: 'Direction D', title: 'CTA-first', body: 'Download as the clear primary action; Remix as a secondary pill, each carrying its own social proof.' },
+]
+
+const CARD_STUDIES = [
+  { src: 'social card.png',        caption: 'Direction A — metrics read before the actions.',        alt: 'Card with a downloads, remixes, and favorites strip above full-width CTAs' },
+  { src: 'cta card - download.png', caption: 'Direction D — Download leads, Remix follows.',          alt: 'Card with Download as the filled primary button and Remix as an outlined pill' },
+  { src: 'cta card - remix.png',    caption: 'Direction D, inverted — Remix as the primary action.',  alt: 'Card with Remix as the filled primary button and Download as an outlined pill' },
+  { src: 'cta card - mix.png',      caption: 'Direction D — both counts folded under one Popularity label.', alt: 'Card with downloads and remixes grouped under a single Popularity heading' },
 ]
 
 const DECISIONS = [
@@ -86,14 +84,7 @@ const KPIS = [
   { metric: 'Click-through to creations', why: 'From explore into an individual mod page, the core browse-to-consider step.' },
   { metric: 'Downloads / installs from explore', why: 'The browse-to-engage payoff, and the behavior this redesign is built to unlock.' },
   { metric: 'Session length vs. before', why: 'Depth of exploration compared to the old page. Did discovery get more rewarding?' },
-  { metric: 'Time on page: SEO vs. direct', why: 'The Collector arriving from Google behaves differently from a logged-in browser.' },
-]
-
-const NEXT_STEPS = [
-  { title: 'A personalization layer', body: '"Because you remixed X" or "New from creators you\'ve played" as a fourth section for logged-in users.' },
-  { title: 'Remix attribution', body: 'When a remix is published, visibly link it back to the source mod, closing the credit loop that fuels the Evangelist.' },
-  { title: 'A/B test curation', body: 'Trial different section orders and curation approaches against time-to-first-click and scroll depth.' },
-  { title: 'Carry it to mobile', body: 'Bring the intent-led sections into a collapsed, thumb-friendly layout.' },
+  { metric: 'Time on page: SEO vs. direct', why: 'Traffic arriving from Google behaves differently from a logged-in browser.' },
 ]
 
 export default function CreativeMode() {
@@ -164,39 +155,24 @@ export default function CreativeMode() {
           A heuristic pass on the live page turned up four structural problems, in how content types,
           curation, and page chrome were handled. A visual refresh wouldn't have touched them.
         </p>
-        <div className={cs.stack}>
-          {PAINPOINTS.map((p) => (
-            <div key={p.title} className={cs.block}>
-              <p className={cs.blockTitle}>{p.title}</p>
-              <p className={cs.blockBody}>{p.body}</p>
-              <p className={cs.note}>{p.note}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── The Users ── */}
-      <Section
-        id="users"
-        label="The Users"
-        claim="Explore had five audiences, each showing up with a different goal."
-      >
-        <div className={cs.block} style={{ marginBottom: 26 }}>
-          <p className={cs.label}>Key insight</p>
-          <p className={cs.blockBody}>
-            Someone browsing skins is in a completely different mindset than someone hunting for a
-            modpack. Skins are fast, visual, low-stakes. Modpacks are slower, research-oriented,
-            high-commitment. One uniform grid can't serve both.
-          </p>
-        </div>
-        <div className={cs.cols2}>
-          {PERSONAS.map((p) => (
-            <div key={p.name} className={cs.block}>
-              <p className={cs.blockTitle}>{p.name}</p>
-              <p className={cs.blockBody}>{p.body}</p>
-              <p className={cs.note}>{p.stake}</p>
-            </div>
-          ))}
+        <div className={cs.mediaSplit}>
+          <figure className={cs.figure}>
+            <img
+              src={`${BASE}/old-card.png`}
+              alt="The Explore card as it looked before the redesign"
+              className={cs.media}
+            />
+            <figcaption className={cs.caption}>The card before the redesign.</figcaption>
+          </figure>
+          <div className={cs.stack}>
+            {PAINPOINTS.map((p) => (
+              <div key={p.title} className={cs.block}>
+                <p className={cs.blockTitle}>{p.title}</p>
+                <p className={cs.blockBody}>{p.body}</p>
+                <p className={cs.note}>{p.note}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </Section>
 
@@ -277,6 +253,29 @@ export default function CreativeMode() {
           ))}
         </div>
 
+        <p className={cs.prose}>
+          Three of the four went to high fidelity, so I could judge them at real density rather
+          than as boxes on a wireframe.
+        </p>
+        <div className={cs.figRow}>
+          {CARD_STUDIES.map((c) => (
+            <figure key={c.src} className={cs.figure} style={{ maxWidth: 282 }}>
+              <img src={`${BASE}/${c.src}`} alt={c.alt} className={cs.media} />
+              <figcaption className={cs.caption}>{c.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <figure className={cs.figure} style={{ maxWidth: 642 }}>
+          <img
+            src={`${BASE}/horizontal hifi.png`}
+            alt="Landscape list-row card with the description, metrics, and actions on one line"
+            className={cs.media}
+          />
+          <figcaption className={cs.caption}>
+            Direction C — the landscape row, which buys detail at the cost of cards per screen.
+          </figcaption>
+        </figure>
+
         <div className={cs.block}>
           <p className={cs.label}>Where it landed</p>
           <p className={cs.blockBody}>
@@ -315,6 +314,21 @@ export default function CreativeMode() {
             style={{ aspectRatio: '1355 / 2840', objectFit: 'cover', objectPosition: 'top' }}
           />
         </figure>
+        <div className={cs.figRow}>
+          <figure className={cs.figure}>
+            <img src={`${BASE}/final cta.png`} alt="The final Explore card" className={cs.media} />
+            <figcaption className={cs.caption}>
+              The final card — thumbnail, tags, author, both counts, and the Download + Remix pair.
+            </figcaption>
+          </figure>
+          <figure className={cs.figure}>
+            <img src={`${BASE}/final cta expanded.png`} alt="The final Explore card in its expanded state" className={cs.media} />
+            <figcaption className={cs.caption}>
+              Expanded — a screenshot carousel and description, without leaving the grid.
+            </figcaption>
+          </figure>
+        </div>
+
         <div className={cs.stack}>
           {FINAL_SCREENS.map((s) => (
             <div key={s.label} className={cs.block}>
@@ -329,7 +343,7 @@ export default function CreativeMode() {
       <Section
         id="reflection"
         label="Reflection"
-        claim="How I'd know it worked, and where I'd take it next."
+        claim="How I'd know it worked."
       >
         <p className={cs.prose}>
           The redesign only works if people reach the good stuff faster and scroll deeper into it.
@@ -340,16 +354,6 @@ export default function CreativeMode() {
             <div key={k.metric} className={cs.block}>
               <p className={cs.blockTitle}>{k.metric}</p>
               <p className={cs.blockBody}>{k.why}</p>
-            </div>
-          ))}
-        </div>
-
-        <p className={cs.label} style={{ marginTop: 8 }}>Where it goes next</p>
-        <div className={cs.cols2}>
-          {NEXT_STEPS.map((n) => (
-            <div key={n.title} className={cs.block}>
-              <p className={cs.blockTitle}>{n.title}</p>
-              <p className={cs.blockBody}>{n.body}</p>
             </div>
           ))}
         </div>

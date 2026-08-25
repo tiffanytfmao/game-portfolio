@@ -82,7 +82,10 @@
 .thumbOverlay {
   position: absolute;
   inset: 0;
-  background: rgba(20, 20, 20, 0.42);
+  /* Was 0.42, which put the white "View project" label at 2.96:1 over a
+     light thumbnail. 0.68 composites to ~#5C5C5C — 6.69:1 — and still
+     reads as a wash rather than a panel. */
+  background: rgba(20, 20, 20, 0.68);
   display: flex;
   align-items: center;
   justify-content: center;

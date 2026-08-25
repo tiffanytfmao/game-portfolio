@@ -1,9 +1,46 @@
+import { useState } from 'react'
 import CaseStudyLayout, { Section, Milestone } from '../../components/CaseStudyLayout/CaseStudyLayout'
 import { asset } from '../../utils/asset'
 import cs from './caseStudy.module.css'
 import g from './Graft.module.css'
 
 const BASE = asset('graft assets')
+
+const VIDEO_ID = 'tISzqS7Sc_Y'
+
+/* YouTube paints the title, channel, and "Watch on YouTube" over its own
+   poster and there's no parameter to turn that off — showinfo was retired in
+   2018. So we render our own poster and only mount the iframe once the play
+   button is hit, at which point the video is already running and the chrome
+   only reappears on hover. */
+function VideoEmbed({ title }) {
+  const [playing, setPlaying] = useState(false)
+
+  if (playing) {
+    return (
+      <iframe
+        className={g.video}
+        src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    )
+  }
+
+  return (
+    <button type="button" className={g.videoFacade} onClick={() => setPlaying(true)}>
+      <img
+        className={g.videoPoster}
+        src={`https://i.ytimg.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
+        onError={(e) => { e.currentTarget.src = `https://i.ytimg.com/vi/${VIDEO_ID}/hqdefault.jpg` }}
+        alt=""
+      />
+      <span className={g.videoPlay} aria-hidden="true" />
+      <span className={g.srOnly}>{`Play: ${title}`}</span>
+    </button>
+  )
+}
 
 const SECTIONS = [
   { id: 'overview',    label: 'Overview' },
@@ -102,13 +139,7 @@ export default function Graft() {
         </p>
 
         <figure className={cs.figure}>
-          <iframe
-            className={g.video}
-            src="https://www.youtube.com/embed/tISzqS7Sc_Y"
-            title="Graft! gameplay"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          <VideoEmbed title="Graft! gameplay" />
           <figcaption className={cs.caption}>A short walk through the greenhouse and the grafting loop.</figcaption>
         </figure>
 

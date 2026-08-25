@@ -56,12 +56,6 @@
   letter-spacing: 0.02em;
 }
 
-.titleAccent {
-  color: var(--color-pink-deep);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 .subtitle {
   font-family: var(--font-pixel);
   font-size: 6px;
@@ -188,12 +182,6 @@
   opacity: 0.42;
   cursor: not-allowed;
   box-shadow: none;
-}
-
-.diamond {
-  font-size: 7px;
-  opacity: 0.85;
-  flex-shrink: 0;
 }
 
 .lifeBtnBounce {

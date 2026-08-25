@@ -91,6 +91,5 @@ export function playMew() {
 }
 
 /* ── Mute control ── */
-export function setMuted(value) { muted = value }
 export function getMuted()      { return muted }
 export function toggleMute()    { muted = !muted; return muted }

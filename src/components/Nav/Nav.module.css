@@ -197,12 +197,6 @@
   color: var(--color-text-onpink);
 }
 
-.dropDiamond {
-  font-size: 7px;
-  color: var(--color-gold);
-  flex-shrink: 0;
-}
-
 .dropdownGroup {
   display: flex;
   flex-direction: column;

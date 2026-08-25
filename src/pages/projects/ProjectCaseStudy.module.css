@@ -58,11 +58,6 @@
   margin-top: var(--space-8);
 }
 
-.heroEmoji {
-  font-size: 56px;
-  line-height: 1;
-}
-
 .heroYear {
   font-family: var(--font-label);
   font-size: var(--text-xs);

@@ -2,7 +2,6 @@
    caseStudy.module.css; this file only handles the image-heavy bits.
    The --cs-* vars below are inherited from the layout's .page scope. */
 
-.pageAccent { --graft-green: #5e8c4e; }
 
 /* Responsive 16:9 gameplay embed. */
 .video {

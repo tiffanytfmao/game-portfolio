@@ -326,37 +326,6 @@
   margin: 5px 0 0;
 }
 
-/* Playable embed — a bordered frame, the one place a hairline is allowed */
-.embed {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  border: 1px solid var(--cs-hairline);
-  background: #fff;
-  display: block;
-  margin: 26px 0 0;
-}
-.embedNote {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  margin: 10px 0 0;
-  flex-wrap: wrap;
-}
-.embedLink {
-  font-family: var(--cs-mono);
-  font-size: var(--cs-label-size);
-  font-weight: var(--weight-regular);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--cs-ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--cs-label);
-  padding-bottom: 1px;
-  transition: border-color 0.18s ease;
-}
-.embedLink:hover { border-color: var(--cs-ink); }
-
 /* Stacked list of named blocks — title above body, no box or marker */
 .stack {
   display: grid;

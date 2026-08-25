@@ -151,7 +151,6 @@
   transform: translateY(-2px);
 }
 
-.diamond { font-size: 8px; opacity: 0.8; }
 
 .email {
   font-family: var(--font-label);

@@ -1,157 +1,114 @@
-/* ── overlay ── */
+/* ── overlay ──
+   Fades its own background out the moment the pill starts flying, so the
+   page reveals underneath while the pill is still in the air. */
 .overlay {
   position: fixed;
   inset: 0;
-  background: #FFFFFF;
   z-index: var(--z-loading);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 28px;
-  transition: opacity 0.8s var(--ease-smooth);
+  background: var(--color-bg-cream);
+  transition: background-color 500ms var(--ease-smooth);
 }
-.overlay.fadeOut {
-  opacity: 0;
+
+.overlay.clear {
+  background: transparent;
   pointer-events: none;
 }
 
-/* ── cat walk track ── */
-.catTrack {
-  position: absolute;
-  top: 28%;
-  left: 0;
-  width: 100%;
-  height: 120px;
-}
-.walker {
-  position: absolute;
-  top: 0;
-  animation: walkAcross 3.2s linear infinite;
-}
-@keyframes walkAcross {
-  from { left: -120px; }
-  to   { left: calc(100% + 120px); }
-}
-
-/* ── center content ── */
-.content {
+/* ── the boot pill ──
+   Sized 1.4× here and scaled back down as it flies, so it lands at exactly
+   the nav pill's size. */
+.pill {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 18px;
-  position: relative;
-  z-index: 1;
+  gap: var(--space-2);
+  padding: 6px var(--space-3);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-offwhite);
+  /* Pinned rather than inherited: the nav's pill is a <button> (UA
+     line-height: normal) and the loader's is a <div> (body's 1.6). Both
+     boxes have to come out the same height for the flight to land. */
+  line-height: 1.2;
+  transform: scale(1.4);
 }
 
-/* ── diamonds ── */
-.diamondRow {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-}
-.diamond {
-  font-size: 12px;
-  color: var(--color-gold);
-  animation: diamondPulse 1.4s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.18s);
-}
-@keyframes diamondPulse {
-  0%,100% { opacity: 0.35; transform: scale(0.9); }
-  50%     { opacity: 1;    transform: scale(1.2); }
+.dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: #3FBF6F;
 }
 
-/* ── "Loading..." text ── */
-.loadingText {
-  font-family: var(--font-label);
-  font-size: 13px;
-  font-weight: var(--weight-medium);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
+/* Mirrors the nav pill's rows exactly — same stack, same justification —
+   so the two boxes are interchangeable and the flight never resizes. */
+.stack {
+  display: grid;
+  /* Each row keeps its own width and the stack is sized to the active one
+     (see PillRows), so a short line like the clock does not leave the pill
+     padded out to the length of the longest one. Rows wider than the
+     current width are mid-cross-fade; the clip keeps them inside the pill,
+     and the vertical padding keeps the clip clear of descenders. */
+  overflow: hidden;
+  padding-block: 3px;
+  margin-block: -3px;
+  /* Flex items floor at their min-content size, and a stack of nowrap rows
+     min-contents to the widest of them — which would quietly override the
+     width being set on it. */
+  min-width: 0;
+}
+
+/* Deliberately no width transition here, unlike the nav's pill. The boot
+   lines change every 420ms and the pill has to be at the settled width of
+   the line it is showing at the moment it flies, so it snaps instead. */
+.stackMeasured {
+  transition: none;
+}
+
+.row {
+  grid-area: 1 / 1;
+  justify-self: start;
+  width: max-content;
   display: flex;
   align-items: baseline;
-  gap: 0;
+  gap: var(--space-3);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(3px);
+  /* The outgoing line clears out faster than the incoming one arrives, so
+     the two never sit legibly on top of each other in the shared cell. */
+  transition: opacity 110ms var(--ease-smooth), transform 110ms var(--ease-smooth);
 }
 
-/* Each letter bounces in with a stagger */
-.loadingChar {
-  display: inline-block;
-  animation: charBounce 1.6s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.08s);
-}
-@keyframes charBounce {
-  0%,60%,100% { transform: translateY(0); }
-  30%         { transform: translateY(-4px); }
+.rowActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms var(--ease-out) 90ms, transform 200ms var(--ease-out) 90ms;
 }
 
-/* Dot ellipsis pulses */
-.ellipsis {
-  display: inline-flex;
-  gap: 1px;
-  margin-left: 2px;
-}
-.ellipsis span {
-  display: inline-block;
-  animation: dotFade 1.2s ease-in-out infinite;
-  animation-delay: var(--d);
-}
-@keyframes dotFade {
-  0%,80%,100% { opacity: 0.2; }
-  40%         { opacity: 1; }
+.label {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-gold-deep);
 }
 
-/* ── progress bar ── */
-.barWrap {
-  width: min(320px, 70vw);
-  height: 10px;
-  background: var(--color-border);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.bar {
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    var(--color-pink-dusty) 0%,
-    var(--color-pink-deep)  50%,
-    var(--color-lavender)   100%
-  );
-  border-radius: var(--radius-full);
-  transform: scaleX(0);
-  transform-origin: left center;
-  animation: loadProgress 2.4s var(--ease-smooth) 0.2s forwards;
-  position: relative;
-  overflow: hidden;
-}
-@keyframes loadProgress {
-  0%   { transform: scaleX(0); }
-  60%  { transform: scaleX(0.72); }
-  85%  { transform: scaleX(0.90); }
-  100% { transform: scaleX(1); }
-}
-.bar::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255,255,255,0.45) 50%,
-    transparent 100%
-  );
-  animation: shimmer 1.4s ease-in-out infinite;
-}
-@keyframes shimmer {
-  from { transform: translateX(-100%); }
-  to   { transform: translateX(200%); }
+.value {
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-text-dark);
 }
 
 /* ── Skip control ──
-   The loader holds the page for 2.8s. WCAG 2.2.1 wants a way past a timed
-   hold, so this sits in the corner, takes first focus, and is always
-   reachable by keyboard even while it is visually understated. */
+   Understated in the corner, but first in the tab order (see the focus call
+   in the component) so a keyboard user reaches it without hunting. */
 .skip {
   position: absolute;
   top: var(--space-6);
@@ -175,11 +132,16 @@
   color: var(--color-text-dark);
 }
 
+/* The overlay is on its way out; the skip control should not linger over
+   the page it just revealed. */
+.overlay.clear .skip {
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  /* The cat walk and the bar are decoration on a screen that is about to
-     disappear; nothing is lost by removing them. */
-  .catTrack,
-  .barWrap {
-    display: none;
-  }
+  .row { transition: none; }
+}
+
+@media (max-width: 900px) {
+  .label { display: none; }
 }

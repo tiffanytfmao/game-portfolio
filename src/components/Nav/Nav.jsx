@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { playNavClick } from '../../sounds/AudioManager'
 import styles from './Nav.module.css'
+import StatusPill from '../StatusPill/StatusPill'
 import { scrollToId, scrollToTop } from '../../utils/scroll'
 
 const TABS = [
@@ -135,6 +136,10 @@ export default function Nav() {
         <button className={styles.logo} onClick={handleLogoClick} aria-label="Tiffany Mao — back to top">
           <img src={`${import.meta.env.BASE_URL}images/icon.svg`} alt="" className={styles.logoImg} />
         </button>
+
+        {/* Sits with the mark rather than in the tab row: it is a status,
+            not a destination. */}
+        <StatusPill className={styles.statusPill} />
 
         {/* Tabs (desktop) */}
         <ul className={styles.tabs} role="list">

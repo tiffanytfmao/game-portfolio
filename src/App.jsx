@@ -56,7 +56,10 @@ import styles from './App.module.css'
 let hasLoaded = false
 
 export default function App() {
-  const [loading, setLoading] = useState(!hasLoaded)
+  // Two flags, not one: the pill starts flying to the nav before the loader
+  // is finished, and the page has to be visible underneath it while it does.
+  const [booting, setBooting] = useState(!hasLoaded)
+  const [revealed, setRevealed] = useState(hasLoaded)
   const [muted, setMutedState] = useState(getMuted())
   const cursorRef = useRef(null)
   const mainRef = useRef(null)
@@ -124,22 +127,24 @@ export default function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  const handleLoadComplete = useCallback(() => {
+  const handleReveal = useCallback(() => {
     hasLoaded = true
-    setLoading(false)
+    setRevealed(true)
     playLoadComplete()
   }, [])
+
+  const handleDone = useCallback(() => setBooting(false), [])
 
   return (
     <>
       <div id="cursor" ref={cursorRef} aria-hidden="true" />
       <PawTrail />
 
-      {loading && <LoadingScreen onComplete={handleLoadComplete} />}
+      {booting && <LoadingScreen onReveal={handleReveal} onDone={handleDone} />}
 
       <div
-        className={`${styles.site} ${loading ? styles.hidden : styles.visible}`}
-        {...(loading ? { inert: '' } : {})}
+        className={`${styles.site} ${revealed ? styles.visible : styles.hidden}`}
+        {...(revealed ? {} : { inert: '' })}
       >
         <a className="skip-link" href="#main-content">Skip to main content</a>
 
@@ -158,7 +163,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={
               <>
-                <Hero active={!loading} />
+                <Hero active={revealed} />
                 <Work />
                 <About />
                 <Playground />

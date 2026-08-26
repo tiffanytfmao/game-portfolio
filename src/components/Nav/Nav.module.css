@@ -68,6 +68,22 @@
   }
 }
 
+/* ── Status pill ──
+   Centred on the logo mark rather than on the bar: the nav aligns to
+   flex-end and the logo hangs 12px off the bottom, so centring in the 72px
+   bar leaves the pill sitting 4px high of the mark beside it. */
+.statusPill {
+  align-self: flex-end;
+  margin-left: var(--space-4);
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+/* Below this the logo, pill and hamburger start crowding each other. */
+@media (max-width: 360px) {
+  .statusPill { display: none; }
+}
+
 /* ── Tabs ── */
 .tabs {
   display: flex;

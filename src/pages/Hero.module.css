@@ -192,19 +192,27 @@
 
 .stageMsg {
   position: absolute;
-  bottom: calc(100% + 10px);
+  /* Clears the cat's affection gauge, which sits 6px above the sprite and is
+     8px tall — at the old 10px the message ran straight through the pips. */
+  bottom: calc(100% + 26px);
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-pixel);
   font-size: 7px;
   color: var(--color-pink-deep);
   text-align: center;
-  line-height: 1.8;
-  max-width: 220px;
-  transition: opacity 0.8s ease;
+  line-height: 1.6;
+  /* An explicit width, not max-width: the message is absolutely positioned
+     inside .catWrap, so shrink-to-fit would size it to the cat sprite and
+     wrap every message into a one-word-per-line column. */
+  width: min(240px, 80vw);
 }
+/* The transition lives on the fading class alone so the message snaps back
+   to full opacity the instant the cat is petted again, instead of ghosting
+   in over 0.8s underneath the newly typing text. */
 .stageMsgFading {
   opacity: 0;
+  transition: opacity 0.8s ease;
 }
 
 /* ── Credential row ── */

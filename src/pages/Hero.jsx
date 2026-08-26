@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useLayoutEffect, useRef, useState, useCallback } from 'react'
 import { useInView } from '../hooks/useInView'
 import { useScrollProgress } from '../hooks/useScrollProgress'
 
@@ -16,12 +16,13 @@ const CHAR_DELAY = 32
 // a resize cannot leave a stale value behind.
 const HERO_FADE_DISTANCE = () => window.innerHeight * 0.8
 
+// Kept short — the message sits above the cat in a narrow pixel font, so
+// anything past ~30 characters starts wrapping into a tall stack.
 const STAGE_MESSAGES = [
   "Piggy seems interested in you.",
-  "Piggy seems to want you to pet her more.",
+  "Piggy wants more pets, please.",
   "Piggy is very happy!",
   "Piggy loves you.",
-  "Piggy is also a devoted light mode enjoyer.",
 ]
 
 function useTypewriter(text, triggerKey, delayMs = 500, onComplete, holdMs = 900) {
@@ -30,7 +31,11 @@ function useTypewriter(text, triggerKey, delayMs = 500, onComplete, holdMs = 900
   const timerRef = useRef(null)
   const rafRef = useRef(null)
 
-  useEffect(() => {
+  // Layout effect, not a plain effect: a new trigger changes `text` during
+  // render, so resetting `count` in a post-paint effect would let the browser
+  // paint one frame of the *new* message revealed to the *old* count — a
+  // visible flash of pre-typed text when the cat is petted again mid-message.
+  useLayoutEffect(() => {
     if (!triggerKey) return
     clearTimeout(timerRef.current)
     cancelAnimationFrame(rafRef.current)

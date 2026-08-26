@@ -79,6 +79,29 @@
 }
 .greetingMark {
   color: inherit;
+  display: inline-block;
+  /* The greeting's line box is far taller than the glyph, so a centered
+     origin would pivot above the ":)" and swing it around rather than
+     spin it in place. line-height: 1 shrinks the box to the glyph. */
+  line-height: 1;
+  /* A smooth ease with no overshoot: an elastic curve made the mark
+     wobble past 360 and settle back, which read as jitter at this size. */
+  transition: transform 0.7s cubic-bezier(0.33, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.greetingMark:hover {
+  transform: rotate(360deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .greetingMark {
+    transition: none;
+  }
+
+  .greetingMark:hover {
+    transform: none;
+  }
 }
 
 /* ── Headline ── */

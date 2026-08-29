@@ -66,10 +66,15 @@ export default function LoadingScreen({ onReveal, onDone }) {
         `${t.top + t.height / 2 - cy}px) ` +
         `scale(${scale})`
     } else if (pill) {
-      // No pill in the nav to fly to (narrow viewports hide it). Fading is
-      // the honest ending — better than leaving it parked mid-screen.
-      pill.style.transition = `opacity ${FLY_MS}ms var(--ease-smooth)`
+      // No pill in the nav to fly to — the breakpoint that drops it, or a
+      // nav that has not mounted yet. Rather than a bare fade from a pill
+      // parked mid-screen, it settles to the nav's own size and lifts
+      // toward the bar, so the sequence still ends by going somewhere.
+      pill.style.transition =
+        `transform ${FLY_MS}ms var(--ease-out), ` +
+        `opacity ${FLY_MS - 120}ms var(--ease-smooth)`
       pill.style.opacity = '0'
+      pill.style.transform = `translateY(-24px) scale(1)`
     }
 
     setClear(true)

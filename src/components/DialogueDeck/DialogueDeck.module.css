@@ -137,8 +137,11 @@
   color: var(--color-gold);
 }
 
-/* Nothing to hover with, so lay the hand out as a plain column. */
-@media (hover: none) {
+/* Nothing to hover with, or no room to fan into, so lay the hand out as a
+   plain column. The width test matters on its own: the cards sit at 80%
+   width offset +-56px, which runs past a narrow viewport well before the
+   pointer type has anything to say about it. */
+@media (hover: none), (max-width: 1199px) {
   .wrap {
     margin: 0;
   }

@@ -51,6 +51,14 @@
   text-decoration: none;
   transition: color 0.18s ease;
 }
+/* The label sets a 17px-tall box, under WCAG 2.5.8's 24px floor and a
+   genuinely fiddly thumb target on a phone. The padding grows the hit area
+   without moving the text, which the negative offsets hold in place. */
+.backBtn {
+  padding: 8px 10px;
+  margin: -8px -10px;
+}
+
 .backBtn:hover { color: var(--cs-ink); }
 .backArrow { display: inline-block; transition: transform 0.18s ease; }
 .backBtn:hover .backArrow { transform: translateX(-3px); }
@@ -124,6 +132,11 @@
   color: var(--cs-muted);
   text-decoration: none;
   transition: color 0.18s ease;
+}
+.breadcrumbHome {
+  display: inline-block;
+  padding-block: 4px;
+  min-height: 24px;
 }
 .breadcrumbHome:hover { color: var(--cs-ink); }
 .breadcrumbSep { color: var(--cs-label); }
@@ -290,7 +303,11 @@
   color: var(--cs-ink);
   text-decoration: none;
   border-bottom: 1px solid var(--cs-label);
-  padding-bottom: 1px;
+  /* Inline in a paragraph, so it cannot grow vertically without opening the
+     line up. Padding on both edges clears WCAG 2.5.8's 24px target, and the
+     matching negative margin keeps the line spacing exactly as it was. */
+  padding-block: 4px;
+  margin-block: -4px;
   transition: border-color 0.18s ease;
 }
 .proseLink:hover { border-color: var(--cs-ink); }

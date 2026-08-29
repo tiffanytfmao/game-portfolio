@@ -164,8 +164,11 @@ export default function CatSketchpad({ onSpriteCreated }) {
         <span className={styles.paw} aria-hidden="true" />
         <canvas
           ref={canvasRef}
+          /* Rendered size is CSS's job (see .canvas) so a narrow pad can
+             scale it down; the width/height attributes above stay the
+             backing-store resolution. An inline size here would outrank
+             the media query that does the scaling. */
           className={`${styles.canvas} ${isFading ? styles.canvasFading : ''}`}
-          style={{ width: CANVAS_W, height: CANVAS_H }}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}

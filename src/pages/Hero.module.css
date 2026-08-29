@@ -305,12 +305,30 @@
     min-height: auto;
     padding: var(--space-12) var(--page-gutter-x) var(--space-8);
   }
-  /* Too narrow for a corner: the cat returns to the flow. */
+  /* Too narrow for a corner: the cat returns to the flow. Relative, not
+     static — .stageMsg is absolutely positioned against this box, and a
+     static parent hands it to the sticky .hero instead, which puts the
+     message a whole section above the cat it belongs to. */
   .catWrap {
-    position: static;
+    position: relative;
     margin: var(--space-8) auto 0;
   }
-  .petPrompt { right: -92px; }
+  /* Hanging the prompt off the cat's right pushed it ~100px past the
+     sprite and into the page's right gutter. Below the cat it stays
+     inside the column at any width. */
+  .petPrompt {
+    position: static;
+    order: 1;
+    margin-top: var(--space-2);
+    justify-content: center;
+  }
+  .catPromptArea {
+    flex-direction: column;
+    align-items: center;
+  }
+  /* The asset points down-left; upright it aims back up at the cat now
+     sitting above it. */
+  .petArrow { transform: rotate(45deg) scaleY(-1); }
   .credRow { gap: var(--space-3); }
   .credLabel { font-size: var(--text-base); }
   .credLogo { height: 17px; }

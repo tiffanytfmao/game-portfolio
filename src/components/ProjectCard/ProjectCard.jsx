@@ -1,13 +1,27 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { playCardHover } from '../../sounds/AudioManager'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
 import styles from './ProjectCard.module.css'
+
+/* A looping thumbnail is decoration that costs a phone real megabytes and
+   real battery — Berky's clip alone is 4.3 MB — and it buys nothing on a
+   screen where there is no hover to reward. Below this the cards show
+   their still frame instead, which is what the video was standing in for. */
+const WIDE_SCREEN = '(min-width: 769px)'
 
 export default function ProjectCard({ project, index = 0, style = {} }) {
   const cardRef = useRef(null)
   const videoRef = useRef(null)
   const reducedMotion = usePrefersReducedMotion()
+  // A thumbnail video that the browser cannot decode leaves an empty box
+  // where the project should be. Berky's clip is a QuickTime .mov, which
+  // only Safari plays, so on every other browser this is the common path,
+  // not the edge case — falling back to the still keeps the card intact.
+  const [videoFailed, setVideoFailed] = useState(false)
+  const wideScreen = useMediaQuery(WIDE_SCREEN)
+  const showVideo = Boolean(project.video) && wideScreen && !videoFailed
 
   function setVideoRef(el) {
     if (el) {
@@ -61,11 +75,17 @@ export default function ProjectCard({ project, index = 0, style = {} }) {
     >
       {/* Thumbnail */}
       <div className={styles.thumb}>
-        {project.video ? (
+        {showVideo ? (
           <video
             ref={setVideoRef}
             className={styles.thumbVideo}
             src={project.video}
+            // Stands in until the first frame decodes — which on a phone is
+            // the whole wait, not an instant — and remains the picture if
+            // autoplay is refused (iOS Low Power Mode) or decoding fails.
+            poster={project.poster || project.image}
+            onError={() => setVideoFailed(true)}
+            preload="metadata"
             // A looping thumbnail is decoration; the card's title and tags
             // carry the meaning, so under reduced motion it holds on the
             // first frame instead.
@@ -79,8 +99,8 @@ export default function ProjectCard({ project, index = 0, style = {} }) {
           <div className={styles.thumbBounce}>
             <img src={project.image} alt="" />
           </div>
-        ) : project.image ? (
-          <img className={styles.thumbVideo} src={project.image} alt="" />
+        ) : project.image || project.poster ? (
+          <img className={styles.thumbVideo} src={project.image || project.poster} alt="" />
         ) : (
           <div className={styles.thumbPlaceholder}>
             <span className={styles.thumbIcon}>{'✦'}</span>

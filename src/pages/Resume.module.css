@@ -155,6 +155,12 @@
   font-weight: var(--weight-medium);
   text-decoration: underline;
   text-underline-offset: 2px;
+  /* Sits mid-sentence, so it cannot be given a box of its own without
+     opening the line up. The padding buys a few pixels of thumb target
+     (WCAG 2.5.8) and the negative margin keeps the measure unchanged. */
+  display: inline-block;
+  padding-block: 3px;
+  margin-block: -3px;
 }
 /* The hover state used to drop to --color-pink-dusty (2.45:1); a link
    should not become harder to read when you point at it. */

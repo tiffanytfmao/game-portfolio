@@ -1,12 +1,21 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect, useCallback, useLayoutEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 import { useModal } from '../hooks/useModal'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 import SectionBanner from '../components/SectionBanner/SectionBanner'
 import CatSketchpad from '../components/CatSketchpad/CatSketchpad'
 import FollowSketch from '../components/FollowSketch/FollowSketch'
 import { asset } from '../utils/asset'
 import styles from './Playground.module.css'
+
+/* The corkboard is a drag surface laid out in absolute pixels: the rightmost
+   pin (the sketchpad) ends at x:1030, so the board needs ~1100px of window
+   before it fits. Below that the same items become an ordinary centred
+   column — the coordinates and the dragging are what do not survive the
+   width, not the things themselves. Keep in step with the matching query in
+   CatSketchpad.module.css, which unpins the pad. */
+const CORKBOARD_WIDTH = '(min-width: 1100px)'
 
 // Items shifted left to make room for the fixed sketchpad on the right (~x:670+)
 const ITEMS = [
@@ -78,6 +87,54 @@ const ITEMS = [
   },
 ]
 
+/**
+ * The p5 sketch renders at a fixed native size and is scaled down to fit the
+ * card. Pinned to the corkboard the card is always `item.w` wide, but stacked
+ * it shrinks with the column — so the factor is measured from the wrapper
+ * rather than assumed, which is what keeps the game from being cropped on a
+ * narrow phone.
+ */
+function Embed({ item }) {
+  const wrapRef = useRef(null)
+  const [width, setWidth] = useState(item.w)
+
+  useLayoutEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const measure = () => {
+      const w = el.clientWidth
+      if (w > 0) setWidth(w)
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  const scale = item.iframeNativeW ? width / item.iframeNativeW : 1
+  const displayH = item.iframeNativeH
+    ? Math.round(item.iframeNativeH * scale)
+    : (item.iframeH ?? 240)
+
+  return (
+    <div ref={wrapRef} className={styles.embedWrap} style={{ height: displayH }}>
+      <iframe
+        src={item.iframe}
+        className={styles.embedFrame}
+        style={item.iframeNativeW ? {
+          width: item.iframeNativeW,
+          height: item.iframeNativeH,
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+        } : { height: item.iframeH }}
+        title={item.label}
+        allow="autoplay"
+        sandbox="allow-scripts allow-same-origin allow-forms"
+      />
+    </div>
+  )
+}
+
 export default function Playground() {
   const navigate = useNavigate()
   const [sectionRef, inView] = useInView()
@@ -89,6 +146,7 @@ export default function Playground() {
   )
   const [topZ, setTopZ] = useState(ITEMS.length + 1)
   const [draggingId, setDraggingId] = useState(null)
+  const pinnable = useMediaQuery(CORKBOARD_WIDTH)
   const [lightbox, setLightbox] = useState(null) // { src, label }
   const [followSketch, setFollowSketch] = useState(null) // { imageUrl, origin }
   const drag = useRef(null)
@@ -181,14 +239,16 @@ export default function Playground() {
 
         <p className={styles.hint}>
           <span className={styles.hintDiamond} aria-hidden="true">◆</span>
-          drag things around · click images to expand · play some games and have fun!
+          {pinnable
+            ? 'drag things around · click images to expand · play some games and have fun!'
+            : 'tap images to expand · play some games and have fun!'}
           <span className={styles.hintDiamond} aria-hidden="true">◆</span>
         </p>
 
         {/* Drag guard — prevents iframes from swallowing mousemove during drag */}
         {draggingId && <div className={styles.dragGuard} />}
 
-        <div className={styles.corkboard}>
+        <div className={`${styles.corkboard} ${pinnable ? '' : styles.corkboardStacked}`}>
           <CatSketchpad onSpriteCreated={handleSpriteCreated} />
 
           {ITEMS.map(item => (
@@ -201,46 +261,29 @@ export default function Playground() {
                 item.iframe ? styles.cardEmbed : '',
                 draggingId === item.id ? styles.cardDragging : '',
               ].join(' ')}
-              style={{
+              /* Stacked, the pinned coordinates are dropped rather than
+                 overridden: an inline `left` would beat any media query, and
+                 the card has to be a normal flow item for the column to
+                 close up behind it. */
+              style={pinnable ? {
                 left: positions[item.id].x,
                 top: positions[item.id].y,
                 zIndex: draggingId === item.id ? 10001 : zOrders[item.id],
                 '--rot': `${item.rot}deg`,
                 width: `${item.w}px`,
+              } : {
+                '--rot': `${item.rot}deg`,
+                width: `${item.w}px`,
+                maxWidth: '100%',
               }}
-              onMouseDown={e => startDrag(e, item)}
-              onTouchStart={e => startDrag(e, item)}
+              onMouseDown={pinnable ? (e => startDrag(e, item)) : undefined}
+              onTouchStart={pinnable ? (e => startDrag(e, item)) : undefined}
             >
               <div className={styles.pin} aria-hidden="true" />
 
-              {item.iframe ? (() => {
-                const scale = item.iframeNativeW
-                  ? item.w / item.iframeNativeW
-                  : 1
-                const displayH = item.iframeNativeH
-                  ? Math.round(item.iframeNativeH * scale)
-                  : (item.iframeH ?? 240)
-                return (
-                  <div
-                    className={styles.embedWrap}
-                    style={{ height: displayH }}
-                  >
-                    <iframe
-                      src={item.iframe}
-                      className={styles.embedFrame}
-                      style={item.iframeNativeW ? {
-                        width: item.iframeNativeW,
-                        height: item.iframeNativeH,
-                        transform: `scale(${scale})`,
-                        transformOrigin: 'top left',
-                      } : { height: item.iframeH }}
-                      title={item.label}
-                      allow="autoplay"
-                      sandbox="allow-scripts allow-same-origin allow-forms"
-                    />
-                  </div>
-                )
-              })() : (
+              {item.iframe ? (
+                <Embed item={item} />
+              ) : (
                 <div className={styles.imgWrap}>
                   <img
                     src={item.src}

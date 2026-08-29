@@ -37,6 +37,16 @@ body {
   overflow-x: hidden;
 }
 
+/* A safety net, not a layout tool. `overflow-x` on body alone does not
+   propagate to the viewport, so a single element that outgrows the screen
+   still leaves the whole page scrolling sideways on a phone. `clip` stops
+   that without turning the document into a scroll container the way
+   `hidden` would — which would break `position: sticky` in the nav and the
+   hero. Anything that actually overflows is still a bug to fix at source. */
+html {
+  overflow-x: clip;
+}
+
 /* Custom cursor — pink flower.
    Only swapped in for a fine pointer on a device that has not asked for
    reduced motion. A system cursor that has been enlarged, recoloured, or

@@ -16,6 +16,10 @@ const PROJECTS = [
     description: 'Designing a cozy game for children about the slow joy of crafting things by hand.',
     tags: ['Game Design', 'UX/UI', 'Research', 'Children'],
     video: asset('wonder workshop assets/gameplay video 2.mp4'),
+    // Wonder has no still of its own, so the card would be an empty box for
+    // as long as the clip takes to decode — and permanently wherever
+    // autoplay is refused. This frame is the video's own opening beat.
+    poster: asset('wonder workshop assets/gameplay 2.jpeg'),
     rotate: -1.5,
     featured: true,
     categories: ['games'],

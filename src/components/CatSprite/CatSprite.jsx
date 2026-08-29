@@ -90,9 +90,9 @@ export default function CatSprite({
   const src = isWalking ? WALK_FRAMES[WALK_SEQUENCE[step]] : IDLE_SRC
 
   return (
-    <span className={styles.wrapper} aria-hidden="true">
+    <span className={styles.wrapper}>
       {/* Affection gauge */}
-      <span className={`${styles.gauge} ${showGauge ? styles.gaugeVisible : ''}`}>
+      <span aria-hidden="true" className={`${styles.gauge} ${showGauge ? styles.gaugeVisible : ''}`}>
         {Array.from({ length: MAX_AFFECTION }).map((_, i) => (
           <span
             key={i}
@@ -103,20 +103,31 @@ export default function CatSprite({
 
       {/* +1 pop */}
       {popId && (
-        <span key={popId} className={`${styles.pop} ${burst ? styles.popBurst : ''}`}>
+        <span key={popId} aria-hidden="true" className={`${styles.pop} ${burst ? styles.popBurst : ''}`}>
           {burst ? '♥♥♥' : '+1 ♥'}
         </span>
       )}
 
-      <img
-        src={src}
-        alt=""
-        aria-hidden="true"
+      {/* A real button, not a bare <img> with a click handler. React
+          delegates its listeners to the root, so the image itself carries
+          no onclick — which is exactly the case iOS Safari refuses to
+          synthesise a tap into. It also puts the game on the keyboard and
+          gives the tap a 44px target regardless of the sprite's size. */}
+      <button
+        type="button"
         onClick={handleClick}
-        className={`${styles.cat} ${styles[`size_${size}`]} ${
-          isWalking ? styles.walking : styles.floating
-        } ${petted ? styles.petted : ''} ${burst ? styles.burst : ''} ${className}`}
-      />
+        aria-label={isWalking ? 'Cat' : 'Pet the cat'}
+        className={`${styles.petBtn} ${styles[`size_${size}`]}`}
+      >
+        <img
+          src={src}
+          alt=""
+          aria-hidden="true"
+          className={`${styles.cat} ${
+            isWalking ? styles.walking : styles.floating
+          } ${petted ? styles.petted : ''} ${burst ? styles.burst : ''} ${className}`}
+        />
+      </button>
     </span>
   )
 }

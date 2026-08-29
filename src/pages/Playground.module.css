@@ -44,6 +44,25 @@
   margin: 0 0 var(--space-8);
 }
 
+/* ── Corkboard, narrow ──
+   The pins come out and the same cards stack into one centred column. The
+   height reservation goes with them: the column sizes itself. */
+.corkboardStacked {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-10);
+}
+
+.corkboardStacked .card {
+  position: static;
+  cursor: default;
+  /* Each card keeps its own tilt — that is the corkboard's character, and
+     it survives the reflow — but nothing here is draggable any more. */
+  will-change: auto;
+}
+
 /* ── Card (polaroid) ── */
 .card {
   position: absolute;
@@ -274,16 +293,7 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .corkboard {
-    min-height: 420px;
-  }
   .section {
     padding: var(--space-12) var(--space-4);
-  }
-}
-
-@media (max-width: 600px) {
-  .corkboard {
-    min-height: 700px;
   }
 }

@@ -8,7 +8,7 @@ import styles from './Resume.module.css'
 import { scrollToId } from '../utils/scroll'
 
 // ← Replace with your actual Google Drive shareable link
-const RESUME_URL = 'https://drive.google.com/file/d/1xqHpIMr4RwnxlN2aKlHI9-hZrY2t954A/view?usp=sharing'
+const RESUME_URL = 'https://drive.google.com/file/d/1diZ5ETbvC_bKFrQBdzPardxKEMDX6qPq/view?usp=sharing'
 
 export default function Resume() {
   const [ref, inView] = useInView()
@@ -53,7 +53,7 @@ export default function Resume() {
           <div className={styles.info}>
             <h2 className={styles.name}>Tiffany Mao</h2>
             <p className={styles.role}>UX Designer · Design Engineer</p>
-            <p className={styles.updated}>Last updated May 2026</p>
+            <p className={styles.updated}>Last updated September 2026</p>
 
             <a
               href={RESUME_URL}

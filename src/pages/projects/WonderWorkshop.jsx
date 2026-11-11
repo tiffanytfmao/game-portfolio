@@ -4,6 +4,7 @@ import CatSprite from '../../components/CatSprite/CatSprite'
 import NextCaseStudy from '../../components/NextCaseStudy/NextCaseStudy'
 import { asset } from '../../utils/asset'
 import { scrollToId } from '../../utils/scroll'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import styles from './WonderWorkshop.module.css'
 
 const BASE = asset('wonder workshop assets')
@@ -102,12 +103,12 @@ const ACCESS_NOTES = [
     body: 'Body copy sits at 16px minimum and dialogue runs larger, in a rounded sans with open counters and unambiguous letterforms. Nothing important is set below 14px, and no line of instruction runs past roughly 60 characters.',
   },
   {
-    title: 'Every colour pair meets a contrast minimum',
+    title: 'Every color pair meets a contrast minimum',
     body: 'The workshop palette is warm and low-saturation, which is exactly where contrast quietly fails. Text and its background were checked to at least 4.5:1, and interface controls to 3:1, with the hand-painted backgrounds darkened behind any text that sits on them.',
   },
   {
     title: 'Colour is never the only signal',
-    body: 'Task states, categories, and character cues carry a shape or a label alongside the colour, so nothing depends on telling two warm tones apart.',
+    body: 'Task states, categories, and character cues carry a shape or a label alongside the color, so nothing depends on telling two warm tones apart.',
   },
   {
     title: 'No timers, no failure states',
@@ -116,6 +117,7 @@ const ACCESS_NOTES = [
 ]
 
 export default function WonderWorkshop() {
+  useDocumentTitle('Wonder Workshop')
   const [activeSection, setActiveSection] = useState('overview')
   const [catY, setCatY] = useState(0)
   const sectionRefs = useRef({})
@@ -266,7 +268,7 @@ export default function WonderWorkshop() {
             <h2 className={styles.sectionLabel}>The Problem</h2>
 
             <p className={styles.prose}>
-              Children 9 to 12 are growing up in digital environments optimized for personalization and continuous engagement. These platforms <strong>actively shape behaviour, habits, and identity</strong> during exactly the window when those things are most malleable. Reward-seeking consistently develops before critical thinking, so children interact with algorithmic systems without understanding how the content they see is selected or why.
+              Children 9 to 12 are growing up in digital environments optimized for personalization and continuous engagement. These platforms <strong>actively shape behavior, habits, and identity</strong> during exactly the window when those things are most malleable. Reward-seeking consistently develops before critical thinking, so children interact with algorithmic systems without understanding how the content they see is selected or why.
             </p>
 
             <blockquote className={styles.hmw}>
@@ -436,7 +438,7 @@ export default function WonderWorkshop() {
                 <div className={styles.decisionText}>
                   <p className={styles.prose}>Most mechanics give you something to do <em>with</em> what you make, which quietly subordinates the making. We removed that layer. Craft a thing, put it in the scrapbook, done.</p>
                   <p className={styles.prose}>That is the overjustification effect: attach points to something a child already enjoys and the points become the reason. Every stat we added converted play into work.</p>
-                  <p className={styles.prose}>It is also the commercial case. Reward-driven engagement needs constant refuelling; the making does not. And "my kid makes things" is what a parent pays for.</p>
+                  <p className={styles.prose}>It is also the commercial case. Reward-driven engagement needs constant refueling; the making does not. And "my kid makes things" is what a parent pays for.</p>
                 </div>
                 <img src={`${BASE}/gameplay%201.jpeg`} alt="Wonder Workshop gameplay" className={styles.decisionImg} />
               </div>
@@ -550,7 +552,7 @@ export default function WonderWorkshop() {
             <div className={styles.nextGrid}>
               {NEXT_STEPS.map(n => (
                 <div key={n.title} className={styles.nextItem}>
-                  <span className={styles.nextIcon}>{n.icon}</span>
+                  <span className={styles.nextIcon} aria-hidden="true">{n.icon}</span>
                   <div>
                     <p className={styles.nextTitle}>{n.title}</p>
                     <p className={styles.nextDesc}>{n.desc}</p>
@@ -570,18 +572,9 @@ export default function WonderWorkshop() {
             <p className={styles.prose}>
               What carried through from the original concept was the belief that a digital space can be designed to produce things rather than just consume them. Wonder Workshop is one version of that. The mechanics changed significantly, but the question stayed the same.
             </p>
-            <div className={styles.questBoard} aria-label="Quest board">
-              <div className={styles.questBoardNailTL} />
-              <div className={styles.questBoardNailTR} />
-              <div className={styles.questBoardNailBL} />
-              <div className={styles.questBoardNailBR} />
-              <div className={styles.questPaper}>
-                <div className={styles.questTapeTop} />
-                <p className={styles.questText}>
-                  What if digital spaces for children were designed not around endless attention capture, but around creativity, confidence, and care?
-                </p>
-              </div>
-            </div>
+            <p className={styles.closingQuestion}>
+              What if digital spaces for children were designed not around endless attention capture, but around creativity, confidence, and care?
+            </p>
           </section>
 
           <NextCaseStudy currentId="wonder" />

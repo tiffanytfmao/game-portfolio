@@ -7,8 +7,9 @@ import { asset } from '../utils/asset'
 import styles from './Resume.module.css'
 import { scrollToId } from '../utils/scroll'
 
-// ← Replace with your actual Google Drive shareable link
-const RESUME_URL = 'https://drive.google.com/file/d/1diZ5ETbvC_bKFrQBdzPardxKEMDX6qPq/view?usp=sharing'
+// The site's own copy, the same file the preview and lightbox show, so
+// `npm run resume` is the only step needed to update it everywhere.
+const RESUME_URL = asset('docs/resume.pdf')
 
 export default function Resume() {
   const [ref, inView] = useInView()
@@ -52,8 +53,8 @@ export default function Resume() {
 
           <div className={styles.info}>
             <h2 className={styles.name}>Tiffany Mao</h2>
-            <p className={styles.role}>UX Designer · Design Engineer</p>
-            <p className={styles.updated}>Last updated September 2026</p>
+            <p className={styles.role}>Product Designer · Design Engineer</p>
+            <p className={styles.updated}>Last updated November 2026</p>
 
             <a
               href={RESUME_URL}

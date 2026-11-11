@@ -35,7 +35,16 @@
       "mcp__fa197b88-261b-494e-b9ad-ca1a074bfb0c__use_figma",
       "WebFetch(domain:tiffanymao.com)",
       "WebFetch(domain:doc-0s-0o-slides.googleusercontent.com)",
-      "WebFetch(domain:chatgpt.com)"
+      "WebFetch(domain:chatgpt.com)",
+      "Bash(grep -v -E '\\\\.\\(png|jpg|jpeg|gif|webp|mp4|svg|woff2?\\)$')",
+      "Bash(pdftotext -v)",
+      "Bash(pdftotext -layout public/docs/resume.pdf -)",
+      "Bash(pdfinfo public/docs/resume.pdf)",
+      "Bash(mdfind -onlyin ~ \"kind:html Wonder Workshop crafting\")",
+      "Bash(mdfind -onlyin ~ \"name:resume\")",
+      "Bash(grep -i -E \"\\\\.\\(html|css|md|py\\)$\")",
+      "Bash(mdfind \"Product designer who ships her own front-end\")",
+      "Bash(grep -i -E \"resume.*\\\\.html$\")"
     ]
   }
 }

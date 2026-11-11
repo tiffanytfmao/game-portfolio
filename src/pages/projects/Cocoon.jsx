@@ -385,7 +385,7 @@ export default function Cocoon() {
               Deciding trade-off priorities first made the biggest difference.
             </p>
             <p className={cs.blockBody}>
-              Every time a tradeoff came up we went back to them, and that kept debates short instead
+              Every time a trade-off came up we went back to them, and that kept debates short instead
               of letting them escalate.
             </p>
           </div>

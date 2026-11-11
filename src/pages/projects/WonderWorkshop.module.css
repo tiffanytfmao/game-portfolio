@@ -626,6 +626,11 @@
   border-radius: var(--radius-md);
   align-items: flex-start;
 }
+.nextIcon {
+  font-size: var(--text-md);
+  line-height: 1.2;
+  flex-shrink: 0;
+}
 .nextTitle {
   font-family: var(--font-label);
   font-size: var(--text-sm);
@@ -656,7 +661,20 @@
   margin-top: calc(-1 * var(--space-6));
 }
 
-/* ── Quest Board ── */
+/* ── Closing question ──
+   Replaces the old wood-and-nails quest board, whose styles went in the
+   white-surface retheme and left the line rendering as stray body text. */
+.closingQuestion {
+  margin-top: var(--space-8);
+  padding-left: var(--space-5);
+  border-left: 2px solid var(--color-pink-dusty);
+  max-width: 640px;
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--color-text-dark);
+  text-wrap: balance;
+}
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .body { grid-template-columns: 1fr; }

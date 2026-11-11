@@ -15,6 +15,7 @@ export const bootMessages = [
 export const modes = [
   { label: 'Local time', dynamic: true },
   { label: 'Based in', value: 'Bay Area, CA' },
+  { label: 'Currently', value: 'designing at Astrocade' },
   { label: 'Currently', value: 'thinking about sushi' },
   { label: 'Currently', value: 'debugging in Figma' },
   { label: 'Currently', value: 'on my third latte' },

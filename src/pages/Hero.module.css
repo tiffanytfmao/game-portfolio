@@ -267,6 +267,18 @@
   white-space: nowrap;
 }
 
+.credCompany {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+/* A wider step between companies than between a mark and its name, so
+   each logo reads as belonging to the word beside it. */
+.credCompany + .credCompany {
+  margin-left: var(--space-2);
+}
+
 .credLogo {
   height: 17px;
   width: auto;
@@ -281,7 +293,6 @@
   border-radius: 50%;
   border: 2px solid #3DAA5C;
   flex-shrink: 0;
-  margin-left: var(--space-2);
 }
 
 .credDivider {
@@ -333,6 +344,11 @@
   .credLabel { font-size: var(--text-base); }
   .credLogo { height: 17px; }
   .credDivider { display: none; }
+  /* The three previous companies don't fit beside their label on a phone,
+     and letting them wrap left SUSE alone on a line. Giving the label its
+     own line keeps the three companies together underneath it. */
+  .credGroupPrev { row-gap: var(--space-1); }
+  .credGroupPrev > .credLabel { flex-basis: 100%; text-align: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

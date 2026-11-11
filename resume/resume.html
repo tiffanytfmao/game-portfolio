@@ -1,0 +1,165 @@
+<!doctype html>
+<!-- Source for public/docs/resume.pdf. Rebuild with `npm run resume`. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tiffany Mao | Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+<style>
+  @page { size: letter; margin: 0.4in 0.5in 0.34in; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.15pt;
+    line-height: 1.35;
+    color: #222;
+  }
+  b { font-weight: 600; color: #111; }
+  .muted { color: #999; }
+
+  header { padding-bottom: 7pt; border-bottom: 0.6pt solid #ddd; }
+  h1 { display: inline; font-size: 21pt; font-weight: 700; letter-spacing: -0.02em; color: #111; }
+  .title { margin-left: 4pt; font-size: 8.2pt; letter-spacing: 0.22em; color: #999; }
+  .contact { margin-top: 3pt; font-size: 7.6pt; color: #444; }
+  .contact .muted { color: #999; }
+
+  .summary { padding: 7pt 0; font-size: 8.15pt; border-bottom: 0.6pt solid #ddd; }
+
+  section {
+    display: grid;
+    grid-template-columns: 1.02in 1fr;
+    column-gap: 10pt;
+    padding: 6pt 0 5pt;
+    border-bottom: 0.6pt solid #ddd;
+  }
+  section:last-child { border-bottom: none; }
+  h2 {
+    font-size: 7pt;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #444;
+    padding-top: 1.5pt;
+  }
+
+  .job { margin-bottom: 4.5pt; }
+  .job:last-child { margin-bottom: 0; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .job-head h3 { font-size: 9.4pt; font-weight: 600; color: #111; }
+  .job-head h3 .muted { font-weight: 400; }
+  .job-head .meta { font-size: 7.6pt; color: #888; }
+  ul { list-style: none; margin-top: 2pt; }
+  li { position: relative; padding-left: 11pt; margin-bottom: 2pt; }
+  li:last-child { margin-bottom: 0; }
+  li::before { content: '•'; position: absolute; left: 0; color: #999; }
+
+  .skills { display: grid; grid-template-columns: 0.6in 1fr; row-gap: 3pt; }
+  .skills dt { font-size: 7.6pt; color: #888; }
+
+  .edu { display: flex; justify-content: space-between; margin-bottom: 3pt; }
+  .edu .meta { font-size: 7.6pt; color: #888; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Tiffany Mao</h1><span class="title">PRODUCT DESIGNER</span>
+    <p class="contact">tiffanymao.com · tiffanytfmao@berkeley.edu · linkedin.com/in/tiffanytfmao · <span class="muted">Sunnyvale, CA</span></p>
+  </header>
+
+  <p class="summary"><b>Product designer who ships her own front-end.</b> I make consumer products that feel playful and alive (0→1 app flows, design systems, educational games, and physical interfaces), shaped by work across Astrocade, a seed-stage startup, Meta, and freelance clients.</p>
+
+  <section>
+    <h2>Experience</h2>
+    <div>
+      <div class="job">
+        <div class="job-head"><h3>Designer <span class="muted">/ Astrocade</span></h3><span class="meta">Oct 2026 – Present</span></div>
+        <ul>
+          <li>Designing the creator experience for an <b>AI game-creation platform with 10M monthly players</b>, where anyone can make and play games by describing them in plain language.</li>
+          <li>Audited the creator experience end to end, tracing <b>7 core flows</b> across web, mobile, and backend code; the founders used the resulting roadmap to pick the team's next design project.</li>
+          <li>Driving the redesign of how new creators get from an idea to their <b>first playable game</b>, backed by teardowns of 8 AI game makers, a prompt study (SQL + LLM classification), and four prototyped directions.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head"><h3>Freelance Product Designer</h3><span class="meta">Aug 2024 – Aug 2025 · Remote</span></div>
+        <ul>
+          <li>Led <b>0→1 design for a pre-seed AI startup</b> as the only designer: brand, design system, and the entire MVP flow from blank page to shippable product.</li>
+          <li>Redesigned the explore page for a <b>YC-backed no-code game-modding platform</b>, rebuilding discovery around how players and creators actually browse: SEO-informed IA plus community browsing patterns.</li>
+          <li>Rebuilt a software studio's site with dark/light mode and redesigned its pricing page, turning a broken conversion flow into a working one.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head"><h3>Design Engineer <span class="muted">/ Cocoon</span></h3><span class="meta">Apr 2023 – Jun 2024 · San Francisco</span></div>
+        <ul>
+          <li>Owned UX for pregnancy &amp; disability leave across <b>3 core flows</b> (user interviews, legal alignment, and production React components), serving <b>50+ companies</b>.</li>
+          <li>Built Cocoon's <b>first design system</b>: 20+ shared components adopted by 15 engineers, letting a 6-person team ship consistent UI without a designer in every loop.</li>
+          <li>Led the company's first brand refresh, bringing visual consistency and ADA compliance to every user touchpoint.</li>
+          <li>Drove alignment across design, engineering, legal, and ops through stakeholder interviews and design reviews, managing sign-off across 3 departments from kickoff to launch.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head"><h3>Software Engineer <span class="muted">/ Meta</span></h3><span class="meta">Sep – Nov 2022 · Menlo Park</span></div>
+        <ul>
+          <li>Revamped Android UI components for Facebook's <b>video sharing</b> team, improving legibility and color accessibility across sizes at consumer scale.</li>
+          <li>Designed and built React components for an internal pipeline tool, cutting user-error friction in a high-volume engineering workflow.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head"><h3>iOS Software Engineer Intern <span class="muted">/ Meta</span></h3><span class="meta">Jun – Aug 2021 · Remote</span></div>
+        <ul>
+          <li>Shipped cross-posting components for <b>Facebook and Instagram Stories</b>, delivering a design-accurate eligibility page to millions of users.</li>
+          <li>Audited Figma plugin graphics for color and text accessibility to meet WCAG compliance.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Play &amp;<br>Product</h2>
+    <div>
+      <div class="job">
+        <div class="job-head"><h3>Graft! <span class="muted">/ cozy game about grafting plants</span></h3><span class="meta">3rd Place Judge's Award from IndieCade Game Jam · 2026</span></div>
+        <ul>
+          <li>Sole designer on a <b>6-person jam team</b>. Owned every user interaction and screen (menus, minigames, letters, and trait panels), set the hand-drawn visual direction, and built the UI prefabs in Unity for engineers to wire up.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head"><h3>The Wonder Workshop <span class="muted">/ cozy crafting game for kids</span></h3><span class="meta">UC Berkeley × Common Sense Media · 2025</span></div>
+        <ul>
+          <li>Co-designed a crafting game for <b>ages 9–11</b> around a <b>zero-failure-state model</b>, so kids stay engaged through intrinsic motivation rather than punishment mechanics.</li>
+          <li>Developed 3 critter companions, lesson structures, and core loops that teach color, texture, and form through play; designed scrapbook and order-book mechanics that build creative confidence without prescribing a right answer.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-head"><h3>PalBits <span class="muted">/ customizable game controller</span></h3><span class="meta">UC Berkeley · 2025</span></div>
+        <ul>
+          <li>Designed a modular handheld controller for <b>ages 8–12</b> where swappable physical parts evolve your in‑game character; modeled the parts in Fusion 360.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <dl class="skills">
+      <dt>Design</dt><dd>Product &amp; interaction design, 0→1 product, visual design, design systems, game &amp; play design, branding</dd>
+      <dt>Research</dt><dd>User interviews, usability testing, prototyping, analytics (SQL, Amplitude), accessibility (WCAG / ADA)</dd>
+      <dt>Build</dt><dd>HTML/CSS, JavaScript, React, p5.js · Figma, Framer, Adobe CC, Procreate, Claude Code</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div>
+      <div class="edu"><span><b>University of California, Berkeley</b> <span class="muted">· Master of Design (MDes)</span></span><span class="meta">Expected Dec 2026</span></div>
+      <div class="edu"><span><b>University of California, Berkeley</b> <span class="muted">· B.A. Computer Science</span></span><span class="meta">2022</span></div>
+    </div>
+  </section>
+</body>
+</html>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import CatSprite from '../CatSprite/CatSprite'
 import NextCaseStudy from '../NextCaseStudy/NextCaseStudy'
 import { scrollToId } from '../../utils/scroll'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import styles from '../../pages/projects/caseStudy.module.css'
 
 /* Lets <Section> register itself with the layout's scroll observer without
@@ -26,6 +27,7 @@ export default function CaseStudyLayout({
   variant,
   children,
 }) {
+  useDocumentTitle(breadcrumbLabel ?? title)
   const [activeSection, setActiveSection] = useState(sections[0]?.id)
   const prefersReducedMotion = typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -107,7 +109,15 @@ export default function CaseStudyLayout({
 
         <article className={styles.content}>
           <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-            <Link to="/work" className={styles.breadcrumbHome}>All work</Link>
+            {/* There is no /work route; Work is a section of the home page.
+                Same hand-off as Nav: go home, then scroll once it's mounted. */}
+            <Link
+              to="/"
+              className={styles.breadcrumbHome}
+              onClick={() => setTimeout(() => scrollToId('work'), 120)}
+            >
+              All work
+            </Link>
             <span className={styles.breadcrumbSep} aria-hidden="true">/</span>
             <span className={styles.breadcrumbCurrent}>{breadcrumbLabel ?? title}</span>
           </nav>

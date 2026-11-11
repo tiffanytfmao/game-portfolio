@@ -173,14 +173,31 @@ export default function Hero({ active = true }) {
 
         {/* ── Credential row ── */}
         <div className={`${styles.credRow} ${tailStarted ? styles.revealed : ''}`}>
+          {/* Each logo sits in a .credCompany with its name so a wrap can only
+              fall between companies, never between a mark and its label. The
+              marks are decorative (alt="") because the name is right there. */}
           <span className={styles.credGroup}>
+            <span className={styles.credLabel}>Designer @</span>
+            <span className={styles.credCompany}>
+              <img src={asset('other assets/astrocade-logo.svg')} alt="" className={styles.credLogo} />
+              <span className={styles.credLabel}>Astrocade</span>
+            </span>
+          </span>
+          <span className={styles.credDivider} aria-hidden="true" />
+          <span className={`${styles.credGroup} ${styles.credGroupPrev}`}>
             <span className={styles.credLabel}>Prev. Engineer @</span>
-            <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="Meta" className={styles.credLogo} />
-            <span className={styles.credLabel}>Meta</span>
-            <span className={styles.credCocoon} />
-            <span className={styles.credLabel}>Cocoon</span>
-            <img src={asset('other assets/SUSELogo.png')} alt="SUSE" className={styles.credLogo} />
-            <span className={styles.credLabel}>SUSE</span>
+            <span className={styles.credCompany}>
+              <img src={asset('other assets/Meta_Platforms_Inc._logo_(cropped).svg.png')} alt="" className={styles.credLogo} />
+              <span className={styles.credLabel}>Meta</span>
+            </span>
+            <span className={styles.credCompany}>
+              <span className={styles.credCocoon} aria-hidden="true" />
+              <span className={styles.credLabel}>Cocoon</span>
+            </span>
+            <span className={styles.credCompany}>
+              <img src={asset('other assets/SUSELogo.png')} alt="" className={styles.credLogo} />
+              <span className={styles.credLabel}>SUSE</span>
+            </span>
           </span>
           <span className={styles.credDivider} aria-hidden="true" />
           <span className={styles.credGroup}>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import ReactGA from 'react-ga4'
 import { scrollToTop } from './utils/scroll'
 
@@ -172,6 +172,8 @@ export default function App() {
               </>
             } />
             <Route path="/projects/:id" element={<ProjectCaseStudy />} />
+            {/* Any other path used to render an empty <main>. */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
       </div>

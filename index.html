@@ -17,8 +17,15 @@
         }
       }(window.location))
     </script>
-    <link rel="icon" type="image/svg+xml" href="./images/icon.svg" />
-    <title>Tiffany Mao — UX Designer</title>
+    <!-- Root-relative, not ./ — after 404.html restores a deep link such as
+         /projects/cocoon, a relative href would look in /projects/images/. -->
+    <link rel="icon" type="image/svg+xml" href="/images/icon.svg" />
+    <title>Tiffany Mao — Product Designer</title>
+    <meta name="description" content="Tiffany Mao is a product designer at Astrocade who designs digital products, games, and experiences built for play, and builds the front-end that ships them." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tiffany Mao — Product Designer" />
+    <meta property="og:description" content="I design digital products, games, and experiences built for play." />
+    <meta name="twitter:card" content="summary" />
     <!-- Satoshi is self-hosted from /public/fonts/satoshi — no webfont CDN. -->
     <link rel="preload" as="font" type="font/woff2"
       href="/fonts/satoshi/Satoshi-500.woff2" crossorigin />

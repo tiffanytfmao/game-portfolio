@@ -196,7 +196,7 @@ export default function Palbits() {
         </div>
 
         <p className={cs.prose}>
-          Between the two of the prototypes, I started to see what we'd actually been getting wrong:
+          Between the two prototypes, I started to see what we'd actually been getting wrong:
           we kept designing the visual payoff before we'd figured out what earning something was
           supposed to feel like for these particular players.
         </p>

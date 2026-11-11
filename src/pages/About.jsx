@@ -7,8 +7,15 @@ import styles from './About.module.css'
 
 const TIMELINE = [
   {
-    year: '2024 – present',
-    title: 'Masters of Design',
+    year: '2026 – present',
+    title: 'Designer',
+    org: 'Astrocade',
+    desc: 'Designing the creator experience for an AI platform where anyone can make and play games by describing them.',
+    tags: ['Product Design', 'Creator Tools', 'AI', 'Games'],
+  },
+  {
+    year: '2025 – present',
+    title: 'Master of Design',
     org: 'UC Berkeley',
     desc: 'Focusing on interaction design, physical-digital experiences, and design for social impact.',
     tags: ['Interaction Design', 'Research', 'HCI'],
@@ -21,18 +28,18 @@ const TIMELINE = [
     tags: ['Product Design', 'Design Systems', 'React', 'Brand Refresh'],
   },
   {
-    year: '2022 – 2023',
+    year: '2022',
     title: 'Software Engineer',
     org: 'Meta',
-    desc: "Worked on accessibility improvements across Meta's internal systems.",
+    desc: "Revamped Android UI components for Facebook's video sharing team and built React components for an internal pipeline tool.",
     tags: ['UX/UI', 'Accessibility', 'B2C'],
   },
   {
     year: '2021',
-    title: 'iOS Software Engineering Intern',
+    title: 'iOS Software Engineer Intern',
     org: 'Meta',
-    desc: "Front End Engineering for Facebook's Facebook ↔ Instagram content creation team.",
-    tags: ['Frontm End', 'Accessibility', 'Mobile'],
+    desc: 'Shipped cross-posting components for Facebook and Instagram Stories on the content creation team.',
+    tags: ['Front End', 'Accessibility', 'Mobile'],
   },
   {
     year: '2018 – 2022',

@@ -27,6 +27,15 @@ export function scrollToId(id, { offset = NAV_OFFSET } = {}) {
   }
 }
 
+/* `overflow: hidden` on the body doesn't hold the page still while Lenis is
+   running: Lenis turns wheel input into programmatic scrolls, which ignore
+   overflow. Dialogs pause it here so the page can't move underneath them. */
+export function setScrollLocked(locked) {
+  if (!lenis) return
+  if (locked) lenis.stop()
+  else lenis.start()
+}
+
 export function scrollToTop({ immediate = false } = {}) {
   if (lenis) {
     lenis.scrollTo(0, { immediate })

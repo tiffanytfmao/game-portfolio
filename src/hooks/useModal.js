@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { setScrollLocked } from '../utils/scroll'
 
 const FOCUSABLE = [
   'a[href]', 'button:not([disabled])', 'input:not([disabled])',
@@ -58,11 +59,13 @@ export function useModal(open, onClose) {
 
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    setScrollLocked(true)
     document.addEventListener('keydown', onKey)
 
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prevOverflow
+      setScrollLocked(false)
       previouslyFocused.current?.focus?.()
     }
   }, [open, onClose])

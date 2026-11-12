@@ -241,7 +241,7 @@
 .lightboxBackdrop {
   position: fixed;
   inset: 0;
-  z-index: 10100;
+  z-index: var(--z-modal);
   background: rgba(20, 14, 8, 0.82);
   display: flex;
   align-items: center;

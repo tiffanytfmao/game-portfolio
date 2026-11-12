@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { useInView } from '../hooks/useInView'
 import { useModal } from '../hooks/useModal'
 import SectionBanner from '../components/SectionBanner/SectionBanner'
@@ -82,8 +83,9 @@ export default function Resume() {
         </div>
       </div>
 
-      {/* Lightbox */}
-      {lightboxOpen && (
+      {/* Lightbox, portaled to <body> so the sections after this one (and
+          the nav) can't paint over it — see the note in Playground.jsx. */}
+      {lightboxOpen && createPortal(
         <div
           ref={dialogRef}
           className={styles.lightboxBackdrop}
@@ -108,7 +110,8 @@ export default function Resume() {
               </a>.
             </p>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   )

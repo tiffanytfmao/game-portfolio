@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, useCallback, useLayoutEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { useNavigate, Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 import { useModal } from '../hooks/useModal'
@@ -358,8 +359,11 @@ export default function Playground() {
         />
       )}
 
-      {/* Lightbox */}
-      {lightbox && (
+      {/* Lightbox. Portaled to <body> because each page section is its own
+          stacking context (position: relative; z-index: 1): rendered in
+          place, its z-index only counted inside Playground, and the nav and
+          the sections after it painted over it as they scrolled into view. */}
+      {lightbox && createPortal(
         <div
           ref={dialogRef}
           className={styles.lightboxBackdrop}
@@ -381,7 +385,8 @@ export default function Playground() {
             className={styles.lightboxImg}
             onClick={e => e.stopPropagation()}
           />
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   )

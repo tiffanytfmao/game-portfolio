@@ -137,5 +137,8 @@
 
   /* Z-index */
   --z-nav:     100;
+  /* Lightboxes: over the nav and its menu (200), under the loading
+     screen and the custom cursor (9999), so the cursor stays visible. */
+  --z-modal:   500;
   --z-loading: 999;
 }

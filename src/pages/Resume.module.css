@@ -170,7 +170,7 @@
 .lightboxBackdrop {
   position: fixed;
   inset: 0;
-  z-index: calc(var(--z-nav) + 10);
+  z-index: var(--z-modal);
   background: rgba(20, 14, 8, 0.88);
   display: flex;
   align-items: center;

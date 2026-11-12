@@ -322,8 +322,8 @@ export default function WonderWorkshop() {
 
             <div className={styles.pivotVisual}>
               <figure className={styles.pivotFig}>
-                <img src={`${BASE}/skrawl%20screns.png`} alt="Skrawl midterm prototype screens" className={styles.pivotImg} />
-                <figcaption className={styles.pivotCaption}>Midterm: critter battle system</figcaption>
+                <img src={`${BASE}/skrawl%20screns.png`} alt="Skrawl initial prototype screens" className={styles.pivotImg} />
+                <figcaption className={styles.pivotCaption}>Initial prototype: critter battle system</figcaption>
               </figure>
               <span className={styles.pivotArrow} aria-hidden="true">→</span>
               <figure className={styles.pivotFig}>
@@ -354,10 +354,10 @@ export default function WonderWorkshop() {
                 playsInline
                 preload="metadata"
                 className={styles.prototypeVideo}
-                aria-label="Screen recording of the Skrawl midterm prototype"
+                aria-label="Screen recording of the Skrawl initial prototype"
               />
               <p className={styles.videoCaption}>
-                Early prototype — the midterm direction.{' '}
+                Initial prototype — the critter battle direction.{' '}
                 <span className={styles.videoDesc}>
                   Silent screen recording: a crafted creature is scanned, assigned
                   five stats, and played against a grey opponent in a turn-based
@@ -567,7 +567,7 @@ export default function WonderWorkshop() {
             <img src={`${BASE}/Puff.gif`} alt="" className={`${styles.charFloatRight} ${styles.charFloatRightTop}`} />
             <h2 className={styles.sectionLabel}>Reflection</h2>
             <p className={styles.prose}>
-              This project required building the wrong version first. The critter battle system was coherent and technically interesting, and we needed to build it before we could see what it was doing to our goals. The clearer lesson: the research case for craft-as-intervention existed before the midterm. The signal was in the literature before we found it in the feedback.
+              This project required building the wrong version first. The critter battle system was coherent and technically interesting, and we needed to build it before we could see what it was doing to our goals. The clearer lesson: the research case for craft-as-intervention existed before our initial prototype. The signal was in the literature before we found it in the feedback.
             </p>
             <p className={styles.prose}>
               What carried through from the original concept was the belief that a digital space can be designed to produce things rather than just consume them. Wonder Workshop is one version of that. The mechanics changed significantly, but the question stayed the same.

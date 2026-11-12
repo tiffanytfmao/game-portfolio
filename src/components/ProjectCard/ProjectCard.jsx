@@ -114,6 +114,12 @@ export default function ProjectCard({ project, index = 0, style = {} }) {
       {/* Content */}
       <div className={styles.content}>
         <h3 className={styles.title}>{project.title}</h3>
+        {project.award && (
+          <p className={styles.award}>
+            <span className={styles.awardStar} aria-hidden="true">★</span>
+            {project.award}
+          </p>
+        )}
         <p className={styles.desc}>{project.description}</p>
         <div className={styles.tags}>
           {project.tags.map(tag => (

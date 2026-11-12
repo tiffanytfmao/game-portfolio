@@ -102,6 +102,25 @@
   color: #FFFFFF;
 }
 
+/* ── Award ──
+   A line under the title rather than a ribbon on the thumbnail: on the
+   art it covered Graft's logo at tablet widths, and here it can wrap. */
+.award {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-snug);
+  line-height: 1.4;
+  color: var(--color-text-dark);
+}
+.awardStar {
+  color: var(--color-gold);
+  flex: none;
+}
+
 /* ── Content ── */
 .content {
   padding: var(--space-4) var(--space-4) var(--space-6);

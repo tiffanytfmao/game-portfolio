@@ -58,6 +58,7 @@ const META = [
   { label: 'Role',   value: 'UI & UX Designer' },
   { label: 'Team',   value: 'The Bee Team · 6 people' },
   { label: 'Built',  value: 'Unity · Figma' },
+  { label: 'Award',  value: "3rd Place Judge's Award · IndieCade Game Jam" },
 ]
 
 const OWNED = [
@@ -121,7 +122,7 @@ export default function Graft() {
           a real horticultural technique one of our teammates studied, so we built the game around
           teaching it. The climate angle is permaculture: biodiversity, pollinators, and green space.
           If a player finishes curious enough to look up how grafting actually works, the game did its
-          job.
+          job. The game won the <strong>3rd Place Judge's Award</strong> at the IndieCade Game Jam.
         </p>
         <p className={cs.note}>
           I designed all of the UI and UX, set the visual direction, and built the UI prefabs in Unity

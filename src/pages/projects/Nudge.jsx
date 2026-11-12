@@ -28,7 +28,7 @@ const ROLE = [
   },
   {
     title: 'Team',
-    body: 'Joy He led the LED design and fabrication. Charlie Duan designed the servo mechanism and proximity sensing. They did most of the CAD and CNC work that turned this into real furniture.',
+    body: 'Joy He and Charlie Duan designed the moving hook mechanism together. Joy also led the LED design and fabrication, and Charlie designed the proximity sensing. They did most of the CAD and CNC work that turned this into real furniture.',
   },
 ]
 
@@ -305,8 +305,8 @@ export default function Nudge() {
           ))}
         </div>
         <p className={cs.note}>
-          The CAD and CNC work was Joy and Charlie's. Joy designed the hook rotation mechanism in
-          Fusion 360 and CAD'd the tulip table for single-sheet milling; the fabrication, finishing,
+          The CAD and CNC work was Joy and Charlie's. They designed the hook rotation mechanism
+          together, and Joy CAD'd the tulip table for single-sheet milling; the fabrication, finishing,
           and enclosure design were theirs. I supported the builds, and my software had to fit the
           mechanisms they made — servo torque limits and hook travel were real constraints on what
           the signal vocabulary could ask for. Build photography by Joy He.

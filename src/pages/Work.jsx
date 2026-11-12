@@ -39,6 +39,7 @@ const PROJECTS = [
     title: 'Graft!',
     description: 'Game UI/UX for a cozy jam game about grafting plants to green the places that need it.',
     tags: ['Game Design', 'UX/UI', 'Unity'],
+    award: "3rd Place Judge's Award · IndieCade Game Jam",
     image: asset('graft assets/title-menu.png'),
     rotate: 1.0,
     categories: ['games'],
